@@ -1,9 +1,9 @@
-NAME	= cub3d
-LIBFT	=libft.a
+NAME		= cub3d
+LIBFT		=libft.a
 
-OBJ_PATH = ./obj/
+OBJ_PATH = ./build/
 SRC_PATH = ./src/
-INCLUDE_PATH = ./include/
+INCLUDE = ./include/
 LIB_PATH = ./libs/
 FT_PATH = $(LIB_PATH)libft/
 LIBFT = libft.a
@@ -12,24 +12,29 @@ OS	= $(shell uname)
 ifeq ($(OS), Linux)
 	MLX = libmlx_Linux.a
 	MLX_PATH = $(LIB_PATH)mlx/linux/
-# else ifeq ($(OS), Darwin)
-# 	MLX = mlx_mac
-#		MLX_PATH = $(LIB_PATH)mlx/mac/
+	CFI_MLX		= -L$(MLX_PATH) -lmlx -lXext -lX11 -lm -lz -o
+else ifeq ($(OS), Darwin)
+	MLX = mlx_mac
+	MLX_PATH = $(LIB_PATH)mlx/mac/
+	CFI_MLX = -L$(MLX_PATH) -lmlx -framework OpenGL -framework AppKit -o
 else
 	$(error Unsupported OS: $(OS))
 endif
 
-CC	= gcc
-CF	= -Wall -Wextra -Werror -g
-CFI	= -I$(INCLUDE)
-CFI_FT	= -L$(FT_PATH) -lft
-CFI_MLX	= -L$(MLX_PATH) -lmlx -lXext -lX11
+CC				= gcc
+CF				= -Wall -Wextra -Werror -g
+CFI					= -I$(INCLUDE)
+CFI_FT		= -L$(FT_PATH) -lft
 
-SRC	= main.c\
+SRC			= main.c\
+					destroy.c\
+					keybinds.c\
+					errors.c\
 
-VPATH	= $(SRC_PATH)\
+VPATH		= $(SRC_PATH)\
+					$(SRC_PATH)utils/\
 
-OBJ	= $(addprefix $(OBJ_PATH), $(notdir $(SRC:.c=.o)))
+OBJ			= $(addprefix $(OBJ_PATH), $(notdir $(SRC:.c=.o)))
 
 RM	= rm -rf
 
@@ -46,7 +51,7 @@ $(NAME):	ANNOUNCE $(OBJ)
 	@make --no-print-directory -C $(FT_PATH)
 	@printf "$(GR)Libft created!$(RC)\n\n"		
 	@printf "$(CY)Compiling CUB3D Executable...$(RC)\n"
-	$(CC) $(CF) $(OBJ) $(CFI) $(CFI_FT) $(CFI_MLX) -lm -lz -o $(NAME) 
+	$(CC) $(CF) $(OBJ) $(CFI) $(CFI_FT) $(CFI_MLX) $(NAME)
 	@printf "$(GR)Done!$(RC)\n"
 
 all: $(NAME)
@@ -70,7 +75,7 @@ fclean: clean
 	@printf "$(GR)Done!$(RC)\n"
 
 leak:			all			
-				valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME)
+				valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) ./maps/test.cub
 
 .PHONY:		all clean fclean re
 
