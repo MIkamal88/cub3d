@@ -24,15 +24,35 @@ static t_win	*new_win(int w, int h)
 	return (win);
 }
 
+static t_img	*new_img(int w, int h, t_win *window)
+{
+	t_img	*image;
+
+	image = malloc(sizeof(t_img));
+	if (!image)
+		ft_error(NULL, MALLOC_ERR);
+	if (h > window->height || w > window->width)
+		ft_error(NULL, IMG_ERR);
+	image->img_ptr = mlx_new_image(window->mlx, w, h);
+	image->addr = mlx_get_data_addr(image->img_ptr, &(image->bpp),
+			&(image->line_length), &(image->endian));
+	image->w = w;
+	image->h = h;
+	return (image);
+}
+
 static t_data	*init_cub3d(char *filename, int w, int h)
 {
 	t_data	*cub3d;
 
 	cub3d = malloc(sizeof(t_data));
+	cub3d->win = NULL;
+	cub3d->img = NULL;
 	if (!cub3d)
 		ft_error(NULL, MALLOC_ERR);
-	printf("%s\n", filename);
+	map_read(cub3d, filename);
 	cub3d->win = new_win(w, h);
+	cub3d->img = new_img(w, h, cub3d->win);
 	return (cub3d);
 }
 
@@ -46,23 +66,11 @@ static void	loop_mlx(t_data *cub3d)
 int	main(int argc, char **argv)
 {
 	t_data	*cub3d;
-	char	*filename;
-	char	**file_test;
-	int		i;
 
-	i = 0;
 	if (argc != 2)
 		ft_error(NULL, ARGS_ERR);
-	filename = argv[1];
-	file_test = ft_split(filename, '.');
-	while (file_test[i])
-		i++;
-	if (ft_strcmp(file_test[i - 1], "cub") != 0)
-	{
-		free_double_ptr((void **)file_test);
+	if (!valid_extension(argv[1], ".cub"))
 		ft_error(NULL, MAP_ERR);
-	}
-	free_double_ptr((void **)file_test);
-	cub3d = init_cub3d(filename, WINDOW_WIDTH, WINDOW_HEIGHT);
+	cub3d = init_cub3d(argv[1], WINDOW_WIDTH, WINDOW_HEIGHT);
 	loop_mlx(cub3d);
 }

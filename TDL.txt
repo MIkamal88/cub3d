@@ -1,0 +1,12 @@
+static validate_texture(char *filename)
+{
+	t_img	*texture;
+	texture = malloc(sizeof(t_img));
+	if (!texture)
+		ft_error(NULL, MALLOC_ERR);
+	texture->img_ptr = mlx_xpm_file_to_image(mlx, filename, &texture->w,
+			&texture->h);
+	texture->addr = mlx_get_data_addr(texture->img_ptr, &(texture->bpp),
+			&(texture->line_length), &(texture->endian));
+	return (texture);
+}

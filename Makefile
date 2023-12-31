@@ -27,12 +27,19 @@ CFI					= -I$(INCLUDE)
 CFI_FT		= -L$(FT_PATH) -lft
 
 SRC			= main.c\
+					utils.c\
+					errors.c\
 					destroy.c\
 					keybinds.c\
-					errors.c\
+					mapping.c\
+					validation.c\
+					pixels.c\
+					lines.c\
 
 VPATH		= $(SRC_PATH)\
 					$(SRC_PATH)utils/\
+					$(SRC_PATH)drawing/\
+					$(SRC_PATH)parsing/\
 
 OBJ			= $(addprefix $(OBJ_PATH), $(notdir $(SRC:.c=.o)))
 
@@ -43,14 +50,14 @@ $(OBJ_PATH)%.o: %.c
 	$(CC) $(CF) $(CFI) -c $< -o $@
 
 $(NAME):	ANNOUNCE $(OBJ)
-	@printf "$(GR)Objects ready!$(RC)\n"
-	@printf "\n$(CY)Compiling MLX...$(RC)\n"
+	@printf "\n$(GR)Objects ready!$(RC)\n"
+	@printf "\n$(YE)Compiling MLX...$(RC)\n\n"
 	@make --no-print-directory -C $(MLX_PATH)
-	@printf "$(GR)MLX created!$(RC)\n\n"
-	@printf "\n$(CY)Compiling Libft...$(RC)\n"
+	@printf "\n\n$(GR)MLX created!$(RC)\n\n"
+	@printf "\n$(YE)Compiling Libft...$(RC)\n"
 	@make --no-print-directory -C $(FT_PATH)
-	@printf "$(GR)Libft created!$(RC)\n\n"		
-	@printf "$(CY)Compiling CUB3D Executable...$(RC)\n"
+	@printf "$(GR)Libft created!$(RC)\n\n"
+	@printf "$(YE)Compiling CUB3D Executable...$(RC)\n"
 	$(CC) $(CF) $(OBJ) $(CFI) $(CFI_FT) $(CFI_MLX) $(NAME)
 	@printf "$(GR)Done!$(RC)\n"
 
@@ -74,8 +81,11 @@ fclean: clean
 	@$(RM) $(NAME)
 	@printf "$(GR)Done!$(RC)\n"
 
-leak:			all			
+leak:			all
 				valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) ./maps/test.cub
+
+debug:			all
+				lldb-16 ./$(NAME) ./maps/test.cub
 
 .PHONY:		all clean fclean re
 
@@ -84,6 +94,7 @@ RE	= \033[31;1m
 YE	= \033[33;1m
 CY	= \033[36;1m
 RC	= \033[0m
+
 # $(LINUX):	ANNOUNCE $(OFILES)
 # 	$(CC) $(CFLAGS) $(OFILES) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(LINUX)
 #
