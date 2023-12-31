@@ -65,6 +65,7 @@ typedef struct s_data
 // Initialization Functions
 void	map_read(t_data *cub3d, char *filename);
 t_bool	read_textures(t_data *cub3d, char *filename, int cardinal);
+t_bool	set_floor_ceiling(t_data *cub3d, char *filename);
 
 // Key Parsing Functions
 int		key_parse(int key, t_data *cub3d);

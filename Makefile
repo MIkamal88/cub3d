@@ -33,6 +33,7 @@ SRC			= main.c\
 					keybinds.c\
 					mapping.c\
 					validation.c\
+					ceiling_floor.c\
 					pixels.c\
 					lines.c\
 

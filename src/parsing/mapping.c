@@ -48,4 +48,6 @@ void	map_read(t_data *cub3d, char *filename)
 	while (++i < 4)
 		if (!read_textures(cub3d, filename, i))
 			ft_error(cub3d, MAP_ERR);
+	if (!set_floor_ceiling(cub3d, filename))
+		ft_error(cub3d, MAP_ERR);
 }
