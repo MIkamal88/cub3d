@@ -35,7 +35,6 @@ t_bool	set_floor_ceiling(t_data *cub3d, char *filename)
 		free(line);
 		line = get_next_line(fd);
 	}
-	clear_read(line, fd);
 	return (TRUE);
 }
 

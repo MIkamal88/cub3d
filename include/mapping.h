@@ -32,10 +32,19 @@ typedef enum RGB
 	TOTAL,
 }	t_rgb;
 
+typedef enum type
+{
+	EMPTY,
+	WALL,
+	HALL,
+	PLAYER,
+}	t_type;
+
 typedef struct s_point
 {
-	int	x;
-	int	y;
+	int		x;
+	int		y;
+	t_type	type;
 }	t_point;
 
 typedef struct s_texture
@@ -46,8 +55,6 @@ typedef struct s_texture
 
 typedef struct s_map
 {
-	int			w;
-	int			h;
 	int			floor[TOTAL];
 	int			ceiling[TOTAL];
 	t_texture	**textures;

@@ -34,8 +34,6 @@ static t_map	*init_map(void)
 		map->textures[i]->path = NULL;
 		map->textures[i]->cardinal = i;
 	}
-	map->w = 0;
-	map->h = 0;
 	return (map);
 }
 
@@ -50,4 +48,14 @@ void	map_read(t_data *cub3d, char *filename)
 			ft_error(cub3d, MAP_ERR);
 	if (!set_floor_ceiling(cub3d, filename))
 		ft_error(cub3d, MAP_ERR);
+	if (!fetch_grid(cub3d, filename))
+		ft_error(cub3d, MAP_ERR);
+	printf("NO: %s\n", cub3d->map->textures[NORTH]->path);
+	printf("SO: %s\n", cub3d->map->textures[SOUTH]->path);
+	printf("EA: %s\n", cub3d->map->textures[EAST]->path);
+	printf("WE: %s\n", cub3d->map->textures[WEST]->path);
+	printf("F: %d,%d,%d\n", cub3d->map->floor[0], cub3d->map->floor[1],
+		cub3d->map->floor[2]);
+	printf("C: %d,%d,%d\n", cub3d->map->ceiling[0], cub3d->map->ceiling[1],
+		cub3d->map->ceiling[2]);
 }

@@ -22,8 +22,8 @@
 # include "keybinds.h"
 # include "mapping.h"
 
-# define WINDOW_WIDTH	1920
-# define WINDOW_HEIGHT	1080
+# define WINDOW_WIDTH	1280
+# define WINDOW_HEIGHT	720
 # define IMG_SIZE		2073600
 
 enum e_errs
@@ -66,6 +66,7 @@ typedef struct s_data
 void	map_read(t_data *cub3d, char *filename);
 t_bool	read_textures(t_data *cub3d, char *filename, int cardinal);
 t_bool	set_floor_ceiling(t_data *cub3d, char *filename);
+t_bool	fetch_grid(t_data *cub3d, char *filename);
 
 // Key Parsing Functions
 int		key_parse(int key, t_data *cub3d);

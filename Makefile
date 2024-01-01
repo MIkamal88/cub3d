@@ -21,8 +21,8 @@ else
 	$(error Unsupported OS: $(OS))
 endif
 
-CC				= gcc
-CF				= -Wall -Wextra -Werror -g
+CC				= gcc -g
+CF				= -Wall -Wextra -Werror #-fsanitize=address
 CFI					= -I$(INCLUDE)
 CFI_FT		= -L$(FT_PATH) -lft
 
@@ -34,6 +34,7 @@ SRC			= main.c\
 					mapping.c\
 					validation.c\
 					ceiling_floor.c\
+					coordinates.c\
 					pixels.c\
 					lines.c\
 
