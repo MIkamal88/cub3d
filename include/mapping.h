@@ -55,6 +55,7 @@ typedef struct s_texture
 
 typedef struct s_map
 {
+	int			rows;
 	int			floor[TOTAL];
 	int			ceiling[TOTAL];
 	t_texture	**textures;

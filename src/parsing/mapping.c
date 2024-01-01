@@ -21,8 +21,9 @@ static t_map	*init_map(void)
 	map = malloc(sizeof(t_map));
 	if (!map)
 		ft_error(NULL, MALLOC_ERR);
-	map->grid = NULL;
-	map->textures = malloc(sizeof(t_texture) * 4);
+	map->rows = -1;
+	map->grid = ft_calloc(sizeof(t_point **), 1);
+	map->textures = malloc(sizeof(t_texture *) * 4);
 	while (++i < 4)
 	{
 		if (i < 3)
@@ -48,14 +49,9 @@ void	map_read(t_data *cub3d, char *filename)
 			ft_error(cub3d, MAP_ERR);
 	if (!set_floor_ceiling(cub3d, filename))
 		ft_error(cub3d, MAP_ERR);
-	if (!fetch_grid(cub3d, filename))
+	fetch_grid(cub3d, filename);
+	if (cub3d->map->rows <= 3)
 		ft_error(cub3d, MAP_ERR);
-	printf("NO: %s\n", cub3d->map->textures[NORTH]->path);
-	printf("SO: %s\n", cub3d->map->textures[SOUTH]->path);
-	printf("EA: %s\n", cub3d->map->textures[EAST]->path);
-	printf("WE: %s\n", cub3d->map->textures[WEST]->path);
-	printf("F: %d,%d,%d\n", cub3d->map->floor[0], cub3d->map->floor[1],
-		cub3d->map->floor[2]);
-	printf("C: %d,%d,%d\n", cub3d->map->ceiling[0], cub3d->map->ceiling[1],
-		cub3d->map->ceiling[2]);
+	printf("map->grid[0][0]->x = %d\n", cub3d->map->grid[0][0].x);
+	printf("map->grid[0][0]->y = %d\n", cub3d->map->grid[0][0].y);
 }

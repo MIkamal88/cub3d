@@ -17,8 +17,8 @@
 // Assigning whether each point on your grid is a wall or not,
 // a player or not, or NULL(space)
 
-t_bool		set_grid(int fd, char *line);
-static int	get_height(int fd, char *line);
+static t_bool		read_grid(t_data *cub3d, int fd, char *line);
+static t_bool		set_grid(t_data *cub3d, char *line, int j);
 
 t_bool	fetch_grid(t_data *cub3d, char *filename)
 {
@@ -31,40 +31,61 @@ t_bool	fetch_grid(t_data *cub3d, char *filename)
 		ft_error(cub3d, MAP_ERR);
 	while (line)
 	{
-		if (ft_strnstr(line, "1", 4))
+		if (ft_strnstr(line, "1111", ft_strlen(line)))
 		{
-			if (set_grid(fd, line))
+			if (read_grid(cub3d, fd, line))
 				break ;
 		}
-		if (line)
-			free(line);
+		free(line);
 		line = get_next_line(fd);
 	}
 	close(fd);
 	return (TRUE);
 }
 
-t_bool	set_grid(int fd, char *line)
+static t_bool	read_grid(t_data *cub3d, int fd, char *line)
 {
-	int		y;
+	int	j;
 
-	y = get_height(fd, line);
-	printf("y: %d\n", y);
-	return (TRUE);
-}
-
-static int	get_height(int fd, char *line)
-{
-	int		i;
-
-	i = 0;
+	j = 0;
 	while (line)
 	{
-		printf("line: %s", line);
+		cub3d->map->grid[j] = ft_calloc(sizeof(t_point *), ft_strlen(line));
+		set_grid(cub3d, line, j);
 		if (line)
 			free(line);
 		line = get_next_line(fd);
+		j++;
+	}
+	cub3d->map->rows = j;
+	if (cub3d->map->rows <= 0)
+		return (FALSE);
+	return (TRUE);
+}
+
+static t_bool	set_grid(t_data *cub3d, char *line, int j)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		cub3d->map->grid[j][i].y = j;
+		cub3d->map->grid[j][i].x = i;
+		if (line[i] == '1')
+			cub3d->map->grid[j][i].type = WALL;
+		else if (line[i] == ' ')
+			cub3d->map->grid[j][i].type = EMPTY;
+		else if (ft_strchr("NSWE", line[i]))
+		{
+			cub3d->map->grid[j][i].type = PLAYER;
+			cub3d->player->pos->x = i;
+			cub3d->player->pos->y = j;
+			cub3d->player->cardinal = line[i];
+		}
+		else
+			cub3d->map->grid[j][i].type = HALL;
 		i++;
 	}
-	return (i);
+	return (TRUE);
 }

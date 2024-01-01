@@ -22,8 +22,8 @@
 # include "keybinds.h"
 # include "mapping.h"
 
-# define WINDOW_WIDTH	1280
-# define WINDOW_HEIGHT	720
+# define WINDOW_WIDTH	1920
+# define WINDOW_HEIGHT	1080
 # define IMG_SIZE		2073600
 
 enum e_errs
@@ -55,11 +55,18 @@ typedef struct s_win
 	int		height;
 }	t_win;
 
+typedef struct s_player
+{
+	t_point	*pos;
+	int		cardinal;
+}	t_player;
+
 typedef struct s_data
 {
-	t_map	*map;
-	t_img	*img;
-	t_win	*win;
+	t_map		*map;
+	t_img		*img;
+	t_win		*win;
+	t_player	*player;
 }	t_data;
 
 // Initialization Functions

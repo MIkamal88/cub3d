@@ -46,6 +46,7 @@ static t_data	*init_cub3d(char *filename, int w, int h)
 	t_data	*cub3d;
 
 	cub3d = malloc(sizeof(t_data));
+	cub3d->player = ft_calloc(sizeof(t_player), 1);
 	cub3d->win = NULL;
 	cub3d->img = NULL;
 	if (!cub3d)

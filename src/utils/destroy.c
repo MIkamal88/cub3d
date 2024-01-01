@@ -41,6 +41,11 @@ void	free_map(t_map *map)
 
 void	free_all(t_data *cub3d)
 {
+	if (cub3d->player)
+	{
+		free(cub3d->player->pos);
+		free(cub3d->player);
+	}
 	if (cub3d->map)
 		free_map(cub3d->map);
 	if (cub3d->img)
