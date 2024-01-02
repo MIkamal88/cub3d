@@ -44,7 +44,7 @@ typedef struct s_point
 {
 	int		x;
 	int		y;
-	t_type	type;
+	int		type;
 }	t_point;
 
 typedef struct s_texture

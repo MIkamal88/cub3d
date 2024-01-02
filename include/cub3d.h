@@ -74,6 +74,8 @@ void	map_read(t_data *cub3d, char *filename);
 t_bool	read_textures(t_data *cub3d, char *filename, int cardinal);
 t_bool	set_floor_ceiling(t_data *cub3d, char *filename);
 t_bool	fetch_grid(t_data *cub3d, char *filename);
+t_bool	load_grid(t_data *cub3d, char *filename);
+void	init_player(t_data *cub3d);
 
 // Key Parsing Functions
 int		key_parse(int key, t_data *cub3d);

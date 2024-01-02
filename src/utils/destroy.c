@@ -35,7 +35,12 @@ void	free_map(t_map *map)
 	}
 	free(map->textures);
 	if (map->grid)
-		free_double_ptr((void **)map->grid);
+	{
+		i = -1;
+		while (++i < map->rows)
+			free(map->grid[i]);
+	}
+	free(map->grid);
 	free(map);
 }
 
