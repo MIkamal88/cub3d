@@ -18,7 +18,7 @@
 // a player or not, or NULL(space)
 
 static t_bool		get_height(t_data *cub3d, int fd, char *line);
-static t_bool		set_grid_row(t_data *cub3d, char *line, int j);
+static t_bool		set_grid_row(t_data *cub3d, char *line, int *j, int len);
 static t_bool		set_grid(t_data *cub3d, int fd, char *line, int *j);
 
 t_bool	fetch_grid(t_data *cub3d, char *filename)
@@ -69,7 +69,7 @@ t_bool	load_grid(t_data *cub3d, char *filename)
 	char	*line;
 
 	fd = open(filename, O_RDONLY);
-	cub3d->map->grid = ft_calloc(sizeof(t_point **), cub3d->map->rows);
+	cub3d->map->grid = malloc(sizeof(t_point *) * cub3d->map->rows);
 	line = get_next_line(fd);
 	if (!line || fd < 0)
 		ft_error(cub3d, MAP_ERR);
@@ -90,10 +90,13 @@ t_bool	load_grid(t_data *cub3d, char *filename)
 
 static t_bool	set_grid(t_data *cub3d, int fd, char *line, int *j)
 {
+	int	len;
+
+	len = ft_strlen(line);
 	while (line)
 	{
-		cub3d->map->grid[*j] = ft_calloc(sizeof(t_point), ft_strlen(line));
-		if (!set_grid_row(cub3d, line, *j))
+		cub3d->map->grid[*j] = ft_calloc(sizeof(t_point), len);
+		if (!set_grid_row(cub3d, line, j, len))
 			return (FALSE);
 		(*j)++;
 		free(line);
@@ -112,29 +115,31 @@ static t_bool	set_grid(t_data *cub3d, int fd, char *line, int *j)
 	return (TRUE);
 }
 
-static t_bool	set_grid_row(t_data *cub3d, char *line, int j)
+static t_bool	set_grid_row(t_data *cub3d, char *line, int *j, int len)
 {
 	int	i;
 
 	i = 0;
-	while (line[i])
+	printf("%s", line);
+	while (line[i] && line[i] != '\n')
 	{
-		cub3d->map->grid[j][i].y = j;
-		cub3d->map->grid[j][i].x = i;
+		cub3d->map->grid[*j][i].y = *j;
+		cub3d->map->grid[*j][i].x = i;
+		cub3d->map->grid[*j][i].x_max = len;
 		if (line[i] == '1')
-			cub3d->map->grid[j][i].type = WALL;
+			cub3d->map->grid[*j][i].type = WALL;
 		else if (line[i] == ' ')
-			cub3d->map->grid[j][i].type = EMPTY;
+			cub3d->map->grid[*j][i].type = EMPTY;
 		else if (ft_strchr("NSWE", line[i]))
 		{
-			cub3d->map->grid[j][i].type = PLAYER;
+			cub3d->map->grid[*j][i].type = PLAYER;
 			cub3d->player->pos->type = PLAYER;
 			cub3d->player->pos->x = i;
-			cub3d->player->pos->y = j;
+			cub3d->player->pos->y = *j;
 			cub3d->player->cardinal = (int)line[i];
 		}
 		else if (line[i] == '0')
-			cub3d->map->grid[j][i].type = HALL;
+			cub3d->map->grid[*j][i].type = HALL;
 		i++;
 	}
 	return (TRUE);

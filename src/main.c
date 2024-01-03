@@ -38,10 +38,11 @@ static t_img	*new_img(int w, int h, t_win *window)
 			&(image->line_length), &(image->endian));
 	image->w = w;
 	image->h = h;
+	image->line = NULL;
 	return (image);
 }
 
-static t_data	*init_cub3d(char *filename, int w, int h)
+static t_data	*init_cub3d(int w, int h)
 {
 	t_data	*cub3d;
 
@@ -51,7 +52,6 @@ static t_data	*init_cub3d(char *filename, int w, int h)
 	cub3d->map = NULL;
 	cub3d->win = NULL;
 	cub3d->img = NULL;
-	map_read(cub3d, filename);
 	cub3d->win = new_win(w, h);
 	cub3d->img = new_img(w, h, cub3d->win);
 	return (cub3d);
@@ -72,6 +72,8 @@ int	main(int argc, char **argv)
 		ft_error(NULL, ARGS_ERR);
 	if (!valid_extension(argv[1], ".cub"))
 		ft_error(NULL, MAP_ERR);
-	cub3d = init_cub3d(argv[1], WINDOW_WIDTH, WINDOW_HEIGHT);
+	cub3d = init_cub3d(WINDOW_WIDTH, WINDOW_HEIGHT);
+	map_read(cub3d, argv[1]);
+	render_minimap(cub3d, TEXT_COLOR);
 	loop_mlx(cub3d);
 }

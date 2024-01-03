@@ -36,3 +36,23 @@ t_bool	valid_extension(char *file, char *ext)
 	else
 		return (TRUE);
 }
+
+int	ft_abs(int n)
+{
+	if (n < 0)
+		return (n * -1);
+	return (n);
+}
+
+void	swap_points(t_point *p0, t_point *p1)
+{
+	int	tmp;
+	int	tmp2;
+
+	tmp = p0->x;
+	p0->x = p1->x;
+	p1->x = tmp;
+	tmp2 = p0->y;
+	p0->y = p1->y;
+	p1->y = tmp2;
+}

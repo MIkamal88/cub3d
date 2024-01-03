@@ -10,3 +10,5 @@ static validate_texture(char *filename)
 			&(texture->line_length), &(texture->endian));
 	return (texture);
 }
+
+printf("grid[%d][%d].x = %d | grid[%d][%d].y = %d TYPE = %d\n", y, x, cub3d->map->grid[y][x].x, y, x, cub3d->map->grid[y][x].y, cub3d->map->grid[y][x].type);

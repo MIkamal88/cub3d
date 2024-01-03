@@ -34,10 +34,10 @@ typedef enum RGB
 
 typedef enum type
 {
-	EMPTY,
-	WALL,
-	HALL,
-	PLAYER,
+	EMPTY, //0
+	WALL, //1
+	HALL, //2
+	PLAYER, //3
 }	t_type;
 
 typedef struct s_point
@@ -45,6 +45,7 @@ typedef struct s_point
 	int		x;
 	int		y;
 	int		type;
+	int		x_max;
 }	t_point;
 
 typedef struct s_texture

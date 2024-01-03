@@ -71,6 +71,4 @@ void	map_read(t_data *cub3d, char *filename)
 		ft_error(cub3d, MAP_ERR);
 	if (!load_grid(cub3d, filename))
 		ft_error(cub3d, MAP_ERR);
-	printf("Player position: %d %d Facing: %d Type:%d\n", cub3d->player->pos->x, \
-		cub3d->player->pos->y, cub3d->player->cardinal, cub3d->player->pos->type);
 }

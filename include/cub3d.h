@@ -26,6 +26,8 @@
 # define WINDOW_HEIGHT	1080
 # define IMG_SIZE		2073600
 
+# define TEXT_COLOR		0xFFFFFF
+
 enum e_errs
 {
 	EXIT,
@@ -35,8 +37,19 @@ enum e_errs
 	IMG_ERR,
 };
 
+typedef struct s_line
+{
+	t_point	start;
+	t_point	end;
+	float	dx;
+	float	dy;
+	float	decision;
+	int		color;
+}	t_line;
+
 typedef struct s_img
 {
+	t_line	*line;
 	void	*img_ptr;
 	char	*addr;
 	int		w;
@@ -76,12 +89,23 @@ t_bool	set_floor_ceiling(t_data *cub3d, char *filename);
 t_bool	fetch_grid(t_data *cub3d, char *filename);
 t_bool	load_grid(t_data *cub3d, char *filename);
 void	init_player(t_data *cub3d);
+t_line	*start_line(t_point p0, t_point p1, int color);
+
+// Drawing
+void	pixel_put(t_img *img, int x, int y, int color);
+t_line	*start_line(t_point p0, t_point p1, int color);
+void	draw_line(t_img *img, t_line *line);
+void	scale_line(t_line *line, int scale);
+void	render_minimap(t_data *cub3d, int color);
+void	print_text(t_data *cub3d);
 
 // Key Parsing Functions
 int		key_parse(int key, t_data *cub3d);
 
 // Utils Functions
 t_bool	valid_extension(char *file, char *ext);
+void	swap_points(t_point *p0, t_point *p1);
+int		ft_abs(int n);
 
 // Destroy and Error handling Functions
 void	ft_error(void *pointer, int code);

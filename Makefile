@@ -32,11 +32,13 @@ SRC			= main.c\
 					destroy.c\
 					keybinds.c\
 					mapping.c\
-					validation.c\
+					checker.c\
 					ceiling_floor.c\
-					coordinates.c\
+					grid.c\
 					pixels.c\
 					lines.c\
+					minimap.c\
+					text.c\
 
 VPATH		= $(SRC_PATH)\
 					$(SRC_PATH)utils/\
@@ -48,20 +50,20 @@ OBJ			= $(addprefix $(OBJ_PATH), $(notdir $(SRC:.c=.o)))
 RM	= rm -rf
 
 $(OBJ_PATH)%.o: %.c
-	mkdir -p $(OBJ_PATH)
+	@mkdir -p $(OBJ_PATH)
 	$(CC) $(CF) $(CFI) -c $< -o $@
 
 $(NAME):	ANNOUNCE $(OBJ)
-	@printf "\n$(GR)Objects ready!$(RC)\n"
-	@printf "\n$(YE)Compiling MLX...$(RC)\n\n"
-	@make --no-print-directory -C $(MLX_PATH)
-	@printf "\n\n$(GR)MLX created!$(RC)\n\n"
+	@printf "$(BL)Objects ready!$(RC)\n"
+	@printf "\n$(YE)Compiling MLX...$(RC)\n"
+	@make --no-print-directory -sC $(MLX_PATH)
+	@printf "$(BL)MLX created!$(RC)\n"
 	@printf "\n$(YE)Compiling Libft...$(RC)\n"
-	@make --no-print-directory -C $(FT_PATH)
-	@printf "$(GR)Libft created!$(RC)\n\n"
+	@make --no-print-directory -sC $(FT_PATH)
+	@printf "$(BL)Libft created!$(RC)\n\n"
 	@printf "$(YE)Compiling CUB3D Executable...$(RC)\n"
 	$(CC) $(CF) $(OBJ) $(CFI) $(CFI_FT) $(CFI_MLX) $(NAME)
-	@printf "$(GR)Done!$(RC)\n"
+	@printf "\n$(GR)Program ready!$(RC)\n"
 
 all: $(NAME)
 
@@ -81,10 +83,13 @@ fclean: clean
 	@printf "$(RE)Deleting Executable...$(RC)\n"
 	@make --no-print-directory -C $(FT_PATH) fclean
 	@$(RM) $(NAME)
-	@printf "$(GR)Done!$(RC)\n"
+	@printf "$(GR)Done!$(RC)\n\n"
 
 leak:			all
 				valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) ./maps/test.cub
+
+leak2:			all
+				valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) ./maps/g_map02.cub
 
 debug:			all
 				lldb-16 ./$(NAME) ./maps/test.cub
@@ -93,8 +98,9 @@ debug:			all
 
 GR	= \033[32;1m
 RE	= \033[31;1m
-YE	= \033[33;1m
+YE	= \033[0;33m
 CY	= \033[36;1m
+BL	= \033[94m
 RC	= \033[0m
 
 # $(LINUX):	ANNOUNCE $(OFILES)
