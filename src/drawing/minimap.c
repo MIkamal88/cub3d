@@ -27,13 +27,17 @@ void	select_points(t_data *cub3d, int *x, int *y)
 	if (*x < (cub3d->map->grid[*y][*x].x_max - 1) && \
 		cub3d->map->grid[*y][*x].type == WALL && \
 		cub3d->map->grid[*y][*x + 1].type == WALL)
+	{
 		render_line(cub3d, cub3d->map->grid[*y][*x],
 			cub3d->map->grid[*y][*x + 1]);
+	}
 	if (*y < (cub3d->map->rows - 1) && \
 		cub3d->map->grid[*y][*x].type == WALL && \
 		cub3d->map->grid[*y + 1][*x].type == WALL)
+	{
 		render_line(cub3d, cub3d->map->grid[*y][*x],
 			cub3d->map->grid[*y + 1][*x]);
+	}
 }
 
 void	render_minimap(t_data *cub3d, int color)
@@ -48,6 +52,7 @@ void	render_minimap(t_data *cub3d, int color)
 		x = 0;
 		while (x < cub3d->map->grid[y][x].x_max)
 		{
+			printf("x: %d, y: %d type: %d\n", x, y, cub3d->map->grid[y][x].type);
 			select_points(cub3d, &x, &y);
 			x++;
 		}

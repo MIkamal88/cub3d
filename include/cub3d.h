@@ -72,6 +72,7 @@ typedef struct s_player
 {
 	t_point	*pos;
 	int		cardinal;
+	t_bool	set;
 }	t_player;
 
 typedef struct s_data
@@ -86,7 +87,6 @@ typedef struct s_data
 void	map_read(t_data *cub3d, char *filename);
 t_bool	read_textures(t_data *cub3d, char *filename, int cardinal);
 t_bool	set_floor_ceiling(t_data *cub3d, char *filename);
-t_bool	fetch_grid(t_data *cub3d, char *filename);
 t_bool	load_grid(t_data *cub3d, char *filename);
 void	init_player(t_data *cub3d);
 t_line	*start_line(t_point p0, t_point p1, int color);

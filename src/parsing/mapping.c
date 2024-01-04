@@ -12,6 +12,8 @@
 
 #include "../../include/cub3d.h"
 
+static t_bool		get_height(t_data *cub3d, int fd, char *line);
+
 void	init_player(t_data *cub3d)
 {
 	cub3d->player = malloc(sizeof(t_player));
@@ -24,6 +26,7 @@ void	init_player(t_data *cub3d)
 	cub3d->player->pos->y = -1;
 	cub3d->player->pos->type = -1;
 	cub3d->player->cardinal = -1;
+	cub3d->player->set = -1;
 }
 
 static t_map	*init_map(void)
@@ -52,6 +55,47 @@ static t_map	*init_map(void)
 		map->textures[i]->cardinal = i;
 	}
 	return (map);
+}
+
+static t_bool	fetch_grid(t_data *cub3d, char *filename)
+{
+	int		fd;
+	char	*line;
+
+	fd = open(filename, O_RDONLY);
+	line = get_next_line(fd);
+	if (!line || fd < 0)
+		ft_error(cub3d, MAP_ERR);
+	while (line)
+	{
+		if (ft_strnstr(line, "1111", ft_strlen(line)))
+		{
+			if (get_height(cub3d, fd, line))
+				break ;
+		}
+		free(line);
+		line = get_next_line(fd);
+	}
+	close(fd);
+	return (TRUE);
+}
+
+static t_bool	get_height(t_data *cub3d, int fd, char *line)
+{
+	int	j;
+
+	j = 0;
+	while (line)
+	{
+		if (line)
+			free(line);
+		line = get_next_line(fd);
+		j++;
+	}
+	cub3d->map->rows = j;
+	if (cub3d->map->rows <= 0)
+		return (FALSE);
+	return (TRUE);
 }
 
 void	map_read(t_data *cub3d, char *filename)

@@ -87,3 +87,7 @@ static char	*search_for_asset(char *line, char *direction)
 		free_double_ptr((void **)split);
 	return (NULL);
 }
+
+// t_bool	review_map(t_data *cub3d)
+// {
+// }
