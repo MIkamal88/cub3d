@@ -46,7 +46,7 @@ typedef struct s_point
 	int		x;
 	int		y;
 	int		type;
-	int		x_max;
+	int		local_x_max;
 }	t_point;
 
 typedef struct s_texture
@@ -58,6 +58,7 @@ typedef struct s_texture
 typedef struct s_map
 {
 	int			rows;
+	int			x_max;
 	int			floor[TOTAL];
 	int			ceiling[TOTAL];
 	t_texture	**textures;

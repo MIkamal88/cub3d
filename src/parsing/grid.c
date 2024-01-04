@@ -55,6 +55,8 @@ static t_bool	set_grid(t_data *cub3d, int fd, char *line, int *j)
 	while (line)
 	{
 		len = ft_strlen(line);
+		if (len - 1 >= cub3d->map->x_max)
+			cub3d->map->x_max = len - 1;
 		cub3d->map->grid[*j] = ft_calloc(sizeof(t_point), len);
 		if (!set_grid_row(cub3d, line, *j, len))
 		{
@@ -65,14 +67,6 @@ static t_bool	set_grid(t_data *cub3d, int fd, char *line, int *j)
 		free(line);
 		line = get_next_line(fd);
 	}
-	if (cub3d->player->cardinal == 'N')
-		cub3d->player->cardinal = 0;
-	else if (cub3d->player->cardinal == 'S')
-		cub3d->player->cardinal = 1;
-	else if (cub3d->player->cardinal == 'E')
-		cub3d->player->cardinal = 2;
-	else if (cub3d->player->cardinal == 'W')
-		cub3d->player->cardinal = 3;
 	return (TRUE);
 }
 
@@ -80,7 +74,7 @@ static void	assign_point(t_data *cub3d, int i, int j, int len)
 {
 	cub3d->map->grid[j][i].x = i;
 	cub3d->map->grid[j][i].y = j;
-	cub3d->map->grid[j][i].x_max = len;
+	cub3d->map->grid[j][i].local_x_max = len;
 }
 
 static t_bool	set_grid_row(t_data *cub3d, char *line, int j, int len)

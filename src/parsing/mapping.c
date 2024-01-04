@@ -38,6 +38,7 @@ static t_map	*init_map(void)
 	map = malloc(sizeof(t_map));
 	if (!map)
 		ft_error(NULL, MALLOC_ERR);
+	map->x_max = -1;
 	map->rows = -1;
 	map->grid = NULL;
 	map->textures = malloc(sizeof(t_texture *) * 4);
@@ -115,4 +116,12 @@ void	map_read(t_data *cub3d, char *filename)
 		ft_error(cub3d, MAP_ERR);
 	if (!load_grid(cub3d, filename))
 		ft_error(cub3d, MAP_ERR);
+	if (cub3d->player->cardinal == 'N')
+		cub3d->player->cardinal = 0;
+	else if (cub3d->player->cardinal == 'S')
+		cub3d->player->cardinal = 1;
+	else if (cub3d->player->cardinal == 'E')
+		cub3d->player->cardinal = 2;
+	else if (cub3d->player->cardinal == 'W')
+		cub3d->player->cardinal = 3;
 }

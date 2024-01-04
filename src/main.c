@@ -51,9 +51,9 @@ static t_data	*init_cub3d(int w, int h)
 		ft_error(NULL, MALLOC_ERR);
 	cub3d->map = NULL;
 	cub3d->win = NULL;
-	cub3d->img = NULL;
 	cub3d->win = new_win(w, h);
-	cub3d->img = new_img(w, h, cub3d->win);
+	cub3d->scene = new_img(w, h, cub3d->win);
+	cub3d->minimap = new_img(321, 140, cub3d->win);
 	return (cub3d);
 }
 

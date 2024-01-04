@@ -88,12 +88,17 @@ static void	plotline_high(t_img *img, t_line *line)
 	}
 }
 
-void	scale_line(t_line *line, int scale)
+void	scale_line(t_img *img, t_map *map, t_line *line)
 {
-	line->start.x *= scale;
-	line->start.y *= scale;
-	line->end.x *= scale;
-	line->end.y *= scale;
+	int	scale_x;
+	int	scale_y;
+
+	scale_x = img->h / map->rows;
+	scale_y = img->w / map->x_max;
+	line->start.x *= scale_x;
+	line->start.y *= scale_y;
+	line->end.x *= scale_x;
+	line->end.y *= scale_y;
 }
 
 void	draw_line(t_img *img, t_line *line)

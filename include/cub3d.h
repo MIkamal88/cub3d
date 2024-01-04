@@ -78,7 +78,8 @@ typedef struct s_player
 typedef struct s_data
 {
 	t_map		*map;
-	t_img		*img;
+	t_img		*scene;
+	t_img		*minimap;
 	t_win		*win;
 	t_player	*player;
 }	t_data;
@@ -95,7 +96,7 @@ t_line	*start_line(t_point p0, t_point p1, int color);
 void	pixel_put(t_img *img, int x, int y, int color);
 t_line	*start_line(t_point p0, t_point p1, int color);
 void	draw_line(t_img *img, t_line *line);
-void	scale_line(t_line *line, int scale);
+void	scale_line(t_img *img, t_map *map, t_line *line);
 void	render_minimap(t_data *cub3d, int color);
 void	print_text(t_data *cub3d);
 
