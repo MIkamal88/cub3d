@@ -42,7 +42,7 @@ SRC			= main.c\
 
 VPATH		= $(SRC_PATH)\
 					$(SRC_PATH)utils/\
-					$(SRC_PATH)drawing/\
+					$(SRC_PATH)rendering/\
 					$(SRC_PATH)parsing/\
 
 OBJ			= $(addprefix $(OBJ_PATH), $(notdir $(SRC:.c=.o)))
