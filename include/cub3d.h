@@ -24,9 +24,23 @@
 
 # define WINDOW_WIDTH	1920
 # define WINDOW_HEIGHT	1080
-# define IMG_SIZE		2073600
+# define SCENE_SIZE	2073600
 
 # define TEXT_COLOR		0xFFFFFF
+# define C_WHITE	0xffffff
+# define C_GREY		0x303030
+# define C_BLACK	0x000000
+
+# define C_RED		0xff0000
+# define C_GREEN	0x00ff00
+# define C_BLUE		0x0000ff
+
+# define C_YELLOW	0xffff00
+# define C_CYAN		0x00ffff
+# define C_PINK		0xff00ff
+
+# define C_ORANGY	0xffa500
+# define C_BLUEY	0x0492c2
 
 enum e_errs
 {
@@ -58,6 +72,7 @@ typedef struct s_img
 	int		endian;
 	int		line_length;
 	int		line_color;
+	t_point	scale;
 }	t_img;
 
 typedef struct s_win
@@ -71,6 +86,7 @@ typedef struct s_win
 typedef struct s_player
 {
 	t_point	*pos;
+	t_point	*pos_scaled;
 	int		cardinal;
 	t_bool	set;
 }	t_player;
@@ -94,14 +110,16 @@ t_line	*start_line(t_point p0, t_point p1, int color);
 
 // Drawing
 void	pixel_put(t_img *img, int x, int y, int color);
+void	player_arrow(t_img *map, t_player *p, int i);
 t_line	*start_line(t_point p0, t_point p1, int color);
 void	draw_line(t_img *img, t_line *line);
 void	scale_line(t_img *img, t_map *map, t_line *line);
-void	render_minimap(t_data *cub3d, int color);
+void	render_minimap(t_data *cub3d);
 void	print_text(t_data *cub3d);
 
 // Key Parsing Functions
 int		key_parse(int key, t_data *cub3d);
+void	move_player(t_data *cub3d, int key);
 
 // Utils Functions
 t_bool	valid_extension(char *file, char *ext);

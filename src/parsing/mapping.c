@@ -12,8 +12,6 @@
 
 #include "../../include/cub3d.h"
 
-static t_bool		get_height(t_data *cub3d, int fd, char *line);
-
 void	init_player(t_data *cub3d)
 {
 	cub3d->player = malloc(sizeof(t_player));
@@ -22,6 +20,11 @@ void	init_player(t_data *cub3d)
 	cub3d->player->pos = malloc(sizeof(t_point));
 	if (!cub3d->player->pos)
 		ft_error(cub3d, MALLOC_ERR);
+	cub3d->player->pos_scaled = malloc(sizeof(t_point));
+	if (!cub3d->player->pos_scaled)
+		ft_error(cub3d, MALLOC_ERR);
+	cub3d->player->pos_scaled->x = -1;
+	cub3d->player->pos_scaled->y = -1;
 	cub3d->player->pos->x = -1;
 	cub3d->player->pos->y = -1;
 	cub3d->player->pos->type = -1;
@@ -58,6 +61,24 @@ static t_map	*init_map(void)
 	return (map);
 }
 
+static t_bool	get_height(t_data *cub3d, int fd, char *line)
+{
+	int	j;
+
+	j = 0;
+	while (line)
+	{
+		if (line)
+			free(line);
+		line = get_next_line(fd);
+		j++;
+	}
+	cub3d->map->rows = j;
+	if (cub3d->map->rows <= 0)
+		return (FALSE);
+	return (TRUE);
+}
+
 static t_bool	fetch_grid(t_data *cub3d, char *filename)
 {
 	int		fd;
@@ -78,24 +99,6 @@ static t_bool	fetch_grid(t_data *cub3d, char *filename)
 		line = get_next_line(fd);
 	}
 	close(fd);
-	return (TRUE);
-}
-
-static t_bool	get_height(t_data *cub3d, int fd, char *line)
-{
-	int	j;
-
-	j = 0;
-	while (line)
-	{
-		if (line)
-			free(line);
-		line = get_next_line(fd);
-		j++;
-	}
-	cub3d->map->rows = j;
-	if (cub3d->map->rows <= 0)
-		return (FALSE);
 	return (TRUE);
 }
 

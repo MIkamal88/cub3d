@@ -53,7 +53,8 @@ static t_data	*init_cub3d(int w, int h)
 	cub3d->win = NULL;
 	cub3d->win = new_win(w, h);
 	cub3d->scene = new_img(w, h, cub3d->win);
-	cub3d->minimap = new_img(321, 140, cub3d->win);
+	cub3d->minimap = new_img((int)(0.2 * WINDOW_WIDTH), \
+		(int)(0.15 * WINDOW_HEIGHT), cub3d->win);
 	return (cub3d);
 }
 
@@ -74,6 +75,6 @@ int	main(int argc, char **argv)
 		ft_error(NULL, MAP_ERR);
 	cub3d = init_cub3d(WINDOW_WIDTH, WINDOW_HEIGHT);
 	map_read(cub3d, argv[1]);
-	render_minimap(cub3d, TEXT_COLOR);
+	render_minimap(cub3d);
 	loop_mlx(cub3d);
 }

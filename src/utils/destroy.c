@@ -48,6 +48,7 @@ void	free_all(t_data *cub3d)
 {
 	if (cub3d->player)
 	{
+		free(cub3d->player->pos_scaled);
 		free(cub3d->player->pos);
 		free(cub3d->player);
 	}

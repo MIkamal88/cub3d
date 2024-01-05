@@ -19,5 +19,11 @@ int	key_parse(int key, t_data *cub3d)
 		free_all(cub3d);
 		exit(EXIT_SUCCESS);
 	}
+	if (key == KEY_RIGHT || key == KEY_LEFT || key == KEY_UP \
+		|| key == KEY_DOWN)
+		move_player(cub3d, key);
+	ft_bzero(cub3d->scene->addr, SCENE_SIZE * 4);
+	ft_bzero(cub3d->minimap->addr, (cub3d->minimap->h * cub3d->minimap->w) * 4);
+	render_minimap(cub3d);
 	return (0);
 }

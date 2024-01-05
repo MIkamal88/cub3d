@@ -37,6 +37,7 @@ SRC			= main.c\
 					grid.c\
 					pixels.c\
 					lines.c\
+					player.c\
 					minimap.c\
 					text.c\
 
@@ -93,6 +94,9 @@ leak2:			all
 
 debug:			all
 				lldb-16 ./$(NAME) ./maps/test.cub
+
+test:				all
+				./$(NAME) ./maps/test.cub
 
 .PHONY:		all clean fclean re
 
