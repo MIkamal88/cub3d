@@ -1,3 +1,4 @@
+// Wrong texture extension
 SO            ./path_to_the_south_texture.xp
 NO    ./path_to_the_north_texture.xpm
 WE                 ./path_to_the_west_texture.xpm
@@ -19,5 +20,3 @@ C      225,30,0
 11000001110101011111011110W0111
 11110111 1110101 101111010001
 11111111 1111111 111111111111
-
-// Wrong texture extension

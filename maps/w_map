@@ -1,3 +1,4 @@
+// No extension
 NO ./path_to_the_north_texture.xpm
 SO ./path_to_the_south_texture.xpm
 WE ./path_to_the_west_texture.xpm
@@ -9,5 +10,3 @@ C 225,30,0
 100001
 1100N1
 111111
-
-// No extension
