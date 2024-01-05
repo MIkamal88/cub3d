@@ -110,11 +110,13 @@ t_line	*start_line(t_point p0, t_point p1, int color);
 
 // Drawing
 void	pixel_put(t_img *img, int x, int y, int color);
+void	render_player(t_data *cub3d);
 void	player_arrow(t_img *map, t_player *p, int i);
 t_line	*start_line(t_point p0, t_point p1, int color);
 void	draw_line(t_img *img, t_line *line);
 void	scale_line(t_img *img, t_map *map, t_line *line);
 void	render_minimap(t_data *cub3d);
+void	single_wall(t_data *cub3d, int *x, int *y);
 void	print_text(t_data *cub3d);
 
 // Key Parsing Functions

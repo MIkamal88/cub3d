@@ -54,16 +54,12 @@ void	free_all(t_data *cub3d)
 	}
 	if (cub3d->map)
 		free_map(cub3d->map);
+	mlx_destroy_image(cub3d->win->mlx, cub3d->scene->img_ptr);
 	if (cub3d->scene)
-	{
-		mlx_destroy_image(cub3d->win->mlx, cub3d->scene->img_ptr);
 		free(cub3d->scene);
-	}
+	mlx_destroy_image(cub3d->win->mlx, cub3d->minimap->img_ptr);
 	if (cub3d->minimap)
-	{
-		mlx_destroy_image(cub3d->win->mlx, cub3d->minimap->img_ptr);
 		free(cub3d->minimap);
-	}
 	if (cub3d->win)
 	{
 		mlx_destroy_window(cub3d->win->mlx, cub3d->win->m_win);

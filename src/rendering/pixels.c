@@ -45,3 +45,26 @@ void	player_arrow(t_img *map, t_player *p, int i)
 		pixel_put(map, p->pos_scaled->x + i, p->pos_scaled->y + i, C_GREEN);
 	}
 }
+
+void	single_wall(t_data *cub3d, int *x, int *y)
+{
+	int	i;
+
+	i = -1;
+	if (cub3d->map->grid[*y][*x].type == WALL)
+	{
+		pixel_put(cub3d->minimap, *x * cub3d->minimap->scale.x,
+			*y * cub3d->minimap->scale.y, cub3d->minimap->line_color);
+		while (++i < 4)
+		{
+			pixel_put(cub3d->minimap, *x * cub3d->minimap->scale.x - i,
+				*y * cub3d->minimap->scale.y, cub3d->minimap->line_color);
+			pixel_put(cub3d->minimap, *x * cub3d->minimap->scale.x + i,
+				*y * cub3d->minimap->scale.y, cub3d->minimap->line_color);
+			pixel_put(cub3d->minimap, *x * cub3d->minimap->scale.x,
+				*y * cub3d->minimap->scale.y - i, cub3d->minimap->line_color);
+			pixel_put(cub3d->minimap, *x * cub3d->minimap->scale.x,
+				*y * cub3d->minimap->scale.y + i, cub3d->minimap->line_color);
+		}
+	}
+}

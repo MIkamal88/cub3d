@@ -27,7 +27,7 @@ static void	thicken_line(t_data *cub3d, t_point p0, t_point p1)
 
 	i = 0;
 	render_line(cub3d, p0, p1);
-	while (i < 3)
+	while (i < 1)
 	{
 		cub3d->minimap->line->start.x++;
 		cub3d->minimap->line->end.x++;
@@ -37,31 +37,6 @@ static void	thicken_line(t_data *cub3d, t_point p0, t_point p1)
 		i++;
 	}
 	free(cub3d->minimap->line);
-}
-
-static void	render_player(t_data *cub3d)
-{
-	int	i;
-
-	i = 0;
-	cub3d->player->pos_scaled->x = cub3d->player->pos->x
-		* cub3d->minimap->scale.x;
-	cub3d->player->pos_scaled->y = cub3d->player->pos->y
-		* cub3d->minimap->scale.y;
-	pixel_put(cub3d->minimap, cub3d->player->pos_scaled->x,
-		cub3d->player->pos_scaled->y, C_GREEN);
-	if (cub3d->player->cardinal == NORTH)
-		while (++i < 5)
-			player_arrow(cub3d->minimap, cub3d->player, i);
-	if (cub3d->player->cardinal == SOUTH)
-		while (++i < 5)
-			player_arrow(cub3d->minimap, cub3d->player, i);
-	if (cub3d->player->cardinal == EAST)
-		while (++i < 5)
-			player_arrow(cub3d->minimap, cub3d->player, i);
-	if (cub3d->player->cardinal == WEST)
-		while (++i < 5)
-			player_arrow(cub3d->minimap, cub3d->player, i);
 }
 
 static void	select_points(t_data *cub3d, int *x, int *y)
@@ -81,9 +56,16 @@ static void	select_points(t_data *cub3d, int *x, int *y)
 		thicken_line(cub3d, cub3d->map->grid[*y][*x],
 			cub3d->map->grid[*y + 1][*x]);
 	}
-	if (*x < (cub3d->map->grid[*y][*x].local_x_max - 1) && \
+	else if (*x < (cub3d->map->grid[*y][*x].local_x_max - 1) && \
 		cub3d->map->grid[*y][*x].type == PLAYER)
 		render_player(cub3d);
+	else if (*x < (cub3d->map->grid[*y][*x].local_x_max - 1) && \
+		cub3d->map->grid[*y][*x + 1].type == HALL && \
+		*y < (cub3d->map->rows - 1) && \
+		cub3d->map->grid[*y + 1][*x].type == HALL && \
+		cub3d->map->grid[*y - 1][*x].type == HALL && \
+		cub3d->map->grid[*y][*x - 1].type == HALL)
+		single_wall(cub3d, x, y);
 }
 
 void	render_minimap(t_data *cub3d)
