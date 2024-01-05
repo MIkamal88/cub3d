@@ -1,5 +1,3 @@
-// 2 in the map
-// wrong extension
 SO ./path_to_the_south_texture.xpm
 WE ./path_to_the_west_texture.xpm
 
@@ -10,6 +8,8 @@ F 220,100,0
 C 225,30,0
 111111
 100101
-102001
+100001
 1100N1
 111111
+
+// wrong extension
