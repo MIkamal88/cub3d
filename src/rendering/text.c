@@ -17,8 +17,12 @@ void	print_text(t_data *cub3d)
 	int	x;
 	int	y;
 
-	x = 1780;
+	x = 1770;
 	y = 20;
 	mlx_string_put(cub3d->win->mlx, cub3d->win->m_win, x, y,
 		TEXT_COLOR, "Press 'Esc' to close.");
+	mlx_string_put(cub3d->win->mlx, cub3d->win->m_win, x, y + 20,
+		TEXT_COLOR, "'W' 'A' 'S' 'D' to move.");
+	mlx_string_put(cub3d->win->mlx, cub3d->win->m_win, x, y + 40,
+		TEXT_COLOR, "'Q' 'E' to rotate.");
 }
