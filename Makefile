@@ -37,7 +37,7 @@ SRC			= main.c\
 					grid.c\
 					pixels.c\
 					lines.c\
-					player.c\
+					mm_player.c\
 					minimap.c\
 					text.c\
 

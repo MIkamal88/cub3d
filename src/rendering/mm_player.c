@@ -12,6 +12,30 @@
 
 #include "../../include/cub3d.h"
 
+static void	mm_player_arrow(t_img *map, t_player *p, int i)
+{
+	if (p->cardinal == NORTH)
+	{
+		pixel_put(map, p->pos_scaled->x - i, p->pos_scaled->y + i, C_GREEN);
+		pixel_put(map, p->pos_scaled->x + i, p->pos_scaled->y + i, C_GREEN);
+	}
+	if (p->cardinal == SOUTH)
+	{
+		pixel_put(map, p->pos_scaled->x - i, p->pos_scaled->y - i, C_GREEN);
+		pixel_put(map, p->pos_scaled->x + i, p->pos_scaled->y - i, C_GREEN);
+	}
+	if (p->cardinal == EAST)
+	{
+		pixel_put(map, p->pos_scaled->x - i, p->pos_scaled->y - i, C_GREEN);
+		pixel_put(map, p->pos_scaled->x - i, p->pos_scaled->y + i, C_GREEN);
+	}
+	if (p->cardinal == WEST)
+	{
+		pixel_put(map, p->pos_scaled->x + i, p->pos_scaled->y - i, C_GREEN);
+		pixel_put(map, p->pos_scaled->x + i, p->pos_scaled->y + i, C_GREEN);
+	}
+}
+
 static t_bool	check_valid_tile(t_data *cub3d, int key)
 {
 	if (key == KEY_D)
@@ -72,16 +96,16 @@ void	render_player(t_data *cub3d)
 		cub3d->player->pos_scaled->y, C_GREEN);
 	if (cub3d->player->cardinal == NORTH)
 		while (++i < 5)
-			player_arrow(cub3d->minimap, cub3d->player, i);
+			mm_player_arrow(cub3d->minimap, cub3d->player, i);
 	if (cub3d->player->cardinal == SOUTH)
 		while (++i < 5)
-			player_arrow(cub3d->minimap, cub3d->player, i);
+			mm_player_arrow(cub3d->minimap, cub3d->player, i);
 	if (cub3d->player->cardinal == EAST)
 		while (++i < 5)
-			player_arrow(cub3d->minimap, cub3d->player, i);
+			mm_player_arrow(cub3d->minimap, cub3d->player, i);
 	if (cub3d->player->cardinal == WEST)
 		while (++i < 5)
-			player_arrow(cub3d->minimap, cub3d->player, i);
+			mm_player_arrow(cub3d->minimap, cub3d->player, i);
 }
 
 void	move_player(t_data *cub3d, int key)

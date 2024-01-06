@@ -14,29 +14,46 @@
 
 static void	render_line(t_data *cub3d, t_point p0, t_point p1)
 {
+	int	i;
+
+	i = -1;
 	cub3d->minimap->line = start_line(p0, p1, cub3d->minimap->line_color);
 	if (!cub3d->minimap->line)
 		return ;
 	scale_line(cub3d->minimap, cub3d->map, cub3d->minimap->line);
 	draw_line(cub3d->minimap, cub3d->minimap->line);
-}
-
-static void	thicken_line(t_data *cub3d, t_point p0, t_point p1)
-{
-	int	i;
-
-	i = 0;
-	render_line(cub3d, p0, p1);
-	while (i < 1)
+	while (++i < 1)
 	{
 		cub3d->minimap->line->start.x++;
 		cub3d->minimap->line->end.x++;
 		cub3d->minimap->line->start.y++;
 		cub3d->minimap->line->end.y++;
 		draw_line(cub3d->minimap, cub3d->minimap->line);
-		i++;
 	}
 	free(cub3d->minimap->line);
+}
+
+void	mm_single_wall(t_data *cub3d, int *x, int *y)
+{
+	int	i;
+
+	i = -1;
+	if (cub3d->map->grid[*y][*x].type == WALL)
+	{
+		pixel_put(cub3d->minimap, *x * cub3d->minimap->scale.x,
+			*y * cub3d->minimap->scale.y, cub3d->minimap->line_color);
+		while (++i < 4)
+		{
+			pixel_put(cub3d->minimap, *x * cub3d->minimap->scale.x - i,
+				*y * cub3d->minimap->scale.y, cub3d->minimap->line_color);
+			pixel_put(cub3d->minimap, *x * cub3d->minimap->scale.x + i,
+				*y * cub3d->minimap->scale.y, cub3d->minimap->line_color);
+			pixel_put(cub3d->minimap, *x * cub3d->minimap->scale.x,
+				*y * cub3d->minimap->scale.y - i, cub3d->minimap->line_color);
+			pixel_put(cub3d->minimap, *x * cub3d->minimap->scale.x,
+				*y * cub3d->minimap->scale.y + i, cub3d->minimap->line_color);
+		}
+	}
 }
 
 static void	select_points(t_data *cub3d, int *x, int *y)
@@ -45,7 +62,7 @@ static void	select_points(t_data *cub3d, int *x, int *y)
 		cub3d->map->grid[*y][*x].type == WALL && \
 		cub3d->map->grid[*y][*x + 1].type == WALL)
 	{
-		thicken_line(cub3d, cub3d->map->grid[*y][*x],
+		render_line(cub3d, cub3d->map->grid[*y][*x],
 			cub3d->map->grid[*y][*x + 1]);
 	}
 	if (*y < (cub3d->map->rows - 1) && \
@@ -53,7 +70,7 @@ static void	select_points(t_data *cub3d, int *x, int *y)
 		*x < cub3d->map->grid[*y + 1]->local_x_max && \
 		cub3d->map->grid[*y + 1][*x].type == WALL)
 	{
-		thicken_line(cub3d, cub3d->map->grid[*y][*x],
+		render_line(cub3d, cub3d->map->grid[*y][*x],
 			cub3d->map->grid[*y + 1][*x]);
 	}
 	else if (*x < (cub3d->map->grid[*y][*x].local_x_max - 1) && \
@@ -65,7 +82,7 @@ static void	select_points(t_data *cub3d, int *x, int *y)
 		cub3d->map->grid[*y + 1][*x].type == HALL && \
 		cub3d->map->grid[*y - 1][*x].type == HALL && \
 		cub3d->map->grid[*y][*x - 1].type == HALL)
-		single_wall(cub3d, x, y);
+		mm_single_wall(cub3d, x, y);
 }
 
 void	render_minimap(t_data *cub3d)
