@@ -56,3 +56,19 @@ void	swap_points(t_point *p0, t_point *p1)
 	p0->y = p1->y;
 	p1->y = tmp2;
 }
+
+t_bool	map_start(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] != '1' && line[i] != ' ' && line[i] != '\n')
+			return (FALSE);
+		i++;
+	}
+	if (ft_strnstr(line, "111", ft_strlen(line)))
+		return (TRUE);
+	return (FALSE);
+}

@@ -33,7 +33,7 @@ t_bool	load_grid(t_data *cub3d, char *filename)
 		ft_error(cub3d, MAP_ERR);
 	while (line)
 	{
-		if (ft_strnstr(line, "1111", ft_strlen(line)))
+		if (map_start(line))
 		{
 			j = 0;
 			if (set_grid(cub3d, fd, line, &j))

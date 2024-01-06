@@ -123,6 +123,7 @@ int		key_parse(int key, t_data *cub3d);
 void	move_player(t_data *cub3d, int key);
 
 // Utils Functions
+t_bool	map_start(char *line);
 t_bool	valid_extension(char *file, char *ext);
 void	swap_points(t_point *p0, t_point *p1);
 int		ft_abs(int n);

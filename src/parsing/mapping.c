@@ -90,7 +90,7 @@ static t_bool	fetch_grid(t_data *cub3d, char *filename)
 		ft_error(cub3d, MAP_ERR);
 	while (line)
 	{
-		if (ft_strnstr(line, "1111", ft_strlen(line)))
+		if (map_start(line))
 		{
 			if (get_height(cub3d, fd, line))
 				break ;
@@ -115,7 +115,7 @@ void	map_read(t_data *cub3d, char *filename)
 	if (!set_floor_ceiling(cub3d, filename))
 		ft_error(cub3d, MAP_ERR);
 	fetch_grid(cub3d, filename);
-	if (cub3d->map->rows <= 3)
+	if (cub3d->map->rows < 3)
 		ft_error(cub3d, MAP_ERR);
 	if (!load_grid(cub3d, filename))
 		ft_error(cub3d, MAP_ERR);
