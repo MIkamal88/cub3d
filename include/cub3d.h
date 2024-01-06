@@ -100,13 +100,13 @@ typedef struct s_data
 	t_player	*player;
 }	t_data;
 
-// Initialization Functions
+// Mapping and Grid Functions
+void	init_player(t_data *cub3d);
 void	map_read(t_data *cub3d, char *filename);
 t_bool	read_textures(t_data *cub3d, char *filename, int cardinal);
 t_bool	set_floor_ceiling(t_data *cub3d, char *filename);
 t_bool	load_grid(t_data *cub3d, char *filename);
-void	init_player(t_data *cub3d);
-t_line	*start_line(t_point p0, t_point p1, int color);
+t_bool	is_closed(t_data *cub3d, int x, int y);
 
 // Drawing
 void	pixel_put(t_img *img, int x, int y, int color);

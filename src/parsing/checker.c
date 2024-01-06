@@ -88,6 +88,26 @@ static char	*search_for_asset(char *line, char *direction)
 	return (NULL);
 }
 
-// t_bool	review_map(t_data *cub3d)
-// {
-// }
+t_bool	is_closed(t_data *cub3d, int x, int y)
+{
+	if (x < 0 || y < 0 || x >= cub3d->map->grid[y]->local_x_max || \
+		y >= cub3d->map->rows || cub3d->map->grid[y][x].type == EMPTY)
+		return (FALSE);
+	if (cub3d->map->grid[y][x].type == WALL)
+		return (TRUE);
+	if (cub3d->map->grid[y][x].visited == TRUE)
+		return (TRUE);
+	if (cub3d->map->grid[y][x].type == HALL && \
+		cub3d->map->grid[y][x].visited == TRUE)
+		return (TRUE);
+	cub3d->map->grid[y][x].visited = TRUE;
+	if (is_closed(cub3d, x + 1, y) == FALSE)
+		return (FALSE);
+	if (is_closed(cub3d, x - 1, y) == FALSE)
+		return (FALSE);
+	if (is_closed(cub3d, x, y + 1) == FALSE)
+		return (FALSE);
+	if (is_closed(cub3d, x, y - 1) == FALSE)
+		return (FALSE);
+	return (TRUE);
+}

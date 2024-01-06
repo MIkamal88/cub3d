@@ -127,4 +127,6 @@ void	map_read(t_data *cub3d, char *filename)
 		cub3d->player->cardinal = 2;
 	else if (cub3d->player->cardinal == 'W')
 		cub3d->player->cardinal = 3;
+	if (!is_closed(cub3d, cub3d->player->pos->x, cub3d->player->pos->y))
+		ft_error(cub3d, MAP_ERR);
 }

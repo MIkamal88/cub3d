@@ -75,6 +75,7 @@ static void	assign_point(t_data *cub3d, int i, int j, int len)
 	cub3d->map->grid[j][i].x = i;
 	cub3d->map->grid[j][i].y = j;
 	cub3d->map->grid[j][i].local_x_max = len;
+	cub3d->map->grid[j][i].visited = FALSE;
 }
 
 static t_bool	set_grid_row(t_data *cub3d, char *line, int j, int len)

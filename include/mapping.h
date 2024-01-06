@@ -38,7 +38,6 @@ typedef enum type
 	WALL = 1,
 	HALL = 2,
 	PLAYER = 3,
-	VISITED = 4,
 }	t_type;
 
 typedef struct s_point
@@ -47,6 +46,7 @@ typedef struct s_point
 	int		y;
 	int		type;
 	int		local_x_max;
+	t_bool	visited;
 }	t_point;
 
 typedef struct s_texture
