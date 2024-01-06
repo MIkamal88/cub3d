@@ -62,6 +62,7 @@
 # define KEY_X		120
 # define KEY_P		112
 # define KEY_I		105
+# define KEY_M		109
 # define KEY_O		111
 # define KEY_L		108
 # define KEY_R		114
