@@ -4,9 +4,19 @@ WE ./path_to_the_west_texture.xpm
 EA ./path_to_the_east_texture.xpm
 S ./path_to_the_sprite_texture.xpm
 
-F 220,100,0
-C 225,30,0
+F 20,20,20
+C 200,200,200
 
-11111111111
-1000W000001
-11111111111
+11111
+10001
+10S01
+10001
+10001
+10001
+11001
+10001
+10001
+10001
+10001
+10001
+11011
