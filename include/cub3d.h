@@ -106,6 +106,7 @@ void	map_read(t_data *cub3d, char *filename);
 t_bool	read_textures(t_data *cub3d, char *filename, int cardinal);
 t_bool	set_floor_ceiling(t_data *cub3d, char *filename);
 t_bool	load_grid(t_data *cub3d, char *filename);
+t_bool	check_assets(t_data *cub3d);
 t_bool	is_closed(t_data *cub3d, int x, int y);
 
 // Drawing

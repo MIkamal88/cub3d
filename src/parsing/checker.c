@@ -88,10 +88,34 @@ static char	*search_for_asset(char *line, char *direction)
 	return (NULL);
 }
 
+t_bool	check_assets(t_data *cub3d)
+{
+	int	i;
+
+	i = -1;
+	if (cub3d->player->cardinal == 'N')
+		cub3d->player->cardinal = 0;
+	else if (cub3d->player->cardinal == 'S')
+		cub3d->player->cardinal = 1;
+	else if (cub3d->player->cardinal == 'E')
+		cub3d->player->cardinal = 2;
+	else if (cub3d->player->cardinal == 'W')
+		cub3d->player->cardinal = 3;
+	while (++i < 4)
+		if (!cub3d->map->textures[i]->path)
+			return (FALSE);
+	i = -1;
+	while (++i < 3)
+		if (cub3d->map->floor[i] < 0 || cub3d->map->ceiling[i] < 0)
+			return (FALSE);
+	return (TRUE);
+}
+
 t_bool	is_closed(t_data *cub3d, int x, int y)
 {
-	if (x < 0 || y < 0 || x >= cub3d->map->grid[y]->local_x_max || \
-		y >= cub3d->map->rows || cub3d->map->grid[y][x].type == EMPTY)
+	if (x < 0 || y < 0 || y >= cub3d->map->rows
+		|| x >= cub3d->map->grid[y]->local_x_max \
+		|| cub3d->map->grid[y][x].type == EMPTY)
 		return (FALSE);
 	if (cub3d->map->grid[y][x].type == WALL)
 		return (TRUE);
@@ -101,13 +125,8 @@ t_bool	is_closed(t_data *cub3d, int x, int y)
 		cub3d->map->grid[y][x].visited == TRUE)
 		return (TRUE);
 	cub3d->map->grid[y][x].visited = TRUE;
-	if (is_closed(cub3d, x + 1, y) == FALSE)
-		return (FALSE);
-	if (is_closed(cub3d, x - 1, y) == FALSE)
-		return (FALSE);
-	if (is_closed(cub3d, x, y + 1) == FALSE)
-		return (FALSE);
-	if (is_closed(cub3d, x, y - 1) == FALSE)
+	if (!is_closed(cub3d, x + 1, y) || !is_closed(cub3d, x - 1, y)
+		|| !is_closed(cub3d, x, y + 1) || !is_closed(cub3d, x, y - 1))
 		return (FALSE);
 	return (TRUE);
 }

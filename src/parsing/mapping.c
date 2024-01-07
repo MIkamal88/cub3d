@@ -32,33 +32,31 @@ void	init_player(t_data *cub3d)
 	cub3d->player->set = -1;
 }
 
-static t_map	*init_map(void)
+static void	init_map(t_data *cub3d)
 {
 	int		i;
-	t_map	*map;
 
 	i = -1;
-	map = malloc(sizeof(t_map));
-	if (!map)
+	cub3d->map = malloc(sizeof(t_map));
+	if (!cub3d->map)
 		ft_error(NULL, MALLOC_ERR);
-	map->x_max = -1;
-	map->rows = -1;
-	map->grid = NULL;
-	map->textures = malloc(sizeof(t_texture *) * 4);
-	if (!map->textures)
+	cub3d->map->x_max = -1;
+	cub3d->map->rows = -1;
+	cub3d->map->grid = NULL;
+	cub3d->map->textures = malloc(sizeof(t_texture *) * 4);
+	if (!cub3d->map->textures)
 		ft_error(NULL, MALLOC_ERR);
 	while (++i < 4)
 	{
 		if (i < 3)
 		{
-			map->floor[i] = -1;
-			map->ceiling[i] = -1;
+			cub3d->map->floor[i] = -1;
+			cub3d->map->ceiling[i] = -1;
 		}
-		map->textures[i] = malloc(sizeof(t_texture));
-		map->textures[i]->path = NULL;
-		map->textures[i]->cardinal = i;
+		cub3d->map->textures[i] = malloc(sizeof(t_texture));
+		cub3d->map->textures[i]->path = NULL;
+		cub3d->map->textures[i]->cardinal = i;
 	}
-	return (map);
 }
 
 static t_bool	get_height(t_data *cub3d, int fd, char *line)
@@ -107,7 +105,7 @@ void	map_read(t_data *cub3d, char *filename)
 	int		i;
 
 	i = -1;
-	cub3d->map = init_map();
+	init_map(cub3d);
 	init_player(cub3d);
 	while (++i < 4)
 		if (!read_textures(cub3d, filename, i))
@@ -119,14 +117,8 @@ void	map_read(t_data *cub3d, char *filename)
 		ft_error(cub3d, MAP_ERR);
 	if (!load_grid(cub3d, filename))
 		ft_error(cub3d, MAP_ERR);
-	if (cub3d->player->cardinal == 'N')
-		cub3d->player->cardinal = 0;
-	else if (cub3d->player->cardinal == 'S')
-		cub3d->player->cardinal = 1;
-	else if (cub3d->player->cardinal == 'E')
-		cub3d->player->cardinal = 2;
-	else if (cub3d->player->cardinal == 'W')
-		cub3d->player->cardinal = 3;
 	if (!is_closed(cub3d, cub3d->player->pos->x, cub3d->player->pos->y))
+		ft_error(cub3d, MAP_ERR);
+	if (!check_assets(cub3d))
 		ft_error(cub3d, MAP_ERR);
 }

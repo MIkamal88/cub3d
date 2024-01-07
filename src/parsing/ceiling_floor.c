@@ -88,6 +88,8 @@ t_bool	set_color(t_data *cub3d, char *colors, char type)
 				cub3d->map->ceiling[j] = ft_atoi(color_split[i]);
 			j++;
 		}
+		else
+			return (FALSE);
 	}
 	if (color_split)
 		free_double_ptr((void **)color_split);
