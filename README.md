@@ -36,7 +36,9 @@ Clone the repository:
 
 ### Controls
 W, A, S, D: Move forward, left, backward, and right
+
 Arrow keys: Rotate the player view
+
 Esc: Exit the game
 
 ### Screenshots
