@@ -14,24 +14,25 @@
 
 static void	mm_player_mark(t_img *map, t_player *p, int i)
 {
-	int	n;
-	int	x;
-	int	y;
-
-	n = -1;
-	x = p->pos_scaled->x;
-	y = p->pos_scaled->y;
-	while (n++ < i)
+	if (p->cardinal == NORTH)
 	{
-		pixel_put(map, x - n, y - n, C_GREEN);
-		pixel_put(map, x - n, y + n, C_GREEN);
-		pixel_put(map, x - n, y, C_GREEN);
-		pixel_put(map, x, y, C_GREEN);
-		pixel_put(map, x, y + n, C_GREEN);
-		pixel_put(map, x, y - n, C_GREEN);
-		pixel_put(map, x + n, y + n, C_GREEN);
-		pixel_put(map, x + n, y - n, C_GREEN);
-		pixel_put(map, x + n, y, C_GREEN);
+		pixel_put(map, p->pos_scaled->x - i, p->pos_scaled->y + i, C_GREEN);
+		pixel_put(map, p->pos_scaled->x + i, p->pos_scaled->y + i, C_GREEN);
+	}
+	if (p->cardinal == SOUTH)
+	{
+		pixel_put(map, p->pos_scaled->x - i, p->pos_scaled->y - i, C_GREEN);
+		pixel_put(map, p->pos_scaled->x + i, p->pos_scaled->y - i, C_GREEN);
+	}
+	if (p->cardinal == EAST)
+	{
+		pixel_put(map, p->pos_scaled->x - i, p->pos_scaled->y - i, C_GREEN);
+		pixel_put(map, p->pos_scaled->x - i, p->pos_scaled->y + i, C_GREEN);
+	}
+	if (p->cardinal == WEST)
+	{
+		pixel_put(map, p->pos_scaled->x + i, p->pos_scaled->y - i, C_GREEN);
+		pixel_put(map, p->pos_scaled->x + i, p->pos_scaled->y + i, C_GREEN);
 	}
 }
 
@@ -84,13 +85,17 @@ void	rotate_player(t_data *cub3d, int key)
 
 void	render_player(t_data *cub3d)
 {
+	int	i;
+
+	i = -1;
 	cub3d->player->pos_scaled->x = cub3d->player->pos->x
 		* cub3d->minimap->scale.x;
 	cub3d->player->pos_scaled->y = cub3d->player->pos->y
 		* cub3d->minimap->scale.y;
 	pixel_put(cub3d->minimap, cub3d->player->pos_scaled->x,
 		cub3d->player->pos_scaled->y, C_GREEN);
-	mm_player_mark(cub3d->minimap, cub3d->player, 5);
+	while (++i < 5)
+		mm_player_mark(cub3d->minimap, cub3d->player, i);
 }
 
 void	move_player(t_data *cub3d, int key)

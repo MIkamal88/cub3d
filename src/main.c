@@ -54,8 +54,8 @@ static t_data	*init_cub3d(int w, int h)
 	cub3d->player = NULL;
 	cub3d->win = new_win(w, h);
 	cub3d->scene = new_img(w, h, cub3d->win);
-	cub3d->minimap = new_img((int)(0.2 * WINDOW_WIDTH), \
-		(int)(0.2 * WINDOW_HEIGHT), cub3d->win);
+	cub3d->minimap = new_img((0.2 * WINDOW_WIDTH), (0.2 * WINDOW_HEIGHT), \
+		cub3d->win);
 	return (cub3d);
 }
 
