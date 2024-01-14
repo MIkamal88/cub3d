@@ -6,7 +6,7 @@
 /*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 05:32:35 by m_kamal           #+#    #+#             */
-/*   Updated: 2024/01/14 09:39:52 by pbalbino         ###   ########.fr       */
+/*   Updated: 2024/01/14 11:20:58 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ static void	loop_mlx(t_data *cub3d)
 {
 	mlx_hook(cub3d->win->m_win, 17, 0, exit_window, cub3d);
 	mlx_key_hook(cub3d->win->m_win, key_parse, cub3d);
+	mlx_loop_hook(cub3d->win->mlx, render_loop, cub3d);
 	mlx_loop(cub3d->win->mlx);
 }
 

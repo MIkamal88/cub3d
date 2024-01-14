@@ -6,7 +6,7 @@
 /*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 07:29:25 by m_kamal           #+#    #+#             */
-/*   Updated: 2024/01/14 10:34:12 by pbalbino         ###   ########.fr       */
+/*   Updated: 2024/01/14 11:54:15 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CUB3D_H
 
 # include <math.h>
+# include <stdbool.h>
 # include "../libs/libft/includes/libft.h"
 # include "../libs/libft/includes/get_next_line.h"
 # include "../libs/mlx/linux/mlx.h"
@@ -91,6 +92,7 @@ typedef struct s_player
 	t_point	*pos_scaled;
 	int		cardinal;
 	t_bool	set;
+	float	rotation_angle;
 }	t_player;
 
 typedef struct s_data
@@ -100,7 +102,21 @@ typedef struct s_data
 	t_img		*minimap;
 	t_win		*win;
 	t_player	*player;
+	int			is_running;
 }	t_data;
+
+typedef struct s_colision
+{
+	float	x;
+} t_colision;
+
+typedef struct s_direction
+{
+	bool			is_up;
+	bool			is_down;
+	bool			is_right;
+	bool			is_left;
+}	t_direction;
 
 // Mapping and Grid Functions
 void	init_player(t_data *cub3d);
