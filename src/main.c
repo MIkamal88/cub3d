@@ -6,7 +6,7 @@
 /*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 05:32:35 by m_kamal           #+#    #+#             */
-/*   Updated: 2024/01/14 11:20:58 by pbalbino         ###   ########.fr       */
+/*   Updated: 2024/01/14 17:09:44 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ static t_data	*init_cub3d(int w, int h)
 	cub3d->player = NULL;
 	cub3d->win = new_win(w, h);
 	cub3d->scene = new_img(w, h, cub3d->win);
+	cub3d->rays = malloc(sizeof(t_ray) * WINDOW_WIDTH);
+	cub3d->game_color_buffer = malloc((WINDOW_WIDTH * WINDOW_HEIGHT) * sizeof(int));
 	cub3d->minimap = new_img((0.2 * WINDOW_WIDTH), (0.2 * WINDOW_HEIGHT), \
 		cub3d->win);
 	return (cub3d);
@@ -78,5 +80,6 @@ int	main(int argc, char **argv)
 	cub3d = init_cub3d(WINDOW_WIDTH, WINDOW_HEIGHT);
 	map_read(cub3d, argv[1]);
 	render_minimap(cub3d);
+	get_current_rotation_angle(cub3d);
 	loop_mlx(cub3d);
 }

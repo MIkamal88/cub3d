@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pixels.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: m_kamal <m_kamal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 15:25:09 by m_kamal           #+#    #+#             */
-/*   Updated: 2023/12/29 15:25:09 by m_kamal          ###   ########.fr       */
+/*   Updated: 2024/01/14 16:21:22 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
+#include "cub3d.h"
 
 void	pixel_put(t_img *img, int x, int y, int color)
 {

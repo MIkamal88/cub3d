@@ -6,7 +6,7 @@
 /*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 07:29:25 by m_kamal           #+#    #+#             */
-/*   Updated: 2024/01/14 11:54:15 by pbalbino         ###   ########.fr       */
+/*   Updated: 2024/01/14 23:00:37 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,19 @@
 # include <stdbool.h>
 # include "../libs/libft/includes/libft.h"
 # include "../libs/libft/includes/get_next_line.h"
-# include "../libs/mlx/linux/mlx.h"
-/* #include "../libs/mlx/mac/mlx.h" */
+//# include "../libs/mlx/linux/mlx.h"
+# include "../libs/mlx/mac/mlx.h"
 # include "colors.h"
 # include "keybinds.h"
 # include "mapping.h"
+#include <limits.h>
 
 # define WINDOW_WIDTH	1920
 # define WINDOW_HEIGHT	1080
 # define SCENE_SIZE		2073600
 # define TILE_SIZE		32
 # define FOV			1.0472 // 60 degrees in radians (field of view)
+
 
 # define TEXT_COLOR	0xFFFFFF
 # define C_WHITE	0xffffff
@@ -90,25 +92,11 @@ typedef struct s_player
 {
 	t_point	*pos;
 	t_point	*pos_scaled;
+	//t_point *pos_scaled_game;
 	int		cardinal;
 	t_bool	set;
 	float	rotation_angle;
 }	t_player;
-
-typedef struct s_data
-{
-	t_map		*map;
-	t_img		*scene;
-	t_img		*minimap;
-	t_win		*win;
-	t_player	*player;
-	int			is_running;
-}	t_data;
-
-typedef struct s_colision
-{
-	float	x;
-} t_colision;
 
 typedef struct s_direction
 {
@@ -117,6 +105,69 @@ typedef struct s_direction
 	bool			is_right;
 	bool			is_left;
 }	t_direction;
+
+typedef struct s_ray
+{
+	float		angle;
+	float		distance;
+	t_direction	direction;
+	float		hit_x;
+	float		hit_y;
+	bool		is_up;
+}	t_ray;
+
+typedef struct s_data
+{
+	t_map		*map;
+	t_img		*scene;
+
+	t_img		*minimap;
+	t_win		*win;
+	t_player	*player;
+	int			is_running;
+	t_ray		*rays;
+	int			*game_color_buffer;
+
+}	t_data;
+
+typedef struct s_coordinate
+{
+	float			x;
+	float			y;
+}	t_coordinate;
+
+typedef struct s_colision
+{
+	float 			distance;
+	bool			found_wall;
+	float			check_x;
+	float			check_y;
+	bool			is_horizontal;
+	t_coordinate	next_interception;
+	t_coordinate    intercept;
+	t_coordinate	wall_hit;
+	t_coordinate	step;
+
+} t_colision;
+
+
+
+
+
+typedef struct s_wall
+{
+	float			projected_wall_dist;
+	float			corrected_ray_distance;
+	int				projected_wall_height;
+	int				top_pixel;
+	int				bottom_pixel;
+	int				texel_color;
+	int				x_texture_offset;
+	int				y_texture_offset;
+	int				distance_from_top;
+	int				orientation;
+}					t_wall;
+
 
 // Mapping and Grid Functions
 void	init_player(t_data *cub3d);
@@ -154,4 +205,14 @@ void	clear_read(char *line, int fd);
 void	free_map(t_map *map);
 void	free_double_ptr(void **d_array);
 int		exit_window(t_data *cub3d);
+
+// Raycasting
+t_direction analize_direction(float angle);
+void	ray_casting(t_data *cub3d);
+int		render_loop(t_data *cub3d);
+void	render_walls(t_data *cub3d);
+t_colision	horizontal_intercept(t_data *cube, float angle, t_direction direction);
+t_colision	vertical_intercept(t_data *data, float ray_angle, t_direction direction);
+void	get_current_rotation_angle(t_data *cub3d);
+
 #endif

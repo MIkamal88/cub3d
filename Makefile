@@ -40,6 +40,11 @@ SRC			= main.c\
 					mm_player.c\
 					minimap.c\
 					text.c\
+					raycasting.c\
+					directions.c \
+					render_walls.c \
+					render.c \
+
 
 VPATH		= $(SRC_PATH)\
 					$(SRC_PATH)utils/\

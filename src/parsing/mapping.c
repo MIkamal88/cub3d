@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mapping.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: m_kamal <m_kamal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 08:49:26 by m_kamal           #+#    #+#             */
-/*   Updated: 2023/12/30 08:49:26 by m_kamal          ###   ########.fr       */
+/*   Updated: 2024/01/14 22:50:05 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,13 @@ void	init_player(t_data *cub3d)
 	cub3d->player->pos_scaled = malloc(sizeof(t_point));
 	if (!cub3d->player->pos_scaled)
 		ft_error(cub3d, MALLOC_ERR);
+	//cub3d->player->pos_scaled_game = malloc(sizeof(t_point));
+	//if (!cub3d->player->pos_scaled_game)
+//		ft_error(cub3d, MALLOC_ERR);
 	cub3d->player->pos_scaled->x = -1;
 	cub3d->player->pos_scaled->y = -1;
+	//cub3d->player->pos_scaled_game->x = -1;
+	//cub3d->player->pos_scaled_game->y = -1;
 	cub3d->player->pos->x = -1;
 	cub3d->player->pos->y = -1;
 	cub3d->player->pos->type = -1;
