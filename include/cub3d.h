@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: m_kamal <m_kamal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 07:29:25 by m_kamal           #+#    #+#             */
-/*   Updated: 2023/12/29 07:29:25 by m_kamal          ###   ########.fr       */
+/*   Updated: 2024/01/14 10:34:12 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,11 @@
 
 # define WINDOW_WIDTH	1920
 # define WINDOW_HEIGHT	1080
-# define SCENE_SIZE	2073600
+# define SCENE_SIZE		2073600
+# define TILE_SIZE		32
+# define FOV			1.0472 // 60 degrees in radians (field of view)
 
-# define TEXT_COLOR		0xFFFFFF
+# define TEXT_COLOR	0xFFFFFF
 # define C_WHITE	0xffffff
 # define C_GREY		0x303030
 # define C_BLACK	0x000000

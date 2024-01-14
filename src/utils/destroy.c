@@ -6,11 +6,11 @@
 /*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 08:26:12 by m_kamal           #+#    #+#             */
-/*   Updated: 2024/01/06 15:35:18 by pbalbino         ###   ########.fr       */
+/*   Updated: 2024/01/14 11:17:10 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
+#include "cub3d.h"
 
 void	free_double_ptr(void **d_ptr)
 {
@@ -63,7 +63,7 @@ void	free_all(t_data *cub3d)
 	if (cub3d->win)
 	{
 		mlx_destroy_window(cub3d->win->mlx, cub3d->win->m_win);
-		mlx_destroy_display(cub3d->win->mlx);
+		//mlx_destroy_display(cub3d->win->mlx); I understand that this is not needed;
 		free(cub3d->win->mlx);
 		free(cub3d->win);
 	}

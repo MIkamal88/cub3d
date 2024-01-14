@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player.c                                           :+:      :+:    :+:   */
+/*   mm_player.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: m_kamal <m_kamal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 08:57:38 by m_kamal           #+#    #+#             */
-/*   Updated: 2024/01/05 08:57:38 by m_kamal          ###   ########.fr       */
+/*   Updated: 2024/01/14 11:16:49 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
+#include "cub3d.h"
 
 static void	mm_player_mark(t_img *map, t_player *p, int i)
 {
@@ -59,7 +59,7 @@ static t_bool	check_valid_tile(t_data *cub3d, int key)
 
 void	rotate_player(t_data *cub3d, int key)
 {
-	if (key == KEY_Q)
+	if (key == KEY_LEFT)
 	{
 		if (cub3d->player->cardinal == NORTH)
 			cub3d->player->cardinal = WEST;
@@ -70,7 +70,7 @@ void	rotate_player(t_data *cub3d, int key)
 		else if (cub3d->player->cardinal == WEST)
 			cub3d->player->cardinal = SOUTH;
 	}
-	if (key == KEY_E)
+	if (key == KEY_RIGHT)
 	{
 		if (cub3d->player->cardinal == NORTH)
 			cub3d->player->cardinal = EAST;
@@ -108,6 +108,6 @@ void	move_player(t_data *cub3d, int key)
 		cub3d->player->pos->y -= 1;
 	if (check_valid_tile(cub3d, key) && key == KEY_S)
 		cub3d->player->pos->y += 1;
-	if (key == KEY_Q || key == KEY_E)
+	if (key == KEY_LEFT || key == KEY_RIGHT)
 		rotate_player(cub3d, key);
 }
