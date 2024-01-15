@@ -6,7 +6,7 @@
 /*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:49:52 by pbalbino          #+#    #+#             */
-/*   Updated: 2024/01/14 22:58:31 by pbalbino         ###   ########.fr       */
+/*   Updated: 2024/01/15 14:21:23 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,18 @@ t_direction analize_direction(float angle)
 	direction.is_down = false;
 	direction.is_left = false;
 	direction.is_right = false;
-	if (angle > 0 && angle < M_PI)
+	if( angle > M_PI && angle < 2 * M_PI) {
 		direction.is_up = true;
-	else
-		direction.is_down = true;
-	if (angle < (M_PI / 2) || angle > (1.5 * M_PI))
+	}else{
+		direction.is_up = false;
+	}
+	if(angle < 0.5 * M_PI || angle > 1.5* M_PI){
 		direction.is_right = true;
-	else
-		direction.is_left = true;
+	}else
+	{
+		direction.is_right = false;
+	}
+	direction.is_left = ! direction.is_right;
 	return (direction);
 }
 
@@ -87,6 +91,7 @@ void	analyze_colision(t_data *data, t_colision *colision, bool direction)
 			colision->check_y--;
 		if (has_wall(data, colision->check_x, colision->check_y))
 		{
+			printf("\nhas_wall %f %f", colision->check_x, colision->check_y);
 			colision->wall_hit.x = colision->next_interception.x;
 			colision->wall_hit.y = colision->next_interception.y;
 			colision->found_wall = true;
@@ -99,8 +104,8 @@ void	analyze_colision(t_data *data, t_colision *colision, bool direction)
 		}
 	}
 	if (colision->found_wall)
-		colision->distance = wall_hit_distance(data->player->pos->x,
-				data->player->pos->y, colision->wall_hit.x, colision->wall_hit.y);
+		colision->distance = wall_hit_distance(data->player->pos_scaled_game->x,
+				data->player->pos_scaled_game->y, colision->wall_hit.x, colision->wall_hit.y);
 }
 
 
@@ -113,17 +118,17 @@ t_colision	vertical_intercept(t_data *data,float ray_angle, t_direction directio
 	colision.wall_hit.y = 0;
 	colision.distance = INT_MAX;
 	colision.is_horizontal = false;
-	colision.intercept.x = floor(data->player->pos_scaled->x / TILE_SIZE) * TILE_SIZE;
+	colision.intercept.x = floor(data->player->pos_scaled_game->x / TILE_SIZE) * TILE_SIZE;
 	if (direction.is_right)
 		colision.intercept.x += TILE_SIZE;
-	colision.intercept.y = data->player->pos_scaled->y + (colision.intercept.x
-			- data->player->pos_scaled->x) * tan(ray_angle);
+	colision.intercept.y = data->player->pos_scaled_game->y + (colision.intercept.x
+			- data->player->pos_scaled_game->x) * tan(ray_angle);
 	colision.step.x = TILE_SIZE;
 	if (direction.is_left)
-		colision.step.x *= -1;
+		colision.step.x = colision.step.x * -1;
 	colision.step.y = TILE_SIZE * tan(ray_angle);
 	if (direction.is_up && colision.step.y > 0)
-		colision.step.y *= -1;
+		colision.step.y = colision.step.y * -1;
 	if (direction.is_down && colision.step.y < 0)
 		colision.step.y *= -1;
 	colision.next_interception.x = colision.intercept.x;
@@ -143,20 +148,20 @@ t_colision	horizontal_intercept(t_data *data, float ray_angle, t_direction direc
 	colision.wall_hit.y = 0;
 	colision.distance = INT_MAX;
 	colision.is_horizontal = true;
-	printf("\n player x=%d y=%d xScaled=%d yScaled=%d",data->player->pos->x, data->player->pos->y, data->player->pos_scaled->x, data->player->pos_scaled->y );
-	colision.intercept.y = floor(data->player->pos_scaled->y / TILE_SIZE) * TILE_SIZE;
+	printf("\n player x=%d y=%d xScaled=%f yScaled=%f",data->player->pos->x, data->player->pos->y, data->player->pos_scaled_game->x, data->player->pos_scaled_game->y );
+	colision.intercept.y = floor(data->player->pos_scaled_game->y / TILE_SIZE) * TILE_SIZE;
 	if (direction.is_down)
 		colision.intercept.y += TILE_SIZE;
-	colision.intercept.x = data->player->pos_scaled->x + (colision.intercept.y
-			- data->player->pos_scaled->y) / tan(ray_angle);
+	colision.intercept.x = data->player->pos_scaled_game->x + (colision.intercept.y
+			- data->player->pos_scaled_game->y) / tan(ray_angle);
 	colision.step.y = TILE_SIZE;
 	if (direction.is_up)
-		colision.step.y *= -1;
+		colision.step.y = colision.step.y * -1;
 	colision.step.x = TILE_SIZE / tan(ray_angle);
-	if (direction.is_down && colision.step.x > 0)
-		colision.step.x *= -1;
+	if (direction.is_left && colision.step.x > 0)
+		colision.step.x = colision.step.x * -1;
 	if (direction.is_right && colision.step.x < 0)
-		colision.step.x *= -1;
+		colision.step.x = colision.step.x * -1;
 	colision.next_interception.x = colision.intercept.x;
 	colision.next_interception.y = colision.intercept.y;
 	analyze_colision(data, &colision, direction.is_up);

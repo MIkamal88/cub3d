@@ -6,7 +6,7 @@
 /*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 07:29:25 by m_kamal           #+#    #+#             */
-/*   Updated: 2024/01/14 23:00:37 by pbalbino         ###   ########.fr       */
+/*   Updated: 2024/01/15 17:49:17 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@
 # include "mapping.h"
 #include <limits.h>
 
-# define WINDOW_WIDTH	1920
-# define WINDOW_HEIGHT	1080
+# define WINDOW_WIDTH	1280
+# define WINDOW_HEIGHT	800
 # define SCENE_SIZE		2073600
-# define TILE_SIZE		32
-# define FOV			1.0472 // 60 degrees in radians (field of view)
+# define TILE_SIZE 		64
+# define FOV			1.0471975500000001 // 60 degrees in radians (field of view)
 
 
 # define TEXT_COLOR	0xFFFFFF
@@ -88,11 +88,17 @@ typedef struct s_win
 	int		height;
 }	t_win;
 
+typedef struct s_coordinate
+{
+	float			x;
+	float			y;
+}	t_coordinate;
+
 typedef struct s_player
 {
 	t_point	*pos;
 	t_point	*pos_scaled;
-	//t_point *pos_scaled_game;
+	t_coordinate *pos_scaled_game;
 	int		cardinal;
 	t_bool	set;
 	float	rotation_angle;
@@ -130,12 +136,6 @@ typedef struct s_data
 
 }	t_data;
 
-typedef struct s_coordinate
-{
-	float			x;
-	float			y;
-}	t_coordinate;
-
 typedef struct s_colision
 {
 	float 			distance;
@@ -149,10 +149,6 @@ typedef struct s_colision
 	t_coordinate	step;
 
 } t_colision;
-
-
-
-
 
 typedef struct s_wall
 {

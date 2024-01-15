@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   lines.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: m_kamal <m_kamal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 09:07:53 by m_kamal           #+#    #+#             */
-/*   Updated: 2023/12/30 09:07:53 by m_kamal          ###   ########.fr       */
+/*   Updated: 2024/01/15 10:13:48 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
+#include "cub3d.h"
 
 t_line	*start_line(t_point p0, t_point p1, int color)
 {

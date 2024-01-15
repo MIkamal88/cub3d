@@ -40,6 +40,7 @@ typedef enum type
 	PLAYER = 3,
 }	t_type;
 
+
 typedef struct s_point
 {
 	int		x;

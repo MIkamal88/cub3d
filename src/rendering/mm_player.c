@@ -6,11 +6,12 @@
 /*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 08:57:38 by m_kamal           #+#    #+#             */
-/*   Updated: 2024/01/14 20:56:44 by pbalbino         ###   ########.fr       */
+/*   Updated: 2024/01/15 22:50:54 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
 
 static void	mm_player_mark(t_img *map, t_player *p, int i)
 {
@@ -116,14 +117,22 @@ void	render_player(t_data *cub3d)
 
 void	move_player(t_data *cub3d, int key)
 {
-	if (check_valid_tile(cub3d, key) && key == KEY_D)
+	if (check_valid_tile(cub3d, key) && key == KEY_D) {
 		cub3d->player->pos->x += 1;
-	if (check_valid_tile(cub3d, key) && key == KEY_A)
+		cub3d->player->pos_scaled_game->x += TILE_SIZE;
+	}
+	if (check_valid_tile(cub3d, key) && key == KEY_A) {
 		cub3d->player->pos->x -= 1;
-	if (check_valid_tile(cub3d, key) && key == KEY_W)
+		cub3d->player->pos_scaled_game->x -= TILE_SIZE;
+	}
+	if (check_valid_tile(cub3d, key) && key == KEY_W) {
 		cub3d->player->pos->y -= 1;
-	if (check_valid_tile(cub3d, key) && key == KEY_S)
+		cub3d->player->pos_scaled_game->y -= TILE_SIZE;
+	}
+	if (check_valid_tile(cub3d, key) && key == KEY_S) {
 		cub3d->player->pos->y += 1;
+		cub3d->player->pos_scaled_game->y += TILE_SIZE;
+	}
 	if (key == KEY_LEFT || key == KEY_RIGHT)
 		rotate_player(cub3d, key);
 }

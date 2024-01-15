@@ -6,12 +6,11 @@
 /*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 15:19:19 by pbalbino          #+#    #+#             */
-/*   Updated: 2024/01/14 17:43:33 by pbalbino         ###   ########.fr       */
+/*   Updated: 2024/01/15 15:08:02 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
 
 int	pixel_get(t_img *img, int x, int y)
 {
@@ -20,8 +19,6 @@ int	pixel_get(t_img *img, int x, int y)
 	dst = img->addr + (y * img->line_length + x * (img->bpp / 8));
 	return (*(unsigned int *)dst);
 }
-
-
 
 void	initialize_wall(t_data *data, t_wall *wall, int x)
 {

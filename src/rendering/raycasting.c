@@ -38,16 +38,16 @@ static void	single_ray(t_data *cub3d, float ray_angle, int count)
 	if (vertical.distance < horizontal.distance)
 	{
 		cub3d->rays[count].distance = vertical.distance;
-		cub3d->rays[count].hit_x = horizontal.wall_hit.x;
-		cub3d->rays[count].hit_y = horizontal.wall_hit.y;
+		cub3d->rays[count].hit_x = vertical.wall_hit.x;
+		cub3d->rays[count].hit_y = vertical.wall_hit.y;
 		cub3d->rays[count].is_up = true;
 		printf("rays count=%d distance=%f hit_x=%f hit_y=%f is_up=%d\n", count, cub3d->rays[count].distance, cub3d->rays[count].hit_x, cub3d->rays[count].hit_y, 1);
 	}
 	else
 	{
 		cub3d->rays[count].distance = horizontal.distance;
-		cub3d->rays[count].hit_x = vertical.wall_hit.x;
-		cub3d->rays[count].hit_y = vertical.wall_hit.y;
+		cub3d->rays[count].hit_x = horizontal.wall_hit.x;
+		cub3d->rays[count].hit_y = horizontal.wall_hit.y;
 		cub3d->rays[count].is_up = false;
 		printf("rays count=%d distance=%f hit_x=%f hit_y=%f is_up=%d\n", count, cub3d->rays[count].distance, cub3d->rays[count].hit_x, cub3d->rays[count].hit_y, 1);
 	}

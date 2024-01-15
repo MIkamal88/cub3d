@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   coordinates.c                                      :+:      :+:    :+:   */
+/*   grid.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: m_kamal <m_kamal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/31 16:13:44 by m_kamal           #+#    #+#             */
-/*   Updated: 2023/12/31 16:13:44 by m_kamal          ###   ########.fr       */
+/*   Updated: 2024/01/15 10:13:37 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
+#include "cub3d.h"
 
 // Allocate memory for the map grid by counting the number of lines of the map
 // Then allocate memory for each line by counting the number of characters
@@ -96,6 +96,8 @@ static t_bool	set_grid_row(t_data *cub3d, char *line, int j, int len)
 			cub3d->player->pos->type = PLAYER;
 			cub3d->player->pos->x = i;
 			cub3d->player->pos->y = j;
+			cub3d->player->pos_scaled_game->x = (i * TILE_SIZE) + TILE_SIZE / 2;
+			cub3d->player->pos_scaled_game->y = (j * TILE_SIZE) + TILE_SIZE / 2;
 			cub3d->player->cardinal = (int)line[i];
 		}
 		else if (line[i] == '0')

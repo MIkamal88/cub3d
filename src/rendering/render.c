@@ -6,7 +6,7 @@
 /*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:21:41 by pbalbino          #+#    #+#             */
-/*   Updated: 2024/01/14 22:33:38 by pbalbino         ###   ########.fr       */
+/*   Updated: 2024/01/15 10:14:13 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,6 @@ void	render_color(t_data *cube)
 		cube->scene->img_ptr, 0, 0);
 	mlx_destroy_image(cube->win->mlx, cube->scene->img_ptr);
 }
-
-
-
 
 
 

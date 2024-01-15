@@ -68,6 +68,22 @@ static void	loop_mlx(t_data *cub3d)
 	mlx_loop_hook(cub3d->win->mlx, render_loop, cub3d);
 	mlx_loop(cub3d->win->mlx);
 }
+void print_map(t_data *cub3d) {
+	int i;
+	int j;
+
+	i = -1;
+	while (++i < cub3d->map->rows)
+	{
+		j = -1;
+		while (++j < cub3d->map->x_max)
+		{
+			printf("%d", cub3d->map->grid[i][j].type);
+		}
+		printf("\n");
+	}
+
+}
 
 int	main(int argc, char **argv)
 {
@@ -79,6 +95,7 @@ int	main(int argc, char **argv)
 		ft_error(NULL, MAP_ERR);
 	cub3d = init_cub3d(WINDOW_WIDTH, WINDOW_HEIGHT);
 	map_read(cub3d, argv[1]);
+	print_map(cub3d);
 	render_minimap(cub3d);
 	get_current_rotation_angle(cub3d);
 	loop_mlx(cub3d);
