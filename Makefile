@@ -30,6 +30,7 @@ SRC			= main.c\
 					utils.c\
 					errors.c\
 					destroy.c\
+					destroy_all.c\
 					keybinds.c\
 					mapping.c\
 					checker.c\
