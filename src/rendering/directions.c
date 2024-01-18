@@ -94,7 +94,7 @@ void	analyze_colision(t_data *data, t_colision *colision, bool direction)
 			colision->check_y--;
 		if (has_wall(data, colision->check_x, colision->check_y))
 		{
-			printf("\nhas_wall %f %f", colision->next_interception.x, colision->next_interception.y);
+		//	printf("\nhas_wall %f %f", colision->next_interception.x, colision->next_interception.y);
 			colision->wall_hit.x = colision->next_interception.x;
 			colision->wall_hit.y = colision->next_interception.y;
 			colision->found_wall = true;
@@ -102,14 +102,14 @@ void	analyze_colision(t_data *data, t_colision *colision, bool direction)
 		}
 		else
 		{
-			printf("\n no wall step x %f step y %f", colision->step.x, colision->step.y);
+		//	printf("\n no wall step x %f step y %f", colision->step.x, colision->step.y);
 			colision->next_interception.x += colision->step.x;
 			colision->next_interception.y += colision->step.y;
 		}
 	}
 	if (colision->found_wall) {
-		printf("\nget_hit_distance px %f py %f wall hit x %f  wall hit y %f \n",data->player->pos_scaled_game->x,
-			   data->player->pos_scaled_game->y, colision->wall_hit.x, colision->wall_hit.y);
+	//	printf("\nget_hit_distance px %f py %f wall hit x %f  wall hit y %f \n",data->player->pos_scaled_game->x,
+	//		   data->player->pos_scaled_game->y, colision->wall_hit.x, colision->wall_hit.y);
 		colision->distance = wall_hit_distance(data->player->pos_scaled_game->x,
 											   data->player->pos_scaled_game->y, colision->wall_hit.x,
 											   colision->wall_hit.y);

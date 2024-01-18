@@ -27,7 +27,7 @@ void	free_all(t_data *cub3d)
 	mlx_destroy_image(cub3d->win->mlx, cub3d->scene->img_ptr);
 	if (cub3d->scene)
 		free(cub3d->scene);
-	mlx_destroy_image(cub3d->win->mlx, cub3d->minimap->img_ptr);
+	//mlx_destroy_image(cub3d->win->mlx, cub3d->minimap->img_ptr);
 	if (cub3d->minimap)
 		free(cub3d->minimap);
 	if (cub3d->win)
