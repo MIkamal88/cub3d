@@ -73,7 +73,6 @@ static t_bool	get_height(t_data *cub3d, int fd, char *line)
 		line = get_next_line(fd);
 		j++;
 	}
-	j--;
 	cub3d->map->rows = j;
 	if (cub3d->map->rows <= 0)
 		return (FALSE);

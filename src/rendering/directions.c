@@ -66,7 +66,7 @@ bool	has_wall(t_data *data, float x, float y)
 		return (true);
 	map_grid_x = floor(x / TILE_SIZE);
 	map_grid_y = floor(y / TILE_SIZE);
-	printf("has_wall x=%d y=%d wall=%d\n",map_grid_x, map_grid_y,  data->map->grid[map_grid_y][map_grid_x].type);
+//	printf("has_wall x=%d y=%d wall=%d\n",map_grid_x, map_grid_y,  data->map->grid[map_grid_y][map_grid_x].type);
 	return (data->map->grid[map_grid_y][map_grid_x].type == WALL
 	|| data->map->grid[map_grid_y][map_grid_x].type == EMPTY
 	);
