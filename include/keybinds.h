@@ -14,6 +14,7 @@
 # define KEYBINDS_H
 
 # if __APPLE__
+#  include "../libs/mlx/mac/mlx.h"
 #  define KEY_W	13
 #  define KEY_A	0
 #  define KEY_S	1
@@ -28,6 +29,7 @@
 #  define KEY_R 15
 
 # elif __linux__
+#  include "../libs/mlx/linux/mlx.h"
 #  define KEY_W		119
 #  define KEY_A		97
 #  define KEY_S		115

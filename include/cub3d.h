@@ -15,21 +15,18 @@
 
 # include <math.h>
 # include <stdbool.h>
-# include "../libs/libft/includes/libft.h"
-# include "../libs/libft/includes/get_next_line.h"
-//# include "../libs/mlx/linux/mlx.h"
-# include "../libs/mlx/mac/mlx.h"
+# include <limits.h>
 # include "colors.h"
 # include "keybinds.h"
 # include "mapping.h"
-#include <limits.h>
+# include "../libs/libft/includes/libft.h"
+# include "../libs/libft/includes/get_next_line.h"
 
 # define WINDOW_WIDTH	1280
 # define WINDOW_HEIGHT	800
 # define SCENE_SIZE		2073600
 # define TILE_SIZE 		64
 # define FOV			1.0471975500000001 // 60 degrees in radians (field of view)
-
 
 # define TEXT_COLOR	0xFFFFFF
 # define C_WHITE	0xffffff
@@ -98,7 +95,7 @@ typedef struct s_player
 {
 	t_point	*pos;
 	t_point	*pos_scaled;
-	t_coordinate *pos_scaled_game;
+	t_coordinate	*pos_scaled_game;
 	int		cardinal;
 	t_bool	set;
 	float	rotation_angle;
@@ -138,17 +135,17 @@ typedef struct s_data
 
 typedef struct s_colision
 {
-	float 			distance;
+	float			distance;
 	bool			found_wall;
 	float			check_x;
 	float			check_y;
 	bool			is_horizontal;
 	t_coordinate	next_interception;
-	t_coordinate    intercept;
+	t_coordinate	intercept;
 	t_coordinate	wall_hit;
 	t_coordinate	step;
 
-} t_colision;
+}	t_colision;
 
 typedef struct s_wall
 {
@@ -163,7 +160,6 @@ typedef struct s_wall
 	int				distance_from_top;
 	int				orientation;
 }					t_wall;
-
 
 // Mapping and Grid Functions
 void	init_player(t_data *cub3d);
@@ -203,7 +199,7 @@ void	free_double_ptr(void **d_array);
 int		exit_window(t_data *cub3d);
 
 // Raycasting
-t_direction analize_direction(float angle);
+t_direction	analize_direction(float angle);
 void	ray_casting(t_data *cub3d);
 int		render_loop(t_data *cub3d);
 void	render_walls(t_data *cub3d);
