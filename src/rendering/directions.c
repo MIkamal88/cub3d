@@ -24,7 +24,7 @@ t_direction	analize_direction(float angle)
 		direction.is_up = true;
 	else
 		direction.is_up = false;
-	if (angle < 0.5 * M_PI || angle > 1.5* M_PI)
+	if (angle < 0.5 * M_PI || angle > 1.5 * M_PI)
 		direction.is_right = true;
 	else
 		direction.is_right = false;

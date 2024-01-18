@@ -116,19 +116,23 @@ void	render_player(t_data *cub3d)
 
 void	move_player(t_data *cub3d, int key)
 {
-	if (check_valid_tile(cub3d, key) && key == KEY_D) {
+	if (check_valid_tile(cub3d, key) && key == KEY_D)
+	{
 		cub3d->player->pos->x += 1;
 		cub3d->player->pos_scaled_game->x += TILE_SIZE;
 	}
-	if (check_valid_tile(cub3d, key) && key == KEY_A) {
+	if (check_valid_tile(cub3d, key) && key == KEY_A)
+	{
 		cub3d->player->pos->x -= 1;
 		cub3d->player->pos_scaled_game->x -= TILE_SIZE;
 	}
-	if (check_valid_tile(cub3d, key) && key == KEY_W) {
+	if (check_valid_tile(cub3d, key) && key == KEY_W)
+	{
 		cub3d->player->pos->y -= 1;
 		cub3d->player->pos_scaled_game->y -= TILE_SIZE;
 	}
-	if (check_valid_tile(cub3d, key) && key == KEY_S) {
+	if (check_valid_tile(cub3d, key) && key == KEY_S)
+	{
 		cub3d->player->pos->y += 1;
 		cub3d->player->pos_scaled_game->y += TILE_SIZE;
 	}
