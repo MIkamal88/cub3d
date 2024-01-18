@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cub3d.h"
+#include "../../include/cub3d.h"
 
 void	clear_color_buffer(t_data *data, int color)
 {

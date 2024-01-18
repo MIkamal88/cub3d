@@ -10,35 +10,32 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../../include/cub3d.h"
 
-t_direction analize_direction(float angle)
+t_direction	analize_direction(float angle)
 {
-	t_direction direction;
+	t_direction	direction;
 
 	direction.is_up = false;
 	direction.is_down = false;
 	direction.is_left = false;
 	direction.is_right = false;
-	if( angle > M_PI && angle < 2 * M_PI) {
+	if (angle > M_PI && angle < 2 * M_PI)
 		direction.is_up = true;
-	}else{
+	else
 		direction.is_up = false;
-	}
-	if(angle < 0.5 * M_PI || angle > 1.5* M_PI){
+	if (angle < 0.5 * M_PI || angle > 1.5* M_PI)
 		direction.is_right = true;
-	}else
-	{
+	else
 		direction.is_right = false;
-	}
 	direction.is_left = ! direction.is_right;
 	return (direction);
 }
 
 bool	is_wall(t_data *cube, float x, float y)
 {
-	int map_x;
-	int map_y;
+	int	map_x;
+	int	map_y;
 
 	map_x = floor(x / TILE_SIZE);
 	map_y = floor(y / TILE_SIZE);
@@ -48,7 +45,6 @@ bool	is_wall(t_data *cube, float x, float y)
 	if (cube->map->grid[map_y][map_x].type == WALL) // if we consider spaces as wall we need to add this condition here;
 		return (true);
 	return (false);
-
 }
 
 bool	map_limits(t_data *data, float x, float y)
@@ -76,7 +72,6 @@ float	wall_hit_distance(float x0, float y0, float x1, float y1)
 	result = sqrt(((x1 - x0) * (x1 - x0)) + ((y1 - y0) * (y1 - y0)));
 	return (result);
 }
-
 
 void	analyze_colision(t_data *data, t_colision *colision, bool direction)
 {
@@ -108,7 +103,6 @@ void	analyze_colision(t_data *data, t_colision *colision, bool direction)
 				data->player->pos_scaled_game->y, colision->wall_hit.x, colision->wall_hit.y);
 }
 
-
 t_colision	vertical_intercept(t_data *data,float ray_angle, t_direction direction)
 {
 	t_colision	colision;
@@ -137,8 +131,6 @@ t_colision	vertical_intercept(t_data *data,float ray_angle, t_direction directio
 	return (colision);
 }
 
-
-
 t_colision	horizontal_intercept(t_data *data, float ray_angle, t_direction direction)
 {
 	t_colision	colision;
@@ -148,7 +140,6 @@ t_colision	horizontal_intercept(t_data *data, float ray_angle, t_direction direc
 	colision.wall_hit.y = 0;
 	colision.distance = INT_MAX;
 	colision.is_horizontal = true;
-	printf("\n player x=%d y=%d xScaled=%f yScaled=%f",data->player->pos->x, data->player->pos->y, data->player->pos_scaled_game->x, data->player->pos_scaled_game->y );
 	colision.intercept.y = floor(data->player->pos_scaled_game->y / TILE_SIZE) * TILE_SIZE;
 	if (direction.is_down)
 		colision.intercept.y += TILE_SIZE;

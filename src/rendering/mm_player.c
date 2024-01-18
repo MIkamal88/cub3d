@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-
+#include "../../include/cub3d.h"
 
 static void	mm_player_mark(t_img *map, t_player *p, int i)
 {

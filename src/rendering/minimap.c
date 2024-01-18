@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../../include/cub3d.h"
 
 static void	render_line(t_data *cub3d, t_point p0, t_point p1)
 {

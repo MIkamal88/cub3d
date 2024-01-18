@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../../include/cub3d.h"
 
 static char	*validate_texture(t_data *cub3d, char *filename, char *direction);
 static char	*search_for_asset(char *line, char *direction);

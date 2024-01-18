@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../../include/cub3d.h"
 
 t_bool	validate_color(t_data *cub3d, char *line, char type);
 t_bool	set_color(t_data *cub3d, char *colors, char type);

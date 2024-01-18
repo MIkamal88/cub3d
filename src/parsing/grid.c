@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../../include/cub3d.h"
 
 // Allocate memory for the map grid by counting the number of lines of the map
 // Then allocate memory for each line by counting the number of characters
