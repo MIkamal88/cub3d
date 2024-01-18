@@ -30,9 +30,6 @@ void	init_player(t_data *cub3d)
 	cub3d->player->pos_scaled->y = -1;
 	//cub3d->player->pos_scaled_game->x = -1;
 	//cub3d->player->pos_scaled_game->y = -1;
-	cub3d->player->pos->x = -1;
-	cub3d->player->pos->y = -1;
-	cub3d->player->pos->type = -1;
 	cub3d->player->cardinal = -1;
 	cub3d->player->set = -1;
 }
@@ -76,6 +73,7 @@ static t_bool	get_height(t_data *cub3d, int fd, char *line)
 		line = get_next_line(fd);
 		j++;
 	}
+	j--;
 	cub3d->map->rows = j;
 	if (cub3d->map->rows <= 0)
 		return (FALSE);

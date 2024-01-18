@@ -94,8 +94,6 @@ static t_bool	set_grid_row(t_data *cub3d, char *line, int j, int len)
 			cub3d->map->grid[j][i].type = PLAYER;
 			cub3d->player->set = TRUE;
 			cub3d->player->pos->type = PLAYER;
-			cub3d->player->pos->x = i;
-			cub3d->player->pos->y = j;
 			cub3d->player->pos_scaled_game->x = (i * TILE_SIZE) + TILE_SIZE / 2;
 			cub3d->player->pos_scaled_game->y = (j * TILE_SIZE) + TILE_SIZE / 2;
 			cub3d->player->cardinal = (int)line[i];

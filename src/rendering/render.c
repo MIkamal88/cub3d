@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 # include "cub3d.h"
+# include <time.h>
 
 void	clear_color_buffer(t_data *data, int color)
 {
@@ -57,22 +58,55 @@ void	render_color(t_data *cube)
 	mlx_destroy_image(cube->win->mlx, cube->scene->img_ptr);
 }
 
+void	player_movement(t_data *data)
+{
+	float	move_step;
+	float	side_move_step;
+	float	side_angle;
+	float	new_player_x;
+	float	new_player_y;
 
+	new_player_x = data->player->pos_scaled_game->x;
+	new_player_y = data->player->pos_scaled_game->y;
+	move_step = (float)data->player->movement.walk_direction * 4;
+	side_move_step = (float)data->player->movement.side_direction * 4;
+	data->player->rotation_angle += (float)data->player->movement.turn_direction *
+								   (4 * (M_PI / 180));
+	//printf("\nrotation angle")
+	side_angle = data->player->rotation_angle - (M_PI / 2);
+	new_player_x += cos(data->player->rotation_angle) * move_step;
+	new_player_y += sin(data->player->rotation_angle) * move_step;
+	new_player_x += cos(side_angle) * side_move_step;
+	new_player_y += sin(side_angle) * side_move_step;
+	if (!has_wall(data, new_player_x, new_player_y))
+	{
+		data->player->pos_scaled_game->x = new_player_x;
+		data->player->pos_scaled_game->y = new_player_y;
+	}
+}
 
 int	render_loop(t_data *cub3d)
 {
 	//if (cub3d->is_running == FALSE)
 		//free_resources(cub3d);
 	//else
-	{
-		//check is move player is working
-		ray_casting(cub3d);
-		//mlx_clear_window(cub3d->win->mlx, cub3d->win->m_win);
-		render_walls(cub3d);
-		render_color(cub3d);
+	//clock_t begin = clock();
 
-	}
-	return (0);
+/* here, do your time-consuming job */
+
+		//ft_bzero(cub3d->scene->addr, WINDOW_WIDTH * WINDOW_HEIGHT * 8);
+		//check is move player is working
+		player_movement(cub3d);
+		ray_casting(cub3d);
+		mlx_clear_window(cub3d->win->mlx, cub3d->win->m_win);
+		render_walls(cub3d);
+	//render_map(cub3d);
+		render_color(cub3d);
+//	clock_t end = clock();
+	//double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
+	//printf("\ntime %f", time_spent);
+
+	return (true);
 }
 
 

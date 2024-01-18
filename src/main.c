@@ -56,29 +56,32 @@ static t_data	*init_cub3d(int w, int h)
 	cub3d->scene = new_img(w, h, cub3d->win);
 	cub3d->rays = malloc(sizeof(t_ray) * WINDOW_WIDTH);
 	cub3d->game_color_buffer = malloc((WINDOW_WIDTH * WINDOW_HEIGHT) * sizeof(int));
-	cub3d->minimap = new_img((0.2 * WINDOW_WIDTH), (0.2 * WINDOW_HEIGHT), \
-		cub3d->win);
+	cub3d->minimap = malloc(sizeof(t_minimap));
+	//cub3d->minimap = new_img((0.2 * WINDOW_WIDTH), (0.2 * WINDOW_HEIGHT), \
+	//	cub3d->win);
 	return (cub3d);
 }
 
 static void	loop_mlx(t_data *cub3d)
 {
-	mlx_hook(cub3d->win->m_win, 17, 0, exit_window, cub3d);
-	mlx_key_hook(cub3d->win->m_win, key_parse, cub3d);
 	mlx_loop_hook(cub3d->win->mlx, render_loop, cub3d);
+	//mlx_key_hook(cub3d->win->m_win, key_parse, cub3d);
+	mlx_hook(cub3d->win->m_win, 2, 1L << 0, key_pressed, cub3d);
+	mlx_hook(cub3d->win->m_win, 3, 1L << 0, key_released, cub3d);
+	mlx_hook(cub3d->win->m_win, 17, 1L << 17, exit_window, cub3d);
 	mlx_loop(cub3d->win->mlx);
 }
 void print_map(t_data *cub3d) {
 	int i;
 	int j;
-
+	//cub3d->map->rows--;
 	i = -1;
 	while (++i < cub3d->map->rows)
 	{
 		j = -1;
 		while (++j < cub3d->map->x_max)
 		{
-			printf("%d", cub3d->map->grid[i][j].type);
+			printf("[%d, %d, %d]", cub3d->map->grid[i][j].type, cub3d->map->grid[i][j].x, cub3d->map->grid[i][j].y);
 		}
 		printf("\n");
 	}
@@ -96,7 +99,8 @@ int	main(int argc, char **argv)
 	cub3d = init_cub3d(WINDOW_WIDTH, WINDOW_HEIGHT);
 	map_read(cub3d, argv[1]);
 	print_map(cub3d);
-	render_minimap(cub3d);
+	//render_minimap(cub3d);
 	get_current_rotation_angle(cub3d);
+
 	loop_mlx(cub3d);
 }

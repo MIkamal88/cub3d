@@ -74,6 +74,34 @@ void	draw_wall(t_data *data, t_wall wall, int x)
 	}
 }
 
+int	create_trgb(int r, int g, int b)
+{
+	int	colour;
+	colour = r;
+	colour = 256 * colour + g;
+	colour = 256 * colour + b;
+	return (colour);
+}
+
+void	draw_cealing(t_data *data, t_wall wall, int x)
+{
+	int	y;
+
+	y = -1;
+	while (++y < wall.top_pixel)
+		data->game_color_buffer[(WINDOW_WIDTH * y) + x] = create_trgb(data->map->ceiling[0], data->map->ceiling[1], data->map->ceiling[2]);;
+}
+
+
+
+void	draw_floor(t_data *data, t_wall wall, int x)
+{
+	int	y;
+
+	y = wall.bottom_pixel - 1;
+	while (++y < WINDOW_HEIGHT)
+		data->game_color_buffer[(WINDOW_WIDTH * y) + x] = create_trgb(data->map->floor[0], data->map->floor[1], data->map->floor[2]);
+}
 
 void	render_walls(t_data *cub3d)
 {
@@ -85,8 +113,9 @@ void	render_walls(t_data *cub3d)
 	while (ray_count < WINDOW_WIDTH)
 	{
 		initialize_wall(cub3d, &wall, ray_count);
+		draw_cealing(cub3d, wall, ray_count);
 		draw_wall(cub3d, wall, ray_count);
-
+		draw_floor(cub3d, wall, ray_count);
 		ray_count++;
 	}
 }

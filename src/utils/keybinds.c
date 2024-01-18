@@ -12,18 +12,41 @@
 
 #include "cub3d.h"
 
-int	key_parse(int key, t_data *cub3d)
+
+
+int	key_pressed(int keycode, t_data *data)
 {
-	if (key == KEY_ESC)
+	if (keycode == KEY_ESC)
 	{
-		free_all(cub3d);
+		free_all(data);
 		exit(EXIT_SUCCESS);
 	}
-	if (key == KEY_W || key == KEY_A || key == KEY_S || key == KEY_D
-		|| key == KEY_LEFT || key == KEY_RIGHT)
-		move_player(cub3d, key);
-	ft_bzero(cub3d->scene->addr, SCENE_SIZE * 8);
-	ft_bzero(cub3d->minimap->addr, (cub3d->minimap->h * cub3d->minimap->w) * 4);
-	render_minimap(cub3d);
-	return (0);
+	else if (keycode == KEY_W || keycode == KEY_UP)
+		data->player->movement.walk_direction = 1;
+	else if (keycode == KEY_S || keycode == KEY_DOWN)
+		data->player->movement.walk_direction = -1;
+	else if (keycode == KEY_A)
+		data->player->movement.side_direction = 1;
+	else if (keycode == KEY_D)
+		data->player->movement.side_direction = -1;
+	else if (keycode == KEY_RIGHT)
+		data->player->movement.turn_direction = 1;
+	else if (keycode == KEY_LEFT)
+		data->player->movement.turn_direction = -1;
+	//ft_bzero(data->scene->addr, SCENE_SIZE * 8);
+	//ft_bzero(data->minimap->addr, (data->minimap->h * data->minimap->w) * 4);
+	return (EXIT_SUCCESS);
+}
+
+int	key_released(int keycode, t_data *data)
+{
+	if (keycode == KEY_W || keycode == KEY_UP)
+		data->player->movement.walk_direction = 0;
+	else if (keycode == KEY_S || keycode == KEY_DOWN)
+		data->player->movement.walk_direction = 0;
+	else if (keycode == KEY_A || keycode == KEY_D)
+		data->player->movement.side_direction = 0;
+	else if (keycode == KEY_RIGHT || keycode == KEY_LEFT)
+		data->player->movement.turn_direction = 0;
+	return (EXIT_SUCCESS);
 }

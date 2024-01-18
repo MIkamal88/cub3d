@@ -42,7 +42,7 @@ bool	is_wall(t_data *cube, float x, float y)
 
 	map_x = floor(x / TILE_SIZE);
 	map_y = floor(y / TILE_SIZE);
-	printf("\n is_wall: map_x: %d, map_y: %d x_max: %d rows: %d", map_x, map_y, cube->map->x_max, cube->map->rows);
+	//printf("\n is_wall: map_x: %d, map_y: %d x_max: %d rows: %d", map_x, map_y, cube->map->x_max, cube->map->rows);
 	if (map_x < 0 || map_x >= cube->map->x_max || map_y < 0 || map_y >= cube->map->rows)
 		return (true);
 	if (cube->map->grid[map_y][map_x].type == WALL) // if we consider spaces as wall we need to add this condition here;
@@ -66,7 +66,10 @@ bool	has_wall(t_data *data, float x, float y)
 		return (true);
 	map_grid_x = floor(x / TILE_SIZE);
 	map_grid_y = floor(y / TILE_SIZE);
-	return (data->map->grid[map_grid_y][map_grid_x].type == WALL);
+	printf("has_wall x=%d y=%d wall=%d\n",map_grid_x, map_grid_y,  data->map->grid[map_grid_y][map_grid_x].type);
+	return (data->map->grid[map_grid_y][map_grid_x].type == WALL
+	|| data->map->grid[map_grid_y][map_grid_x].type == EMPTY
+	);
 }
 
 float	wall_hit_distance(float x0, float y0, float x1, float y1)
@@ -91,7 +94,7 @@ void	analyze_colision(t_data *data, t_colision *colision, bool direction)
 			colision->check_y--;
 		if (has_wall(data, colision->check_x, colision->check_y))
 		{
-			printf("\nhas_wall %f %f", colision->check_x, colision->check_y);
+			printf("\nhas_wall %f %f", colision->next_interception.x, colision->next_interception.y);
 			colision->wall_hit.x = colision->next_interception.x;
 			colision->wall_hit.y = colision->next_interception.y;
 			colision->found_wall = true;
@@ -99,13 +102,18 @@ void	analyze_colision(t_data *data, t_colision *colision, bool direction)
 		}
 		else
 		{
+			printf("\n no wall step x %f step y %f", colision->step.x, colision->step.y);
 			colision->next_interception.x += colision->step.x;
 			colision->next_interception.y += colision->step.y;
 		}
 	}
-	if (colision->found_wall)
+	if (colision->found_wall) {
+		printf("\nget_hit_distance px %f py %f wall hit x %f  wall hit y %f \n",data->player->pos_scaled_game->x,
+			   data->player->pos_scaled_game->y, colision->wall_hit.x, colision->wall_hit.y);
 		colision->distance = wall_hit_distance(data->player->pos_scaled_game->x,
-				data->player->pos_scaled_game->y, colision->wall_hit.x, colision->wall_hit.y);
+											   data->player->pos_scaled_game->y, colision->wall_hit.x,
+											   colision->wall_hit.y);
+	}
 }
 
 
@@ -148,7 +156,7 @@ t_colision	horizontal_intercept(t_data *data, float ray_angle, t_direction direc
 	colision.wall_hit.y = 0;
 	colision.distance = INT_MAX;
 	colision.is_horizontal = true;
-	printf("\n player x=%d y=%d xScaled=%f yScaled=%f",data->player->pos->x, data->player->pos->y, data->player->pos_scaled_game->x, data->player->pos_scaled_game->y );
+	printf("\n player hor xScaled=%f yScaled=%f",data->player->pos_scaled_game->x, data->player->pos_scaled_game->y );
 	colision.intercept.y = floor(data->player->pos_scaled_game->y / TILE_SIZE) * TILE_SIZE;
 	if (direction.is_down)
 		colision.intercept.y += TILE_SIZE;
@@ -176,7 +184,7 @@ float	horizontal_interceptOld(t_data *cube, float angle, t_direction direction)
 	t_coordinate	next;
 
 	horizontal.found_wall = false;
-
+	printf("\n player vert xScaled=%f yScaled=%f",cube->player->pos_scaled_game->x, cube->player->pos_scaled_game->y );
 	intercept.y = floor(cube->player->pos_scaled->y / TILE_SIZE) * TILE_SIZE;
 	if (direction.is_down)
 		intercept.y = intercept.y + TILE_SIZE;

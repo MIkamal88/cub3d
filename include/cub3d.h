@@ -26,10 +26,13 @@
 
 # define WINDOW_WIDTH	1280
 # define WINDOW_HEIGHT	800
-# define SCENE_SIZE		2073600
+# define SCENE_SIZE		WINDOW_WIDTH * WINDOW_HEIGHT
 # define TILE_SIZE 		64
 # define FOV			1.0471975500000001 // 60 degrees in radians (field of view)
 
+# define MINIMAP_WHITE 0xFFFFFF
+# define MINIMAP_RED 0xFF0000
+# define MINIMAP_BLACK 0x000000
 
 # define TEXT_COLOR	0xFFFFFF
 # define C_WHITE	0xffffff
@@ -56,15 +59,30 @@ enum e_errs
 	IMG_ERR,
 };
 
+typedef struct s_rect
+{
+	int				x;
+	int				y;
+	int				width;
+	int				height;
+	int				color;
+}					t_rect;
+
 typedef struct s_line
 {
-	t_point	start;
-	t_point	end;
-	float	dx;
-	float	dy;
-	float	decision;
-	int		color;
-}	t_line;
+	int				x0;
+	int				y0;
+	int				x1;
+	int				y1;
+	int				delta_x;
+	int				delta_y;
+	int				side_step;
+	float			current_x;
+	float			current_y;
+	float			inc_x;
+	float			inc_y;
+	int				color;
+}					t_line;
 
 typedef struct s_img
 {
@@ -94,6 +112,13 @@ typedef struct s_coordinate
 	float			y;
 }	t_coordinate;
 
+typedef struct s_movement
+{
+	int				walk_direction;
+	int				side_direction;
+	int				turn_direction;
+}	t_movement;
+
 typedef struct s_player
 {
 	t_point	*pos;
@@ -101,6 +126,7 @@ typedef struct s_player
 	t_coordinate *pos_scaled_game;
 	int		cardinal;
 	t_bool	set;
+	t_movement movement;
 	float	rotation_angle;
 }	t_player;
 
@@ -122,12 +148,16 @@ typedef struct s_ray
 	bool		is_up;
 }	t_ray;
 
+typedef struct s_minimap {
+	float			scale;
+} t_minimap;
+
 typedef struct s_data
 {
 	t_map		*map;
 	t_img		*scene;
-
-	t_img		*minimap;
+	t_minimap   *minimap;
+	//t_img		*minimap;
 	t_win		*win;
 	t_player	*player;
 	int			is_running;
@@ -210,5 +240,10 @@ void	render_walls(t_data *cub3d);
 t_colision	horizontal_intercept(t_data *cube, float angle, t_direction direction);
 t_colision	vertical_intercept(t_data *data, float ray_angle, t_direction direction);
 void	get_current_rotation_angle(t_data *cub3d);
+
+int	key_pressed(int keycode, t_data *data);
+int	key_released(int keycode, t_data *data);
+bool	has_wall(t_data *data, float x, float y);
+void	render_map(t_data *data);
 
 #endif
