@@ -6,12 +6,12 @@
 /*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:21:41 by pbalbino          #+#    #+#             */
-/*   Updated: 2024/01/15 10:14:13 by pbalbino         ###   ########.fr       */
+/*   Updated: 2024/01/20 22:00:28 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "cub3d.h"
-# include <time.h>
+#include "cub3d.h"
+#include <time.h>
 
 void	clear_color_buffer(t_data *data, int color)
 {
@@ -70,9 +70,8 @@ void	player_movement(t_data *data)
 	new_player_y = data->player->pos_scaled_game->y;
 	move_step = (float)data->player->movement.walk_direction * 4;
 	side_move_step = (float)data->player->movement.side_direction * 4;
-	data->player->rotation_angle += (float)data->player->movement.turn_direction *
-								   (4 * (M_PI / 180));
-	//printf("\nrotation angle")
+	data->player->rotation_angle += (float)data->player->movement.turn_direction
+		* (4 * (M_PI / 180));
 	side_angle = data->player->rotation_angle - (M_PI / 2);
 	new_player_x += cos(data->player->rotation_angle) * move_step;
 	new_player_y += sin(data->player->rotation_angle) * move_step;
@@ -105,13 +104,5 @@ int	render_loop(t_data *cub3d)
 //	clock_t end = clock();
 	//double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
 	//printf("\ntime %f", time_spent);
-
 	return (true);
 }
-
-
-
-
-
-
-

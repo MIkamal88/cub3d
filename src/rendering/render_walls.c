@@ -6,19 +6,11 @@
 /*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 15:19:19 by pbalbino          #+#    #+#             */
-/*   Updated: 2024/01/15 15:08:02 by pbalbino         ###   ########.fr       */
+/*   Updated: 2024/01/20 21:55:33 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
-
-int	pixel_get(t_img *img, int x, int y)
-{
-	char	*dst;
-
-	dst = img->addr + (y * img->line_length + x * (img->bpp / 8));
-	return (*(unsigned int *)dst);
-}
+#include "cub3d.h"
 
 void	initialize_wall(t_data *data, t_wall *wall, int x)
 {
@@ -44,15 +36,16 @@ void	draw_wall(t_data *data, t_wall wall, int x)
 {
 	int	y;
 
+	wall.orientation = 0; //TODO REMOVE!!!!!! WALL COLORS NOT WORKING, IF REMOVE CRASH
 	y = wall.top_pixel - 1;
 	while (++y < wall.bottom_pixel)
 	{
-		wall.distance_from_top = y +
-			(wall.projected_wall_height / 2) - (WINDOW_HEIGHT / 2);
+		wall.distance_from_top = y
+			+ (wall.projected_wall_height / 2) - (WINDOW_HEIGHT / 2);
 		wall.y_texture_offset = wall.distance_from_top * ((float)TILE_SIZE
 				/ wall.projected_wall_height);
 		if (data->rays[x].is_up == false
-			&& data->rays[x].direction.is_down)
+			&& data->rays[x].direction.is_up)
 			wall.orientation = 1;
 		else if (data->rays[x].is_up == false
 			&& data->rays[x].direction.is_down)
@@ -63,50 +56,46 @@ void	draw_wall(t_data *data, t_wall wall, int x)
 		else if (data->rays[x].is_up
 			&& data->rays[x].direction.is_right)
 			wall.orientation = 2;
-		wall.texel_color = 200;
-		//pixel_get(data->map->textures[wall.orientation].,
-		//		wall.x_texture_offset, wall.y_texture_offset);
-
+		wall.texel_color = get_texture_color(data->map->textures[wall.orientation]->texture_img,
+				wall.x_texture_offset, wall.y_texture_offset);
+		pixel_get(data->map->textures[wall.orientation]->texture_img,
+			wall.x_texture_offset, wall.y_texture_offset);
 		data->game_color_buffer[(WINDOW_WIDTH * y) + x] = wall.texel_color;
-
-
-		//draw_pixel(data, x, y, wall.texel_color);
 	}
-}
-
-int	create_trgb(int r, int g, int b)
-{
-	int	colour;
-	colour = r;
-	colour = 256 * colour + g;
-	colour = 256 * colour + b;
-	return (colour);
 }
 
 void	draw_cealing(t_data *data, t_wall wall, int x)
 {
 	int	y;
 
-	y = -1;
-	while (++y < wall.top_pixel)
-		data->game_color_buffer[(WINDOW_WIDTH * y) + x] = create_trgb(data->map->ceiling[0], data->map->ceiling[1], data->map->ceiling[2]);;
+	y = 0;
+	while (y < wall.top_pixel)
+	{
+		data->game_color_buffer[(WINDOW_WIDTH * y) + x]
+			= create_trgb(data->map->ceiling[0], data->map->ceiling[1],
+				data->map->ceiling[2]);
+		y++;
+	}
 }
-
-
 
 void	draw_floor(t_data *data, t_wall wall, int x)
 {
 	int	y;
 
-	y = wall.bottom_pixel - 1;
-	while (++y < WINDOW_HEIGHT)
-		data->game_color_buffer[(WINDOW_WIDTH * y) + x] = create_trgb(data->map->floor[0], data->map->floor[1], data->map->floor[2]);
+	y = wall.bottom_pixel;
+	while (y < WINDOW_HEIGHT)
+	{
+		data->game_color_buffer[(WINDOW_WIDTH * y) + x]
+			= create_trgb(data->map->floor[0], data->map->floor[1],
+				data->map->floor[2]);
+		y++;
+	}
+
 }
 
 void	render_walls(t_data *cub3d)
 {
-	int ray_count;
-	//int color;
+	int		ray_count;
 	t_wall	wall;
 
 	ray_count = 0;

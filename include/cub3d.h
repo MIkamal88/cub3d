@@ -6,7 +6,7 @@
 /*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 07:29:25 by m_kamal           #+#    #+#             */
-/*   Updated: 2024/01/15 17:49:17 by pbalbino         ###   ########.fr       */
+/*   Updated: 2024/01/20 21:57:19 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include "../libs/mlx/mac/mlx.h"
 # include "colors.h"
 # include "keybinds.h"
-# include "mapping.h"
+//# include "mapping.h"
 #include <limits.h>
 
 # define WINDOW_WIDTH	1280
@@ -50,23 +50,45 @@
 # define C_ORANGY	0xffa500
 # define C_BLUEY	0x0492c2
 
-enum e_errs
+typedef enum e_bool
 {
-	EXIT,
-	ARGS_ERR,
-	MALLOC_ERR,
-	MAP_ERR,
-	IMG_ERR,
-};
+	FALSE,
+	TRUE,
+}	t_bool;
 
-typedef struct s_rect
+typedef enum e_cardinal
 {
-	int				x;
-	int				y;
-	int				width;
-	int				height;
-	int				color;
-}					t_rect;
+	NORTH,
+	SOUTH,
+	EAST,
+	WEST,
+}	t_cardinal;
+
+typedef enum RGB
+{
+	R = 0,
+	G,
+	B,
+	TOTAL,
+}	t_rgb;
+
+typedef enum type
+{
+	EMPTY = 0,
+	WALL = 1,
+	HALL = 2,
+	PLAYER = 3,
+}	t_type;
+
+
+typedef struct s_point
+{
+	int		x;
+	int		y;
+	int		type;
+	int		local_x_max;
+	t_bool	visited;
+}	t_point;
 
 typedef struct s_line
 {
@@ -97,6 +119,45 @@ typedef struct s_img
 	int		line_color;
 	t_point	scale;
 }	t_img;
+
+typedef struct s_texture
+{
+	char	*path;
+	int		cardinal;
+	t_img	*texture_img;
+}	t_texture;
+
+typedef struct s_map
+{
+	int			rows;
+	int			x_max;
+	int			floor[TOTAL];
+	int			ceiling[TOTAL];
+	t_texture	**textures;
+	t_point		**grid;
+}	t_map;
+
+enum e_errs
+{
+	EXIT,
+	ARGS_ERR,
+	MALLOC_ERR,
+	MAP_ERR,
+	IMG_ERR,
+};
+
+typedef struct s_rect
+{
+	int				x;
+	int				y;
+	int				width;
+	int				height;
+	int				color;
+}					t_rect;
+
+
+
+
 
 typedef struct s_win
 {
@@ -156,7 +217,7 @@ typedef struct s_data
 {
 	t_map		*map;
 	t_img		*scene;
-	t_minimap   *minimap;
+	t_minimap	*minimap;
 	//t_img		*minimap;
 	t_win		*win;
 	t_player	*player;
@@ -206,6 +267,9 @@ t_bool	is_closed(t_data *cub3d, int x, int y);
 
 // Drawing
 void	pixel_put(t_img *img, int x, int y, int color);
+int	create_trgb(int r, int g, int b);
+int	get_texture_color(t_img *texture, int x, int y);
+int	pixel_get(t_img *img, int x, int y);
 void	render_player(t_data *cub3d);
 t_line	*start_line(t_point p0, t_point p1, int color);
 void	draw_line(t_img *img, t_line *line);
@@ -240,10 +304,14 @@ void	render_walls(t_data *cub3d);
 t_colision	horizontal_intercept(t_data *cube, float angle, t_direction direction);
 t_colision	vertical_intercept(t_data *data, float ray_angle, t_direction direction);
 void	get_current_rotation_angle(t_data *cub3d);
-
 int	key_pressed(int keycode, t_data *data);
 int	key_released(int keycode, t_data *data);
 bool	has_wall(t_data *data, float x, float y);
 void	render_map(t_data *data);
+void	analyze_colision(t_data *data, t_colision *colision, bool direction);
+
+
+// Textures
+bool	load_texture(t_data *cube, int cardinal);
 
 #endif

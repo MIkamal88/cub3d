@@ -6,12 +6,11 @@
 /*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 17:44:51 by m_kamal           #+#    #+#             */
-/*   Updated: 2024/01/15 10:13:53 by pbalbino         ###   ########.fr       */
+/*   Updated: 2024/01/20 21:37:28 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
-
+#include "cub3d.h"
 
 void	draw_rect(t_data *data, t_rect rect)
 {
@@ -23,10 +22,9 @@ void	draw_rect(t_data *data, t_rect rect)
 	{
 		j = rect.y - 1;
 		while (++j < rect.y + rect.height)
-			data->game_color_buffer[(WINDOW_WIDTH * i) + j] =  rect.color;
+			data->game_color_buffer[(WINDOW_WIDTH * i) + j] = rect.color;
 	}
 }
-
 
 void	render_map(t_data *data)
 {
@@ -52,6 +50,3 @@ void	render_map(t_data *data)
 		}
 	}
 }
-
-
-

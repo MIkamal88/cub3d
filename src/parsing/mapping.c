@@ -6,7 +6,7 @@
 /*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 08:49:26 by m_kamal           #+#    #+#             */
-/*   Updated: 2024/01/15 10:13:42 by pbalbino         ###   ########.fr       */
+/*   Updated: 2024/01/20 21:14:36 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,18 +110,21 @@ void	map_read(t_data *cub3d, char *filename)
 	init_map(cub3d);
 	init_player(cub3d);
 	while (++i < 4)
+	{
 		if (!read_textures(cub3d, filename, i))
 			ft_error(cub3d, MAP_ERR);
-	if (!set_floor_ceiling(cub3d, filename))
-		ft_error(cub3d, MAP_ERR);
-	fetch_grid(cub3d, filename);
-	if (cub3d->map->rows < 3)
-		ft_error(cub3d, MAP_ERR);
-	if (!load_grid(cub3d, filename))
-		ft_error(cub3d, MAP_ERR);
-	if (!is_closed(cub3d, cub3d->player->pos->x, cub3d->player->pos->y))
-		ft_error(cub3d, MAP_ERR);
-	if (!check_assets(cub3d))
-		ft_error(cub3d, MAP_ERR);
-
+		else if (load_texture (cub3d, i) == false)
+			ft_error(cub3d, MAP_ERR);
+		if (!set_floor_ceiling(cub3d, filename))
+			ft_error(cub3d, MAP_ERR);
+		fetch_grid(cub3d, filename);
+		if (cub3d->map->rows < 3)
+			ft_error(cub3d, MAP_ERR);
+		if (!load_grid(cub3d, filename))
+			ft_error(cub3d, MAP_ERR);
+		if (!is_closed(cub3d, cub3d->player->pos->x, cub3d->player->pos->y))
+			ft_error(cub3d, MAP_ERR);
+		if (!check_assets(cub3d))
+			ft_error(cub3d, MAP_ERR);
+	}
 }

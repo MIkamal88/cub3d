@@ -6,13 +6,11 @@
 /*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 08:32:35 by m_kamal           #+#    #+#             */
-/*   Updated: 2024/01/14 21:32:54 by pbalbino         ###   ########.fr       */
+/*   Updated: 2024/01/20 22:01:47 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
-
-
 
 int	key_pressed(int keycode, t_data *data)
 {

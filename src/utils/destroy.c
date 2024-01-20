@@ -6,7 +6,7 @@
 /*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 08:26:12 by m_kamal           #+#    #+#             */
-/*   Updated: 2024/01/14 11:17:10 by pbalbino         ###   ########.fr       */
+/*   Updated: 2024/01/20 15:20:57 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ void	free_map(t_map *map)
 	free(map->grid);
 	free(map);
 }
-
-
 
 int	exit_window(t_data *cub3d)
 {

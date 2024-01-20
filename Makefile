@@ -37,20 +37,22 @@ SRC			= main.c\
 					ceiling_floor.c\
 					grid.c\
 					pixels.c\
-					lines.c\
 					mm_player.c\
 					minimap.c\
 					text.c\
 					raycasting.c\
 					directions.c \
+					interception.c \
 					render_walls.c \
 					render.c \
+					load_texture.c \
 
 
 VPATH		= $(SRC_PATH)\
 					$(SRC_PATH)utils/\
 					$(SRC_PATH)rendering/\
 					$(SRC_PATH)parsing/\
+					$(SRC_PATH)textures/\
 
 OBJ			= $(addprefix $(OBJ_PATH), $(notdir $(SRC:.c=.o)))
 
