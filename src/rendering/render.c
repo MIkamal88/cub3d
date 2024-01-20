@@ -66,8 +66,8 @@ void	player_movement(t_data *data)
 	float	new_player_x;
 	float	new_player_y;
 
-	new_player_x = data->player->pos_scaled_game->x;
-	new_player_y = data->player->pos_scaled_game->y;
+	new_player_x = data->player->pos_game->x;
+	new_player_y = data->player->pos_game->y;
 	move_step = (float)data->player->movement.walk_direction * 4;
 	side_move_step = (float)data->player->movement.side_direction * 4;
 	data->player->rotation_angle += (float)data->player->movement.turn_direction
@@ -79,8 +79,8 @@ void	player_movement(t_data *data)
 	new_player_y += sin(side_angle) * side_move_step;
 	if (!has_wall(data, new_player_x, new_player_y))
 	{
-		data->player->pos_scaled_game->x = new_player_x;
-		data->player->pos_scaled_game->y = new_player_y;
+		data->player->pos_game->x = new_player_x;
+		data->player->pos_game->y = new_player_y;
 	}
 }
 

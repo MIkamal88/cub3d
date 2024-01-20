@@ -38,7 +38,7 @@ static t_img	*new_img(int w, int h, t_win *window)
 			&(image->line_length), &(image->endian));
 	image->w = w;
 	image->h = h;
-	image->line = NULL;
+
 	return (image);
 }
 

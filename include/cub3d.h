@@ -35,20 +35,6 @@
 # define MINIMAP_BLACK 0x000000
 
 # define TEXT_COLOR	0xFFFFFF
-# define C_WHITE	0xffffff
-# define C_GREY		0x303030
-# define C_BLACK	0x000000
-
-# define C_RED		0xff0000
-# define C_GREEN	0x00ff00
-# define C_BLUE		0x0000ff
-
-# define C_YELLOW	0xffff00
-# define C_CYAN		0x00ffff
-# define C_PINK		0xff00ff
-
-# define C_ORANGY	0xffa500
-# define C_BLUEY	0x0492c2
 
 typedef enum e_bool
 {
@@ -80,7 +66,6 @@ typedef enum type
 	PLAYER = 3,
 }	t_type;
 
-
 typedef struct s_point
 {
 	int		x;
@@ -90,25 +75,8 @@ typedef struct s_point
 	t_bool	visited;
 }	t_point;
 
-typedef struct s_line
-{
-	int				x0;
-	int				y0;
-	int				x1;
-	int				y1;
-	int				delta_x;
-	int				delta_y;
-	int				side_step;
-	float			current_x;
-	float			current_y;
-	float			inc_x;
-	float			inc_y;
-	int				color;
-}					t_line;
-
 typedef struct s_img
 {
-	t_line	*line;
 	void	*img_ptr;
 	char	*addr;
 	int		w;
@@ -116,8 +84,6 @@ typedef struct s_img
 	int		bpp;
 	int		endian;
 	int		line_length;
-	int		line_color;
-	t_point	scale;
 }	t_img;
 
 typedef struct s_texture
@@ -155,10 +121,6 @@ typedef struct s_rect
 	int				color;
 }					t_rect;
 
-
-
-
-
 typedef struct s_win
 {
 	void	*mlx;
@@ -184,7 +146,7 @@ typedef struct s_player
 {
 	t_point	*pos;
 	t_point	*pos_scaled;
-	t_coordinate *pos_scaled_game;
+	t_coordinate *pos_game;
 	int		cardinal;
 	t_bool	set;
 	t_movement movement;
@@ -209,7 +171,8 @@ typedef struct s_ray
 	bool		is_up;
 }	t_ray;
 
-typedef struct s_minimap {
+typedef struct s_minimap
+{
 	float			scale;
 } t_minimap;
 
@@ -235,7 +198,7 @@ typedef struct s_colision
 	float			check_y;
 	bool			is_horizontal;
 	t_coordinate	next_interception;
-	t_coordinate    intercept;
+	t_coordinate    intcpt;
 	t_coordinate	wall_hit;
 	t_coordinate	step;
 
@@ -270,23 +233,12 @@ void	pixel_put(t_img *img, int x, int y, int color);
 int	create_trgb(int r, int g, int b);
 int	get_texture_color(t_img *texture, int x, int y);
 int	pixel_get(t_img *img, int x, int y);
-void	render_player(t_data *cub3d);
-t_line	*start_line(t_point p0, t_point p1, int color);
-void	draw_line(t_img *img, t_line *line);
-void	scale_line(t_img *img, t_map *map, t_line *line);
-void	render_minimap(t_data *cub3d);
-void	mm_single_wall(t_data *cub3d, int *x, int *y);
-void	print_text(t_data *cub3d);
 
-// Key Parsing Functions
-int		key_parse(int key, t_data *cub3d);
-void	move_player(t_data *cub3d, int key);
 
 // Utils Functions
 t_bool	map_start(char *line);
 t_bool	valid_extension(char *file, char *ext);
-void	swap_points(t_point *p0, t_point *p1);
-int		ft_abs(int n);
+
 
 // Destroy and Error handling Functions
 void	ft_error(void *pointer, int code);
@@ -307,7 +259,6 @@ void	get_current_rotation_angle(t_data *cub3d);
 int	key_pressed(int keycode, t_data *data);
 int	key_released(int keycode, t_data *data);
 bool	has_wall(t_data *data, float x, float y);
-void	render_map(t_data *data);
 void	analyze_colision(t_data *data, t_colision *colision, bool direction);
 
 

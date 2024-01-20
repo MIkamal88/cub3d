@@ -23,13 +23,13 @@ void	init_player(t_data *cub3d)
 	cub3d->player->pos_scaled = malloc(sizeof(t_point));
 	if (!cub3d->player->pos_scaled)
 		ft_error(cub3d, MALLOC_ERR);
-	cub3d->player->pos_scaled_game = malloc(sizeof(t_coordinate));
-	if (!cub3d->player->pos_scaled_game)
+	cub3d->player->pos_game = malloc(sizeof(t_coordinate));
+	if (!cub3d->player->pos_game)
 		ft_error(cub3d, MALLOC_ERR);
 	cub3d->player->pos_scaled->x = -1;
 	cub3d->player->pos_scaled->y = -1;
-	//cub3d->player->pos_scaled_game->x = -1;
-	//cub3d->player->pos_scaled_game->y = -1;
+	//cub3d->player->pos_game->x = -1;
+	//cub3d->player->pos_game->y = -1;
 	cub3d->player->cardinal = -1;
 	cub3d->player->set = -1;
 }
@@ -110,7 +110,6 @@ void	map_read(t_data *cub3d, char *filename)
 	init_map(cub3d);
 	init_player(cub3d);
 	while (++i < 4)
-	{
 		if (!read_textures(cub3d, filename, i))
 			ft_error(cub3d, MAP_ERR);
 		else if (load_texture (cub3d, i) == false)
@@ -126,5 +125,4 @@ void	map_read(t_data *cub3d, char *filename)
 			ft_error(cub3d, MAP_ERR);
 		if (!check_assets(cub3d))
 			ft_error(cub3d, MAP_ERR);
-	}
 }

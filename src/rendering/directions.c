@@ -104,14 +104,14 @@ void	analyze_colision(t_data *data, t_colision *colision, bool direction)
 	}
 	if (colision->found_wall)
 	{
-		colision->distance = wall_hit_distance(data->player->pos_scaled_game->x,
-				data->player->pos_scaled_game->y, colision->wall_hit.x,
-				colision->wall_hit.y);
+		colision->distance = wall_hit_distance(data->player->pos_game->x,
+											   data->player->pos_game->y, colision->wall_hit.x,
+											   colision->wall_hit.y);
 	}
 }
 
 /*
 	printf("\nhas_wall %f %f", colision->next_interception.x, colision->next_interception.y);
-	printf("\nget_hit_distance px %f py %f wall hit x %f  wall hit y %f \n",data->player->pos_scaled_game->x,
-		   data->player->pos_scaled_game->y, colision->wall_hit.x, colision->wall_hit.y);
+	printf("\nget_hit_distance px %f py %f wall hit x %f  wall hit y %f \n",data->player->pos_game->x,
+		   data->player->pos_game->y, colision->wall_hit.x, colision->wall_hit.y);
 */
