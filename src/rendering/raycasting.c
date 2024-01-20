@@ -26,6 +26,7 @@ static void	single_ray(t_data *cub3d, float ray_angle, int count)
 	t_colision	vertical;
 	t_direction	direction;
 
+	ray_angle = normalize_angle(ray_angle);
 	//printf("\n[single_ray] ray angle %f player x %f player y %f", ray_angle, cub3d->player->pos_scaled_game->x, cub3d->player->pos_scaled_game->y );
 	//cub3d->player->pos_scaled_game->x = cub3d->player->pos_scaled->x * 5;
 	//cub3d->player->pos_scaled_game->y = cub3d->player->pos_scaled->y * 5;
@@ -65,7 +66,7 @@ void	ray_casting(t_data *cub3d)
 	//printf("\n############################################");
 	while (count < WINDOW_WIDTH)
 	{
-		ray_angle = normalize_angle(ray_angle);
+
 		single_ray(cub3d, ray_angle, count);
 		ray_angle = ray_angle + FOV / WINDOW_WIDTH;
 		count++;

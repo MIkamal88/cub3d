@@ -32,6 +32,7 @@ t_direction analize_direction(float angle)
 		direction.is_right = false;
 	}
 	direction.is_left = ! direction.is_right;
+	direction.is_down = ! direction.is_up;
 	return (direction);
 }
 
