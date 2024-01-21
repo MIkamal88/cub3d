@@ -41,6 +41,7 @@ SRC			= main.c\
 					minimap.c\
 					text.c\
 					raycasting.c\
+					check_wall.c \
 					directions.c \
 					interception.c \
 					render_walls.c \

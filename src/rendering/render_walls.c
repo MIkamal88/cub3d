@@ -6,7 +6,7 @@
 /*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 15:19:19 by pbalbino          #+#    #+#             */
-/*   Updated: 2024/01/20 21:55:33 by pbalbino         ###   ########.fr       */
+/*   Updated: 2024/01/21 12:14:45 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ void	draw_floor(t_data *data, t_wall wall, int x)
 				data->map->floor[2]);
 		y++;
 	}
-
 }
 
 void	render_walls(t_data *cub3d)

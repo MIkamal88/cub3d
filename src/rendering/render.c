@@ -6,12 +6,11 @@
 /*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:21:41 by pbalbino          #+#    #+#             */
-/*   Updated: 2024/01/20 22:00:28 by pbalbino         ###   ########.fr       */
+/*   Updated: 2024/01/21 12:01:14 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <time.h>
 
 void	clear_color_buffer(t_data *data, int color)
 {
@@ -27,8 +26,8 @@ void	clear_color_buffer(t_data *data, int color)
 
 void	init_buffer_image(t_data *cube)
 {
-	cube->scene->img_ptr = mlx_new_image(cube->win->mlx, WINDOW_WIDTH,
-			WINDOW_HEIGHT);
+	cube->scene->img_ptr = mlx_new_image(cube->win->mlx,
+			WINDOW_WIDTH, WINDOW_HEIGHT);
 	cube->scene->addr = mlx_get_data_addr(cube->scene->img_ptr,
 			&cube->scene->bpp, &cube->scene->line_length,
 			&cube->scene->endian);
@@ -60,49 +59,37 @@ void	render_color(t_data *cube)
 
 void	player_movement(t_data *data)
 {
-	float	move_step;
-	float	side_move_step;
-	float	side_angle;
-	float	new_player_x;
-	float	new_player_y;
+	float	delta;
+	float	delta_move;
+	float	angle;
+	float	updated_pos_player_x;
+	float	updated_pos_player_y;
 
-	new_player_x = data->player->pos_game->x;
-	new_player_y = data->player->pos_game->y;
-	move_step = (float)data->player->movement.walk_direction * 4;
-	side_move_step = (float)data->player->movement.side_direction * 4;
+	updated_pos_player_x = data->player->pos_game->x;
+	updated_pos_player_y = data->player->pos_game->y;
+	delta = (float)data->player->movement.walk_direction * 4;
+	delta_move = (float)data->player->movement.side_direction * 4;
 	data->player->rotation_angle += (float)data->player->movement.turn_direction
 		* (4 * (M_PI / 180));
-	side_angle = data->player->rotation_angle - (M_PI / 2);
-	new_player_x += cos(data->player->rotation_angle) * move_step;
-	new_player_y += sin(data->player->rotation_angle) * move_step;
-	new_player_x += cos(side_angle) * side_move_step;
-	new_player_y += sin(side_angle) * side_move_step;
-	if (!has_wall(data, new_player_x, new_player_y))
+	angle = data->player->rotation_angle - (M_PI / 2);
+	updated_pos_player_x += cos(data->player->rotation_angle) * delta;
+	updated_pos_player_y += sin(data->player->rotation_angle) * delta;
+	updated_pos_player_x += cos(angle) * delta_move;
+	updated_pos_player_y += sin(angle) * delta_move;
+	if (has_wall(data, updated_pos_player_x, updated_pos_player_y) == false)
 	{
-		data->player->pos_game->x = new_player_x;
-		data->player->pos_game->y = new_player_y;
+		data->player->pos_game->x = updated_pos_player_x;
+		data->player->pos_game->y = updated_pos_player_y;
 	}
 }
 
 int	render_loop(t_data *cub3d)
 {
-	//if (cub3d->is_running == FALSE)
-		//free_resources(cub3d);
-	//else
-	//clock_t begin = clock();
-
-/* here, do your time-consuming job */
-
-		//ft_bzero(cub3d->scene->addr, WINDOW_WIDTH * WINDOW_HEIGHT * 8);
-		//check is move player is working
-		player_movement(cub3d);
-		ray_casting(cub3d);
-		mlx_clear_window(cub3d->win->mlx, cub3d->win->m_win);
-		render_walls(cub3d);
+	player_movement(cub3d);
+	ray_casting(cub3d);
+	mlx_clear_window(cub3d->win->mlx, cub3d->win->m_win);
+	render_walls(cub3d);
 	//render_map(cub3d);
-		render_color(cub3d);
-//	clock_t end = clock();
-	//double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-	//printf("\ntime %f", time_spent);
+	render_color(cub3d);
 	return (true);
 }

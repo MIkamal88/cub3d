@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   destroy_all.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: m_kamal <m_kamal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/18 07:17:05 by m_kamal           #+#    #+#             */
-/*   Updated: 2024/01/18 07:17:05 by m_kamal          ###   ########.fr       */
+/*   Updated: 2024/01/21 12:05:42 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
+#include "cub3d.h"
 
 #if __APPLE__
 

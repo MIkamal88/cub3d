@@ -6,7 +6,7 @@
 /*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:49:52 by pbalbino          #+#    #+#             */
-/*   Updated: 2024/01/20 21:29:55 by pbalbino         ###   ########.fr       */
+/*   Updated: 2024/01/21 11:56:21 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ t_direction	analize_direction(float angle)
 		direction.is_right = true;
 	else
 		direction.is_right = false;
-	direction.is_left = ! direction.is_right;
-	direction.is_down = ! direction.is_up;
+	if (direction.is_right == false)
+		direction.is_left = true;
+	if (direction.is_up == false)
+		direction.is_down = true;
 	return (direction);
 }
 
@@ -55,27 +57,11 @@ bool	map_limits(t_data *data, float x, float y)
 		&& y < data->map->rows * TILE_SIZE);
 }
 
-bool	has_wall(t_data *data, float x, float y)
+void	calculatehit_distance(const t_data *data, t_colision *colision)
 {
-	int	map_grid_x;
-	int	map_grid_y;
-
-	if (!map_limits(data, x, y))
-		return (true);
-	map_grid_x = floor(x / TILE_SIZE);
-	map_grid_y = floor(y / TILE_SIZE);
-	return (data->map->grid[map_grid_y][map_grid_x].type == WALL
-	|| data->map->grid[map_grid_y][map_grid_x].type == EMPTY
-	);
-}
-//	printf("has_wall x=%d y=%d wall=%d\n",map_grid_x, map_grid_y,  data->map->grid[map_grid_y][map_grid_x].type);
-
-float	wall_hit_distance(float x0, float y0, float x1, float y1)
-{
-	float	result;
-
-	result = sqrt(((x1 - x0) * (x1 - x0)) + ((y1 - y0) * (y1 - y0)));
-	return (result);
+	colision->distance = wall_hit_distance(data->player->pos_game->x,
+			data->player->pos_game->y,
+			colision->wall_hit.x, colision->wall_hit.y);
 }
 
 void	analyze_colision(t_data *data, t_colision *colision, bool direction)
@@ -103,15 +89,5 @@ void	analyze_colision(t_data *data, t_colision *colision, bool direction)
 		}
 	}
 	if (colision->found_wall)
-	{
-		colision->distance = wall_hit_distance(data->player->pos_game->x,
-											   data->player->pos_game->y, colision->wall_hit.x,
-											   colision->wall_hit.y);
-	}
+		calculatehit_distance(data, colision);
 }
-
-/*
-	printf("\nhas_wall %f %f", colision->next_interception.x, colision->next_interception.y);
-	printf("\nget_hit_distance px %f py %f wall hit x %f  wall hit y %f \n",data->player->pos_game->x,
-		   data->player->pos_game->y, colision->wall_hit.x, colision->wall_hit.y);
-*/

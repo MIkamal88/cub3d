@@ -6,7 +6,7 @@
 /*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 07:29:25 by m_kamal           #+#    #+#             */
-/*   Updated: 2024/01/20 21:57:19 by pbalbino         ###   ########.fr       */
+/*   Updated: 2024/01/21 12:20:25 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,19 @@
 # include "colors.h"
 # include "keybinds.h"
 //# include "mapping.h"
-#include <limits.h>
+# include <limits.h>
 
 # define WINDOW_WIDTH	1280
 # define WINDOW_HEIGHT	800
-# define SCENE_SIZE		WINDOW_WIDTH * WINDOW_HEIGHT
+# define SCENE_SIZE		1024000
 # define TILE_SIZE 		64
 # define FOV			1.0471975500000001 // 60 degrees in radians (field of view)
+# define FORWARD 1
+# define BACKWARD -1
+# define LEFT 1
+# define RIGHT -1
+# define CLOCKWISE 1
+# define ANTICLOCKWISE -1
 
 # define MINIMAP_WHITE 0xFFFFFF
 # define MINIMAP_RED 0xFF0000
@@ -144,13 +150,13 @@ typedef struct s_movement
 
 typedef struct s_player
 {
-	t_point	*pos;
-	t_point	*pos_scaled;
-	t_coordinate *pos_game;
-	int		cardinal;
-	t_bool	set;
-	t_movement movement;
-	float	rotation_angle;
+	t_point			*pos;
+	t_point			*pos_scaled;
+	t_coordinate	*pos_game;
+	int				cardinal;
+	t_bool			set;
+	t_movement		movement;
+	float			rotation_angle;
 }	t_player;
 
 typedef struct s_direction
@@ -174,7 +180,7 @@ typedef struct s_ray
 typedef struct s_minimap
 {
 	float			scale;
-} t_minimap;
+}	t_minimap;
 
 typedef struct s_data
 {
@@ -192,17 +198,17 @@ typedef struct s_data
 
 typedef struct s_colision
 {
-	float 			distance;
+	float			distance;
 	bool			found_wall;
 	float			check_x;
 	float			check_y;
 	bool			is_horizontal;
 	t_coordinate	next_interception;
-	t_coordinate    intcpt;
+	t_coordinate	intcpt;
 	t_coordinate	wall_hit;
 	t_coordinate	step;
 
-} t_colision;
+}	t_colision;
 
 typedef struct s_wall
 {
@@ -218,7 +224,6 @@ typedef struct s_wall
 	int				orientation;
 }					t_wall;
 
-
 // Mapping and Grid Functions
 void	init_player(t_data *cub3d);
 void	map_read(t_data *cub3d, char *filename);
@@ -230,15 +235,13 @@ t_bool	is_closed(t_data *cub3d, int x, int y);
 
 // Drawing
 void	pixel_put(t_img *img, int x, int y, int color);
-int	create_trgb(int r, int g, int b);
-int	get_texture_color(t_img *texture, int x, int y);
-int	pixel_get(t_img *img, int x, int y);
-
+int		create_trgb(int r, int g, int b);
+int		get_texture_color(t_img *texture, int x, int y);
+int		pixel_get(t_img *img, int x, int y);
 
 // Utils Functions
 t_bool	map_start(char *line);
 t_bool	valid_extension(char *file, char *ext);
-
 
 // Destroy and Error handling Functions
 void	ft_error(void *pointer, int code);
@@ -249,20 +252,30 @@ void	free_double_ptr(void **d_array);
 int		exit_window(t_data *cub3d);
 
 // Raycasting
-t_direction analize_direction(float angle);
+t_direction	analize_direction(float angle);
 void	ray_casting(t_data *cub3d);
 int		render_loop(t_data *cub3d);
 void	render_walls(t_data *cub3d);
-t_colision	horizontal_intercept(t_data *cube, float angle, t_direction direction);
-t_colision	vertical_intercept(t_data *data, float ray_angle, t_direction direction);
 void	get_current_rotation_angle(t_data *cub3d);
-int	key_pressed(int keycode, t_data *data);
-int	key_released(int keycode, t_data *data);
+int		key_push(int keycode, t_data *cube);
+int		key_release(int keycode, t_data *cube);
 bool	has_wall(t_data *data, float x, float y);
+bool	map_limits(t_data *data, float x, float y);
+float	wall_hit_distance(float x0, float y0, float x1, float y1);
 void	analyze_colision(t_data *data, t_colision *colision, bool direction);
-
+t_colision	horizontal_intercept(t_data *cube, float angle,
+			t_direction direction);
+t_colision	vertical_intercept(t_data *data, float ray_angle,
+			t_direction direction);
 
 // Textures
 bool	load_texture(t_data *cube, int cardinal);
 
 #endif
+
+/*
+check:
+Error: MISALIGNED_FUNC_DECL (line: 255, col:  13):      Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 264, col:  13):      Misaligned function declaration
+Error: MISALIGNED_FUNC_DECL (line: 266, col:  13):      Misaligned function declaration
+*/

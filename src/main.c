@@ -6,7 +6,7 @@
 /*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 05:32:35 by m_kamal           #+#    #+#             */
-/*   Updated: 2024/01/20 22:05:58 by pbalbino         ###   ########.fr       */
+/*   Updated: 2024/01/21 11:18:40 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ static t_img	*new_img(int w, int h, t_win *window)
 			&(image->line_length), &(image->endian));
 	image->w = w;
 	image->h = h;
-
 	return (image);
 }
 
@@ -57,7 +56,8 @@ static t_data	*init_cub3d(int w, int h)
 	cub3d->rays = malloc(sizeof(t_ray) * WINDOW_WIDTH);
 	cub3d->game_color_buffer = malloc((SCENE_SIZE) * sizeof(int));
 	cub3d->minimap = malloc(sizeof(t_minimap));
-	//cub3d->minimap = new_img((0.2 * WINDOW_WIDTH), (0.2 * WINDOW_HEIGHT), \
+	//cub3d->minimap = new_img((0.2 * WINDOW_WIDTH),
+	//	(0.2 * WINDOW_HEIGHT),
 	//	cub3d->win);
 	return (cub3d);
 }
@@ -65,11 +65,11 @@ static t_data	*init_cub3d(int w, int h)
 static void	loop_mlx(t_data *cub3d)
 {
 	mlx_loop_hook(cub3d->win->mlx, render_loop, cub3d);
-	//mlx_key_hook(cub3d->win->m_win, key_parse, cub3d);
-	mlx_hook(cub3d->win->m_win, 2, 1L << 0, key_pressed, cub3d);
-	mlx_hook(cub3d->win->m_win, 3, 1L << 0, key_released, cub3d);
+	mlx_hook(cub3d->win->m_win, 2, 1L << 0, key_push, cub3d);
+	mlx_hook(cub3d->win->m_win, 3, 1L << 0, key_release, cub3d);
 	mlx_hook(cub3d->win->m_win, 17, 1L << 17, exit_window, cub3d);
 	mlx_loop(cub3d->win->mlx);
+	// TODO: should we handle ON_DESTROY?
 }
 
 int	main(int argc, char **argv)
@@ -85,4 +85,6 @@ int	main(int argc, char **argv)
 	//render_minimap(cub3d);
 	get_current_rotation_angle(cub3d);
 	loop_mlx(cub3d);
+	//TODO: create a ft to free the resources
+	return (0);
 }

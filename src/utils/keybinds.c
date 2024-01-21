@@ -10,41 +10,41 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/cub3d.h"
+#include "cub3d.h"
 
-int	key_pressed(int keycode, t_data *data)
+int	key_push(int keycode, t_data *cube)
 {
 	if (keycode == KEY_ESC)
 	{
-		free_all(data);
+		free_all(cube);
 		exit(EXIT_SUCCESS);
 	}
 	else if (keycode == KEY_W || keycode == KEY_UP)
-		data->player->movement.walk_direction = 1;
+		cube->player->movement.walk_direction = FORWARD;
 	else if (keycode == KEY_S || keycode == KEY_DOWN)
-		data->player->movement.walk_direction = -1;
+		cube->player->movement.walk_direction = BACKWARD;
 	else if (keycode == KEY_A)
-		data->player->movement.side_direction = 1;
+		cube->player->movement.side_direction = LEFT;
 	else if (keycode == KEY_D)
-		data->player->movement.side_direction = -1;
+		cube->player->movement.side_direction = RIGHT;
 	else if (keycode == KEY_RIGHT)
-		data->player->movement.turn_direction = 1;
+		cube->player->movement.turn_direction = CLOCKWISE;
 	else if (keycode == KEY_LEFT)
-		data->player->movement.turn_direction = -1;
-	//ft_bzero(data->scene->addr, SCENE_SIZE * 8);
-	//ft_bzero(data->minimap->addr, (data->minimap->h * data->minimap->w) * 4);
+		cube->player->movement.turn_direction = ANTICLOCKWISE;
+	//ft_bzero(cube->scene->addr, SCENE_SIZE * 8);
+	//ft_bzero(cube->minimap->addr, (cube->minimap->h * cube->minimap->w) * 4);
 	return (EXIT_SUCCESS);
 }
 
-int	key_released(int keycode, t_data *data)
+int	key_release(int keycode, t_data *cube)
 {
 	if (keycode == KEY_W || keycode == KEY_UP)
-		data->player->movement.walk_direction = 0;
+		cube->player->movement.walk_direction = 0;
 	else if (keycode == KEY_S || keycode == KEY_DOWN)
-		data->player->movement.walk_direction = 0;
+		cube->player->movement.walk_direction = 0;
 	else if (keycode == KEY_A || keycode == KEY_D)
-		data->player->movement.side_direction = 0;
+		cube->player->movement.side_direction = 0;
 	else if (keycode == KEY_RIGHT || keycode == KEY_LEFT)
-		data->player->movement.turn_direction = 0;
+		cube->player->movement.turn_direction = 0;
 	return (EXIT_SUCCESS);
 }
