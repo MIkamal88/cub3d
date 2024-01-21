@@ -93,6 +93,10 @@ t_bool	check_assets(t_data *cub3d)
 	int	i;
 
 	i = -1;
+	cub3d->player->pos_game->x = (cub3d->player->pos->x * TILE_SIZE)
+		+ TILE_SIZE / 2;
+	cub3d->player->pos_game->y = (cub3d->player->pos->y * TILE_SIZE)
+		+ TILE_SIZE / 2;
 	if (cub3d->player->cardinal == 'N')
 		cub3d->player->cardinal = 0;
 	else if (cub3d->player->cardinal == 'S')

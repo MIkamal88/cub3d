@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../../include/cub3d.h"
 
 void	clear_color_buffer(t_data *data, int color)
 {
@@ -57,6 +57,7 @@ void	render_color(t_data *cube)
 	mlx_destroy_image(cube->win->mlx, cube->scene->img_ptr);
 }
 
+// Uninitialized Values at line 76 and 77 -> rotation_angle
 void	player_movement(t_data *data)
 {
 	float	delta;
@@ -89,7 +90,7 @@ int	render_loop(t_data *cub3d)
 	ray_casting(cub3d);
 	mlx_clear_window(cub3d->win->mlx, cub3d->win->m_win);
 	render_walls(cub3d);
-	//render_map(cub3d);
+	// render_map(cub3d);
 	render_color(cub3d);
 	return (true);
 }

@@ -69,7 +69,6 @@ static void	loop_mlx(t_data *cub3d)
 	mlx_hook(cub3d->win->m_win, 3, 1L << 0, key_release, cub3d);
 	mlx_hook(cub3d->win->m_win, 17, 1L << 17, exit_window, cub3d);
 	mlx_loop(cub3d->win->mlx);
-	// TODO: should we handle ON_DESTROY?
 }
 
 int	main(int argc, char **argv)
@@ -85,6 +84,5 @@ int	main(int argc, char **argv)
 	//render_minimap(cub3d);
 	get_current_rotation_angle(cub3d);
 	loop_mlx(cub3d);
-	//TODO: create a ft to free the resources
 	return (0);
 }

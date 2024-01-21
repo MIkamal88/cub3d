@@ -15,14 +15,11 @@
 
 # include <math.h>
 # include <stdbool.h>
+# include <limits.h>
 # include "../libs/libft/includes/libft.h"
 # include "../libs/libft/includes/get_next_line.h"
-//# include "../libs/mlx/linux/mlx.h"
-# include "../libs/mlx/mac/mlx.h"
 # include "colors.h"
 # include "keybinds.h"
-//# include "mapping.h"
-# include <limits.h>
 
 # define WINDOW_WIDTH	1280
 # define WINDOW_HEIGHT	800
@@ -225,57 +222,50 @@ typedef struct s_wall
 }					t_wall;
 
 // Mapping and Grid Functions
-void	init_player(t_data *cub3d);
-void	map_read(t_data *cub3d, char *filename);
-t_bool	read_textures(t_data *cub3d, char *filename, int cardinal);
-t_bool	set_floor_ceiling(t_data *cub3d, char *filename);
-t_bool	load_grid(t_data *cub3d, char *filename);
-t_bool	check_assets(t_data *cub3d);
-t_bool	is_closed(t_data *cub3d, int x, int y);
+void		init_player(t_data *cub3d);
+void		map_read(t_data *cub3d, char *filename);
+t_bool		read_textures(t_data *cub3d, char *filename, int cardinal);
+t_bool		set_floor_ceiling(t_data *cub3d, char *filename);
+t_bool		load_grid(t_data *cub3d, char *filename);
+t_bool		check_assets(t_data *cub3d);
+t_bool		is_closed(t_data *cub3d, int x, int y);
 
 // Drawing
-void	pixel_put(t_img *img, int x, int y, int color);
-int		create_trgb(int r, int g, int b);
-int		get_texture_color(t_img *texture, int x, int y);
-int		pixel_get(t_img *img, int x, int y);
+void		pixel_put(t_img *img, int x, int y, int color);
+int			create_trgb(int r, int g, int b);
+int			get_texture_color(t_img *texture, int x, int y);
+int			pixel_get(t_img *img, int x, int y);
 
 // Utils Functions
-t_bool	map_start(char *line);
-t_bool	valid_extension(char *file, char *ext);
+t_bool		map_start(char *line);
+t_bool		valid_extension(char *file, char *ext);
 
 // Destroy and Error handling Functions
-void	ft_error(void *pointer, int code);
-void	free_all(t_data *cub3d);
-void	clear_read(char *line, int fd);
-void	free_map(t_map *map);
-void	free_double_ptr(void **d_array);
-int		exit_window(t_data *cub3d);
+void		ft_error(void *pointer, int code);
+void		free_all(t_data *cub3d);
+void		clear_read(char *line, int fd);
+void		free_map(t_map *map);
+void		free_double_ptr(void **d_array);
+int			exit_window(t_data *cub3d);
 
 // Raycasting
+void		ray_casting(t_data *cub3d);
+int			render_loop(t_data *cub3d);
+void		render_walls(t_data *cub3d);
+void		get_current_rotation_angle(t_data *cub3d);
+int			key_push(int keycode, t_data *cube);
+int			key_release(int keycode, t_data *cube);
+bool		has_wall(t_data *data, float x, float y);
+bool		map_limits(t_data *data, float x, float y);
+float		wall_hit_distance(float x0, float y0, float x1, float y1);
+void		analyze_colision(t_data *data, t_colision *col, bool dir);
 t_direction	analize_direction(float angle);
-void	ray_casting(t_data *cub3d);
-int		render_loop(t_data *cub3d);
-void	render_walls(t_data *cub3d);
-void	get_current_rotation_angle(t_data *cub3d);
-int		key_push(int keycode, t_data *cube);
-int		key_release(int keycode, t_data *cube);
-bool	has_wall(t_data *data, float x, float y);
-bool	map_limits(t_data *data, float x, float y);
-float	wall_hit_distance(float x0, float y0, float x1, float y1);
-void	analyze_colision(t_data *data, t_colision *colision, bool direction);
 t_colision	horizontal_intercept(t_data *cube, float angle,
-			t_direction direction);
+				t_direction direction);
 t_colision	vertical_intercept(t_data *data, float ray_angle,
-			t_direction direction);
+				t_direction direction);
 
 // Textures
-bool	load_texture(t_data *cube, int cardinal);
+t_bool		load_texture(t_data *cube, int cardinal);
 
 #endif
-
-/*
-check:
-Error: MISALIGNED_FUNC_DECL (line: 255, col:  13):      Misaligned function declaration
-Error: MISALIGNED_FUNC_DECL (line: 264, col:  13):      Misaligned function declaration
-Error: MISALIGNED_FUNC_DECL (line: 266, col:  13):      Misaligned function declaration
-*/

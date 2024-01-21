@@ -6,11 +6,11 @@
 /*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 15:21:21 by pbalbino          #+#    #+#             */
-/*   Updated: 2024/01/21 12:05:09 by pbalbino         ###   ########.fr       */
+/*   Updated: 2024/01/21 18:35:09 by m_kamal          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../../include/cub3d.h"
 
 static void	clean_texture_path(char *path)
 {
@@ -25,7 +25,7 @@ static void	clean_texture_path(char *path)
 	}
 }
 
-bool	load_texture(t_data *cube, int cardinal)
+t_bool	load_texture(t_data *cube, int cardinal)
 {
 	t_img	*texture;
 
@@ -38,10 +38,10 @@ bool	load_texture(t_data *cube, int cardinal)
 	if (texture->img_ptr == NULL)
 	{
 		printf("Error\nError while loading texture\n");
-		return (false);
+		return (FALSE);
 	}
 	texture->addr = mlx_get_data_addr(texture->img_ptr, &texture->bpp, \
 	&texture->line_length, &texture->endian);
 	cube->map->textures[cardinal]->texture_img = texture;
-	return (true);
+	return (TRUE);
 }

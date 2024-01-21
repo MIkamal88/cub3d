@@ -96,7 +96,7 @@ fclean: clean
 	@printf "$(GR)Done!$(RC)\n\n"
 
 leak:			all
-				valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) ./maps/test.cub
+				valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) ./maps/simple.cub
 
 leak2:			all
 				valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) ./maps/g_map02.cub
@@ -105,7 +105,7 @@ debug:			all
 				lldb-16 ./$(NAME) ./maps/test.cub
 
 test:				all
-				./$(NAME) ./maps/test.cub
+				./$(NAME) ./maps/simple.cub
 
 .PHONY:		all clean fclean re
 

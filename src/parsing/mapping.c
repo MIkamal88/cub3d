@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../../include/cub3d.h"
 
 void	init_player(t_data *cub3d)
 {
@@ -26,10 +26,10 @@ void	init_player(t_data *cub3d)
 	cub3d->player->pos_game = malloc(sizeof(t_coordinate));
 	if (!cub3d->player->pos_game)
 		ft_error(cub3d, MALLOC_ERR);
+	cub3d->player->pos->x = -1;
+	cub3d->player->pos->y = -1;
 	cub3d->player->pos_scaled->x = -1;
 	cub3d->player->pos_scaled->y = -1;
-	//cub3d->player->pos_game->x = -1;
-	//cub3d->player->pos_game->y = -1;
 	cub3d->player->cardinal = -1;
 	cub3d->player->set = -1;
 }
@@ -104,7 +104,7 @@ static t_bool	fetch_grid(t_data *cub3d, char *filename)
 
 void	map_read(t_data *cub3d, char *filename)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	init_map(cub3d);
@@ -113,7 +113,7 @@ void	map_read(t_data *cub3d, char *filename)
 	{
 		if (!read_textures(cub3d, filename, i))
 			ft_error(cub3d, MAP_ERR);
-		else if (load_texture(cub3d, i) == false)
+		else if (!load_texture(cub3d, i))
 			ft_error(cub3d, MAP_ERR);
 		i++;
 	}

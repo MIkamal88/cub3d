@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../../include/cub3d.h"
 
 void	get_current_rotation_angle(t_data *cub3d)
 {
@@ -49,19 +49,4 @@ void	rotate_player(t_data *cub3d, int key)
 			cub3d->player->cardinal = NORTH;
 	}
 	get_current_rotation_angle(cub3d);
-}
-
-void	render_player(t_data *cub3d)
-{
-	(void)cub3d;
-//	int	i;
-//	i = -1;
-//	cub3d->player->pos_scaled->x = cub3d->player->pos->x
-//		* cub3d->minimap->scale.x;
-//	cub3d->player->pos_scaled->y = cub3d->player->pos->y
-//		* cub3d->minimap->scale.y;
-//	pixel_put(cub3d->minimap, cub3d->player->pos_scaled->x,
-//		cub3d->player->pos_scaled->y, C_GREEN);
-//	while (++i < 5)
-//		mm_player_mark(cub3d->minimap, cub3d->player, i);
 }

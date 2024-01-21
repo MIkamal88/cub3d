@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../../include/cub3d.h"
 
 static float	normalize_angle(float angle)
 {
-	angle = remainder(angle, 2 * M_PI);
+	angle = remainder(angle, 2 * M_PI); // Check this line for the Uninitialized value
 	if (angle < 0)
 		angle = (2 * M_PI) + angle;
 	return (angle);
@@ -48,11 +48,13 @@ static void	single_ray(t_data *cub3d, float ray_angle, int count)
 	cub3d->rays[count].direction = direction;
 }
 
+// Uninitialized Values
 void	ray_casting(t_data *cub3d)
 {
 	int		count;
 	float	ray_angle;
 
+	printf("%f\n", cub3d->player->rotation_angle);
 	count = 0;
 	ray_angle = cub3d->player->rotation_angle - (FOV / 2);
 	while (count < WINDOW_WIDTH)
