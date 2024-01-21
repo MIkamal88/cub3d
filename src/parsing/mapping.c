@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mapping.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: m_kamal <m_kamal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 08:49:26 by m_kamal           #+#    #+#             */
-/*   Updated: 2023/12/30 08:49:26 by m_kamal          ###   ########.fr       */
+/*   Updated: 2024/01/21 11:54:19 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,13 @@ void	init_player(t_data *cub3d)
 	cub3d->player->pos_scaled = malloc(sizeof(t_point));
 	if (!cub3d->player->pos_scaled)
 		ft_error(cub3d, MALLOC_ERR);
-	cub3d->player->pos_scaled->x = -1;
-	cub3d->player->pos_scaled->y = -1;
+	cub3d->player->pos_game = malloc(sizeof(t_coordinate));
+	if (!cub3d->player->pos_game)
+		ft_error(cub3d, MALLOC_ERR);
 	cub3d->player->pos->x = -1;
 	cub3d->player->pos->y = -1;
-	cub3d->player->pos->type = -1;
+	cub3d->player->pos_scaled->x = -1;
+	cub3d->player->pos_scaled->y = -1;
 	cub3d->player->cardinal = -1;
 	cub3d->player->set = -1;
 }
@@ -102,14 +104,19 @@ static t_bool	fetch_grid(t_data *cub3d, char *filename)
 
 void	map_read(t_data *cub3d, char *filename)
 {
-	int		i;
+	int	i;
 
-	i = -1;
+	i = 0;
 	init_map(cub3d);
 	init_player(cub3d);
-	while (++i < 4)
+	while (i < 4)
+	{
 		if (!read_textures(cub3d, filename, i))
 			ft_error(cub3d, MAP_ERR);
+		else if (!load_texture(cub3d, i))
+			ft_error(cub3d, MAP_ERR);
+		i++;
+	}
 	if (!set_floor_ceiling(cub3d, filename))
 		ft_error(cub3d, MAP_ERR);
 	fetch_grid(cub3d, filename);

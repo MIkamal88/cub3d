@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   keybinds.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: m_kamal <m_kamal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 08:31:29 by m_kamal           #+#    #+#             */
-/*   Updated: 2023/12/29 08:31:29 by m_kamal          ###   ########.fr       */
+/*   Updated: 2024/01/21 11:52:33 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 # define KEYBINDS_H
 
 # if __APPLE__
-#  define KEY_W 13
-#  define KEY_A 0
-#  define KEY_S 1
+#  include "../libs/mlx/mac/mlx.h"
+#  define KEY_W	13
+#  define KEY_A	0
+#  define KEY_S	1
 #  define KEY_D 2
-#  define KEY_Q 12
-#  define KEY_E 14
 #  define KEY_ESC 53
 #  define KEY_UP 126
 #  define KEY_DOWN 125
@@ -30,14 +29,13 @@
 #  define KEY_R 15
 
 # elif __linux__
+#  include "../libs/mlx/linux/mlx.h"
 #  define KEY_W		119
 #  define KEY_A		97
 #  define KEY_S		115
 #  define KEY_D		100
-#  define KEY_Q		113
-#  define KEY_E		101
 #  define KEY_ESC	65307
-#  define KEY_UP		65362
+#  define KEY_UP	65362
 #  define KEY_DOWN	65364
 #  define KEY_LEFT	65361
 #  define KEY_RIGHT	65363

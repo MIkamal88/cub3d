@@ -1,65 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player.c                                           :+:      :+:    :+:   */
+/*   mm_player.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: m_kamal <m_kamal@student.42.fr>            +#+  +:+       +#+        */
+/*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/05 08:57:38 by m_kamal           #+#    #+#             */
-/*   Updated: 2024/01/05 08:57:38 by m_kamal          ###   ########.fr       */
+/*   Updated: 2024/01/20 21:38:50 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-static void	mm_player_mark(t_img *map, t_player *p, int i)
+void	get_current_rotation_angle(t_data *cub3d)
 {
-	if (p->cardinal == NORTH)
-	{
-		pixel_put(map, p->pos_scaled->x - i, p->pos_scaled->y + i, C_GREEN);
-		pixel_put(map, p->pos_scaled->x + i, p->pos_scaled->y + i, C_GREEN);
-	}
-	if (p->cardinal == SOUTH)
-	{
-		pixel_put(map, p->pos_scaled->x - i, p->pos_scaled->y - i, C_GREEN);
-		pixel_put(map, p->pos_scaled->x + i, p->pos_scaled->y - i, C_GREEN);
-	}
-	if (p->cardinal == EAST)
-	{
-		pixel_put(map, p->pos_scaled->x - i, p->pos_scaled->y - i, C_GREEN);
-		pixel_put(map, p->pos_scaled->x - i, p->pos_scaled->y + i, C_GREEN);
-	}
-	if (p->cardinal == WEST)
-	{
-		pixel_put(map, p->pos_scaled->x + i, p->pos_scaled->y - i, C_GREEN);
-		pixel_put(map, p->pos_scaled->x + i, p->pos_scaled->y + i, C_GREEN);
-	}
-}
-
-static t_bool	check_valid_tile(t_data *cub3d, int key)
-{
-	if (key == KEY_D)
-		if (cub3d->map->grid[cub3d->player->pos->y]
-			[cub3d->player->pos->x + 1].type == WALL)
-			return (FALSE);
-	if (key == KEY_A)
-		if (cub3d->map->grid[cub3d->player->pos->y]
-			[cub3d->player->pos->x - 1].type == WALL)
-			return (FALSE);
-	if (key == KEY_W)
-		if (cub3d->map->grid[cub3d->player->pos->y - 1]
-			[cub3d->player->pos->x].type == WALL)
-			return (FALSE);
-	if (key == KEY_S)
-		if (cub3d->map->grid[cub3d->player->pos->y + 1]
-			[cub3d->player->pos->x].type == WALL)
-			return (FALSE);
-	return (TRUE);
+	if (cub3d->player->cardinal == NORTH)
+		cub3d->player->rotation_angle = 271 * (M_PI / 180);
+	else if (cub3d->player->cardinal == SOUTH)
+		cub3d->player->rotation_angle = 91 * (M_PI / 180);
+	else if (cub3d->player->cardinal == EAST)
+		cub3d->player->rotation_angle = 1 * (M_PI / 180);
+	else if (cub3d->player->cardinal == WEST)
+		cub3d->player->rotation_angle = 181 * (M_PI / 180);
 }
 
 void	rotate_player(t_data *cub3d, int key)
 {
-	if (key == KEY_Q)
+	if (key == KEY_LEFT)
 	{
 		if (cub3d->player->cardinal == NORTH)
 			cub3d->player->cardinal = WEST;
@@ -70,7 +37,7 @@ void	rotate_player(t_data *cub3d, int key)
 		else if (cub3d->player->cardinal == WEST)
 			cub3d->player->cardinal = SOUTH;
 	}
-	if (key == KEY_E)
+	if (key == KEY_RIGHT)
 	{
 		if (cub3d->player->cardinal == NORTH)
 			cub3d->player->cardinal = EAST;
@@ -81,33 +48,5 @@ void	rotate_player(t_data *cub3d, int key)
 		else if (cub3d->player->cardinal == WEST)
 			cub3d->player->cardinal = NORTH;
 	}
-}
-
-void	render_player(t_data *cub3d)
-{
-	int	i;
-
-	i = -1;
-	cub3d->player->pos_scaled->x = cub3d->player->pos->x
-		* cub3d->minimap->scale.x;
-	cub3d->player->pos_scaled->y = cub3d->player->pos->y
-		* cub3d->minimap->scale.y;
-	pixel_put(cub3d->minimap, cub3d->player->pos_scaled->x,
-		cub3d->player->pos_scaled->y, C_GREEN);
-	while (++i < 5)
-		mm_player_mark(cub3d->minimap, cub3d->player, i);
-}
-
-void	move_player(t_data *cub3d, int key)
-{
-	if (check_valid_tile(cub3d, key) && key == KEY_D)
-		cub3d->player->pos->x += 1;
-	if (check_valid_tile(cub3d, key) && key == KEY_A)
-		cub3d->player->pos->x -= 1;
-	if (check_valid_tile(cub3d, key) && key == KEY_W)
-		cub3d->player->pos->y -= 1;
-	if (check_valid_tile(cub3d, key) && key == KEY_S)
-		cub3d->player->pos->y += 1;
-	if (key == KEY_Q || key == KEY_E)
-		rotate_player(cub3d, key);
+	get_current_rotation_angle(cub3d);
 }

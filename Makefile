@@ -21,7 +21,7 @@ else
 	$(error Unsupported OS: $(OS))
 endif
 
-CC				= gcc -g
+CC				= cc -g3
 CF				= -Wall -Wextra -Werror #-fsanitize=address
 CFI					= -I$(INCLUDE)
 CFI_FT		= -L$(FT_PATH) -lft
@@ -37,15 +37,23 @@ SRC			= main.c\
 					ceiling_floor.c\
 					grid.c\
 					pixels.c\
-					lines.c\
 					mm_player.c\
 					minimap.c\
 					text.c\
+					raycasting.c\
+					check_wall.c \
+					directions.c \
+					interception.c \
+					render_walls.c \
+					render.c \
+					load_texture.c \
+
 
 VPATH		= $(SRC_PATH)\
 					$(SRC_PATH)utils/\
 					$(SRC_PATH)rendering/\
 					$(SRC_PATH)parsing/\
+					$(SRC_PATH)textures/\
 
 OBJ			= $(addprefix $(OBJ_PATH), $(notdir $(SRC:.c=.o)))
 
@@ -88,7 +96,7 @@ fclean: clean
 	@printf "$(GR)Done!$(RC)\n\n"
 
 leak:			all
-				valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) ./maps/test.cub
+				valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) ./maps/simple.cub
 
 leak2:			all
 				valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) ./maps/g_map02.cub
@@ -97,7 +105,7 @@ debug:			all
 				lldb-16 ./$(NAME) ./maps/test.cub
 
 test:				all
-				./$(NAME) ./maps/test.cub
+				./$(NAME) ./maps/simple.cub
 
 .PHONY:		all clean fclean re
 
