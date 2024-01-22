@@ -6,7 +6,7 @@
 /*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:21:41 by pbalbino          #+#    #+#             */
-/*   Updated: 2024/01/21 12:01:14 by pbalbino         ###   ########.fr       */
+/*   Updated: 2024/01/22 23:13:30 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	render_color(t_data *cube)
 }
 
 // Uninitialized Values at line 76 and 77 -> rotation_angle
+// PL: fixed on mappinp.c
 void	player_movement(t_data *data)
 {
 	float	delta;
@@ -88,7 +89,7 @@ int	render_loop(t_data *cub3d)
 {
 	player_movement(cub3d);
 	ray_casting(cub3d);
-	mlx_clear_window(cub3d->win->mlx, cub3d->win->m_win);
+	mlx_clear_window(cub3d->win->mlx, cub3d->win->m_win); //PL: Check if this is the reason of your flickering
 	render_walls(cub3d);
 	// render_map(cub3d);
 	render_color(cub3d);

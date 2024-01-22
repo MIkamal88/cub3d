@@ -6,7 +6,7 @@
 /*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:49:52 by pbalbino          #+#    #+#             */
-/*   Updated: 2024/01/21 11:56:21 by pbalbino         ###   ########.fr       */
+/*   Updated: 2024/01/22 22:13:53 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ bool	is_wall(t_data *cube, float x, float y)
 		return (true);
 	return (false);
 }
-// if we consider spaces as wall we need to add this condition above;
 
 bool	map_limits(t_data *data, float x, float y)
 {

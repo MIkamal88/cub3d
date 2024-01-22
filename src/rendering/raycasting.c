@@ -6,7 +6,7 @@
 /*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 11:27:45 by pbalbino          #+#    #+#             */
-/*   Updated: 2024/01/20 21:42:42 by pbalbino         ###   ########.fr       */
+/*   Updated: 2024/01/22 21:57:52 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	ray_casting(t_data *cub3d)
 	int		count;
 	float	ray_angle;
 
-	printf("%f\n", cub3d->player->rotation_angle);
 	count = 0;
 	ray_angle = cub3d->player->rotation_angle - (FOV / 2);
 	while (count < WINDOW_WIDTH)

@@ -6,7 +6,7 @@
 /*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/30 08:49:26 by m_kamal           #+#    #+#             */
-/*   Updated: 2024/01/21 11:54:19 by pbalbino         ###   ########.fr       */
+/*   Updated: 2024/01/22 21:50:21 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	init_player(t_data *cub3d)
 	cub3d->player->pos_scaled->y = -1;
 	cub3d->player->cardinal = -1;
 	cub3d->player->set = -1;
+	cub3d->player->rotation_angle = 0;
 }
 
 static void	init_map(t_data *cub3d)

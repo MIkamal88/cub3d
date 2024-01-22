@@ -6,7 +6,7 @@
 /*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/29 07:29:25 by m_kamal           #+#    #+#             */
-/*   Updated: 2024/01/21 12:20:25 by pbalbino         ###   ########.fr       */
+/*   Updated: 2024/01/22 22:51:35 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@
 # define RIGHT -1
 # define CLOCKWISE 1
 # define ANTICLOCKWISE -1
+
+# define ON_KEYDOWN	2
+# define ON_KEYUP	3
+# define ON_DESTROY	17
+#define KEY_PRESS_MASK (1L<<0)
+#define KEY_EXIT_MASK (1L<<17)
 
 # define MINIMAP_WHITE 0xFFFFFF
 # define MINIMAP_RED 0xFF0000
@@ -259,6 +265,8 @@ bool		has_wall(t_data *data, float x, float y);
 bool		map_limits(t_data *data, float x, float y);
 float		wall_hit_distance(float x0, float y0, float x1, float y1);
 void		analyze_colision(t_data *data, t_colision *col, bool dir);
+void		draw_floor(t_data *data, t_wall wall, int x);
+void		draw_ceiling(t_data *data, t_wall wall, int x);
 t_direction	analize_direction(float angle);
 t_colision	horizontal_intercept(t_data *cube, float angle,
 				t_direction direction);
