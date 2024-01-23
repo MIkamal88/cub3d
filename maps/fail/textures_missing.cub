@@ -1,9 +1,11 @@
-SO textures/test/south.xpm
-WE textures/test/west.xpm
-EA textures/test/east.xpm
+C 173,216,230
 
-F 20,20,20
-C 200,200,200
+F 111,78,55
+
+NO ./textures/texture1.xpm
+SO ./textures/texture2.xpm
+WE ./textures/texture3.xpm
+
 
 11111
 10001

@@ -1,42 +1,33 @@
 
+C      173,216,230
+
+F                          111,78,55
+
+NO ./textures/texture1.xpm
 
 
+SO ./textures/texture2.xpm
 
 
+WE              ./textures/texture3.xpm
 
-
-
-NO textures/test/north.xpm
-
-
-
-
-
-
-
-
-SO textures/test/south.xpm
-                        WE textures/test/west.xpm
-        EA textures/test/east.xpm            
-
-        F 20,           20,             20
-C 200,          200,200
+EA ./textures/wood.xpm
 
 11111
 10001
-10S01                
+10S01
 10001
 10001
 10001
-11001               
+11001
 10001
 10001
 10001
 10001
 10001
-11111           
+11111
 
-        
+
 
 
 
