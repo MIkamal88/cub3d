@@ -54,7 +54,7 @@ void	render_color(t_data *cube)
 	clear_color_buffer(cube, 0x000000);
 	mlx_put_image_to_window(cube->win->mlx, cube->win->m_win,
 		cube->scene->img_ptr, 0, 0);
-	mlx_destroy_image(cube->win->mlx, cube->scene->img_ptr);
+	// mlx_destroy_image(cube->win->mlx, cube->scene->img_ptr);
 }
 
 // Uninitialized Values at line 76 and 77 -> rotation_angle
