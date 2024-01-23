@@ -31,8 +31,7 @@ int	key_push(int keycode, t_data *cube)
 		cube->player->movement.turn_direction = CLOCKWISE;
 	else if (keycode == KEY_LEFT)
 		cube->player->movement.turn_direction = ANTICLOCKWISE;
-	//ft_bzero(cube->scene->addr, SCENE_SIZE * 8);
-	//ft_bzero(cube->minimap->addr, (cube->minimap->h * cube->minimap->w) * 4);
+	ft_bzero(cube->scene->addr, SCENE_SIZE * 4);
 	return (EXIT_SUCCESS);
 }
 

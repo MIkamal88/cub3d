@@ -89,7 +89,6 @@ int	render_loop(t_data *cub3d)
 {
 	player_movement(cub3d);
 	ray_casting(cub3d);
-	mlx_clear_window(cub3d->win->mlx, cub3d->win->m_win); //PL: Check if this is the reason of your flickering
 	render_walls(cub3d);
 	// render_map(cub3d);
 	render_color(cub3d);

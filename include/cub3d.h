@@ -25,7 +25,7 @@
 # define WINDOW_HEIGHT	800
 # define SCENE_SIZE		1024000
 # define TILE_SIZE 		64
-# define FOV			1.0471975500000001 // 60 degrees in radians (field of view)
+# define FOV	1.0471975500000001 // 60 degrees in radians (field of view)
 # define FORWARD 1
 # define BACKWARD -1
 # define LEFT 1
@@ -36,8 +36,8 @@
 # define ON_KEYDOWN	2
 # define ON_KEYUP	3
 # define ON_DESTROY	17
-#define KEY_PRESS_MASK (1L<<0)
-#define KEY_EXIT_MASK (1L<<17)
+# define KEY_PRESS_MASK (1L<<0)
+# define KEY_EXIT_MASK (1L<<17)
 
 # define MINIMAP_WHITE 0xFFFFFF
 # define MINIMAP_RED 0xFF0000
@@ -180,16 +180,10 @@ typedef struct s_ray
 	bool		is_up;
 }	t_ray;
 
-typedef struct s_minimap
-{
-	float			scale;
-}	t_minimap;
-
 typedef struct s_data
 {
 	t_map		*map;
 	t_img		*scene;
-	t_minimap	*minimap;
 	//t_img		*minimap;
 	t_win		*win;
 	t_player	*player;

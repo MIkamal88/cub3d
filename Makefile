@@ -34,11 +34,10 @@ SRC			= main.c\
 					keybinds.c\
 					mapping.c\
 					checker.c\
-ceiling_floor.c\
+					ceiling_floor.c\
 					grid.c\
 					pixels.c\
 					mm_player.c\
-					minimap.c\
 					text.c\
 					raycasting.c\
 					check_wall.c \
@@ -48,6 +47,7 @@ ceiling_floor.c\
 					render.c \
 					load_texture.c \
 					render_floor_ceiling.c\
+					#minimap.c\
 
 
 VPATH		= $(SRC_PATH)\

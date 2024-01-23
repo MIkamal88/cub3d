@@ -55,7 +55,7 @@ static t_data	*init_cub3d(int w, int h)
 	cub3d->scene = new_img(w, h, cub3d->win);
 	cub3d->rays = malloc(sizeof(t_ray) * WINDOW_WIDTH);
 	cub3d->game_color_buffer = malloc((SCENE_SIZE) * sizeof(int));
-	cub3d->minimap = malloc(sizeof(t_minimap));
+	// cub3d->minimap = malloc(sizeof(t_minimap));
 	//cub3d->minimap = new_img((0.2 * WINDOW_WIDTH),
 	//	(0.2 * WINDOW_HEIGHT),
 	//	cub3d->win);

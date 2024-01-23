@@ -33,6 +33,9 @@ void	init_player(t_data *cub3d)
 	cub3d->player->cardinal = -1;
 	cub3d->player->set = -1;
 	cub3d->player->rotation_angle = 0;
+	cub3d->player->movement.walk_direction = 0;
+	cub3d->player->movement.turn_direction = 0;
+	cub3d->player->movement.side_direction = 0;
 }
 
 static void	init_map(t_data *cub3d)
