@@ -22,26 +22,30 @@ void	free_double_ptr(void **d_ptr)
 	free(d_ptr);
 }
 
-void	free_map(t_map *map)
+void	free_map(t_data *cub3d)
 {
 	int	i;
 
 	i = -1;
 	while (++i < 4)
 	{
-		if (map->textures[i] && map->textures[i]->path)
-			free(map->textures[i]->path);
-		free(map->textures[i]);
+		if (cub3d->map->textures[i]->texture_img)
+		{
+			mlx_destroy_image(cub3d->win->mlx,
+				cub3d->map->textures[i]->texture_img->img_ptr);
+			free(cub3d->map->textures[i]->texture_img);
+		}
+		if (cub3d->map->textures[i] && cub3d->map->textures[i]->path)
+			free(cub3d->map->textures[i]->path);
+		free(cub3d->map->textures[i]);
 	}
-	free(map->textures);
-	if (map->grid)
-	{
-		i = -1;
-		while (++i < map->rows)
-			free(map->grid[i]);
-	}
-	free(map->grid);
-	free(map);
+	i = -1;
+	if (cub3d->map->grid)
+		while (++i < cub3d->map->rows)
+			free(cub3d->map->grid[i]);
+	free(cub3d->map->textures);
+	free(cub3d->map->grid);
+	free(cub3d->map);
 }
 
 int	exit_window(t_data *cub3d)

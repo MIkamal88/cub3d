@@ -20,7 +20,7 @@ t_direction	analize_direction(float angle)
 	direction.is_down = false;
 	direction.is_left = false;
 	direction.is_right = false;
-	if (angle > M_PI && angle < 2 * M_PI) // Check this line for the Uninitialized value
+	if (angle > M_PI && angle < 2 * M_PI)
 		direction.is_up = true;
 	else
 		direction.is_up = false;
@@ -74,7 +74,7 @@ void	analyze_colision(t_data *data, t_colision *colision, bool direction)
 			colision->check_x--;
 		if (direction && colision->is_horizontal)
 			colision->check_y--;
-		if (has_wall(data, colision->check_x, colision->check_y)) // Uninitialized Values at collision->check_x and collision->check_y
+		if (has_wall(data, colision->check_x, colision->check_y))
 		{
 			colision->wall_hit.x = colision->next_interception.x;
 			colision->wall_hit.y = colision->next_interception.y;

@@ -36,8 +36,6 @@
 # define ON_KEYDOWN	2
 # define ON_KEYUP	3
 # define ON_DESTROY	17
-# define KEY_PRESS_MASK (1L<<0)
-# define KEY_EXIT_MASK (1L<<17)
 
 # define MINIMAP_WHITE 0xFFFFFF
 # define MINIMAP_RED 0xFF0000
@@ -121,15 +119,6 @@ enum e_errs
 	IMG_ERR,
 };
 
-typedef struct s_rect
-{
-	int				x;
-	int				y;
-	int				width;
-	int				height;
-	int				color;
-}					t_rect;
-
 typedef struct s_win
 {
 	void	*mlx;
@@ -184,7 +173,6 @@ typedef struct s_data
 {
 	t_map		*map;
 	t_img		*scene;
-	//t_img		*minimap;
 	t_win		*win;
 	t_player	*player;
 	int			is_running;
@@ -240,14 +228,6 @@ int			pixel_get(t_img *img, int x, int y);
 t_bool		map_start(char *line);
 t_bool		valid_extension(char *file, char *ext);
 
-// Destroy and Error handling Functions
-void		ft_error(void *pointer, int code);
-void		free_all(t_data *cub3d);
-void		clear_read(char *line, int fd);
-void		free_map(t_map *map);
-void		free_double_ptr(void **d_array);
-int			exit_window(t_data *cub3d);
-
 // Raycasting
 void		ray_casting(t_data *cub3d);
 int			render_loop(t_data *cub3d);
@@ -269,5 +249,14 @@ t_colision	vertical_intercept(t_data *data, float ray_angle,
 
 // Textures
 t_bool		load_texture(t_data *cube, int cardinal);
+
+// Destroy and Error handling Functions
+void		ft_error(void *pointer, int code);
+void		free_all(t_data *cub3d);
+void		clear_read(char *line, int fd);
+void		free_map(t_data *cub3d);
+void		free_double_ptr(void **d_array);
+int			exit_window(t_data *cub3d);
+void		write_err(char *str);
 
 #endif

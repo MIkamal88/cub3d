@@ -31,7 +31,7 @@ t_colision	vertical_intercept(t_data *data, float ray_angle,
 	colision.step.x = TILE_SIZE;
 	if (direction.is_left)
 		colision.step.x = colision.step.x * -1;
-	colision.step.y = TILE_SIZE * tan(ray_angle); // Check this line for the Uninitialized value
+	colision.step.y = TILE_SIZE * tan(ray_angle);
 	if (direction.is_up && colision.step.y > 0)
 		colision.step.y = colision.step.y * -1;
 	if (direction.is_down && colision.step.y < 0)
@@ -57,7 +57,7 @@ t_colision	horizontal_intercept(t_data *data, float ray_angle,
 	if (direction.is_down)
 		colision.intcpt.y += TILE_SIZE;
 	colision.intcpt.x = data->player->pos_game->x + (colision.intcpt.y
-			- data->player->pos_game->y) / tan(ray_angle); // Check this line for the Uninitialized value
+			- data->player->pos_game->y) / tan(ray_angle);
 	colision.step.y = TILE_SIZE;
 	if (direction.is_up)
 		colision.step.y = colision.step.y * -1;

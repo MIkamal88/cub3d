@@ -47,8 +47,6 @@ SRC			= main.c\
 					render.c \
 					load_texture.c \
 					render_floor_ceiling.c\
-					#minimap.c\
-
 
 VPATH		= $(SRC_PATH)\
 					$(SRC_PATH)utils/\
@@ -103,7 +101,7 @@ leak2:			all
 				valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) ./maps/g_map02.cub
 
 debug:			all
-				lldb-16 ./$(NAME) ./maps/test.cub
+				lldb-16 ./$(NAME) ./maps/simple.cub
 
 test:				all
 				./$(NAME) ./maps/simple.cub

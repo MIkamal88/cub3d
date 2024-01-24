@@ -14,7 +14,7 @@
 
 static void	map_error(void *pointer);
 
-static void	write_err(char *str)
+void	write_err(char *str)
 {
 	write(2, str, ft_strlen(str));
 }
@@ -39,7 +39,6 @@ void	ft_error(void *pointer, int code)
 		map_error(pointer);
 	else if (code == EXIT)
 		exit_window(pointer);
-	// else if (code == IMG_ERR)
 }
 
 static void	map_error(void *pointer)

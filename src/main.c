@@ -55,19 +55,15 @@ static t_data	*init_cub3d(int w, int h)
 	cub3d->scene = new_img(w, h, cub3d->win);
 	cub3d->rays = malloc(sizeof(t_ray) * WINDOW_WIDTH);
 	cub3d->game_color_buffer = malloc((SCENE_SIZE) * sizeof(int));
-	// cub3d->minimap = malloc(sizeof(t_minimap));
-	//cub3d->minimap = new_img((0.2 * WINDOW_WIDTH),
-	//	(0.2 * WINDOW_HEIGHT),
-	//	cub3d->win);
 	return (cub3d);
 }
 
 static void	loop_mlx(t_data *cub3d)
 {
 	mlx_loop_hook(cub3d->win->mlx, render_loop, cub3d);
-	mlx_hook(cub3d->win->m_win, ON_KEYDOWN, KEY_PRESS_MASK, key_push, cub3d);
-	mlx_hook(cub3d->win->m_win, ON_KEYUP, KEY_PRESS_MASK, key_release, cub3d);
-	mlx_hook(cub3d->win->m_win, ON_DESTROY, KEY_EXIT_MASK, exit_window, cub3d);
+	mlx_hook(cub3d->win->m_win, ON_KEYDOWN, 1L << 0, key_push, cub3d);
+	mlx_hook(cub3d->win->m_win, ON_KEYUP, 1L << 0, key_release, cub3d);
+	mlx_hook(cub3d->win->m_win, ON_DESTROY, 1L << 17, exit_window, cub3d);
 	mlx_loop(cub3d->win->mlx);
 }
 
@@ -81,7 +77,6 @@ int	main(int argc, char **argv)
 		ft_error(NULL, MAP_ERR);
 	cub3d = init_cub3d(WINDOW_WIDTH, WINDOW_HEIGHT);
 	map_read(cub3d, argv[1]);
-	//render_minimap(cub3d);
 	get_current_rotation_angle(cub3d);
 	loop_mlx(cub3d);
 	return (0);
