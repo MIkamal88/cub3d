@@ -62,7 +62,7 @@ static void	loop_mlx(t_data *cub3d)
 {
 	mlx_loop_hook(cub3d->win->mlx, render_loop, cub3d);
 	mlx_hook(cub3d->win->m_win, ON_KEYDOWN, 1L << 0, key_push, cub3d);
-	mlx_hook(cub3d->win->m_win, ON_KEYUP, 1L << 0, key_release, cub3d);
+	mlx_key_hook(cub3d->win->m_win, key_release, cub3d);
 	mlx_hook(cub3d->win->m_win, ON_DESTROY, 1L << 17, exit_window, cub3d);
 	mlx_loop(cub3d->win->mlx);
 }
