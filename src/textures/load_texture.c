@@ -37,7 +37,7 @@ t_bool	load_texture(t_data *cube, int cardinal)
 	cube->map->textures[cardinal]->path, &texture->w, &texture->h);
 	if (texture->img_ptr == NULL)
 	{
-		write_err("Error\nError while loading texture\n");
+		write_err("Error while loading texture\n");
 		return (FALSE);
 	}
 	texture->addr = mlx_get_data_addr(texture->img_ptr, &texture->bpp, \
