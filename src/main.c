@@ -54,7 +54,11 @@ static t_data	*init_cub3d(int w, int h)
 	cub3d->win = new_win(w, h);
 	cub3d->scene = new_img(w, h, cub3d->win);
 	cub3d->rays = malloc(sizeof(t_ray) * WINDOW_WIDTH);
+	if (!cub3d->rays)
+		ft_error(NULL, MALLOC_ERR);
 	cub3d->game_color_buffer = malloc((SCENE_SIZE) * sizeof(int));
+	if (!cub3d->game_color_buffer)
+		ft_error(NULL, MALLOC_ERR);
 	return (cub3d);
 }
 
@@ -70,11 +74,17 @@ static void	loop_mlx(t_data *cub3d)
 int	main(int argc, char **argv)
 {
 	t_data	*cub3d;
+	int		fd;
 
 	if (argc != 2)
 		ft_error(NULL, ARGS_ERR);
+	fd = open(argv[1], O_RDONLY);
+	if (fd < 0)
+		ft_error(NULL, ARGS_ERR);
+	else
+		close(fd);
 	if (!valid_extension(argv[1], ".cub"))
-		ft_error(NULL, MAP_ERR);
+		ft_error(NULL, ARGS_ERR);
 	cub3d = init_cub3d(WINDOW_WIDTH, WINDOW_HEIGHT);
 	map_read(cub3d, argv[1]);
 	get_current_rotation_angle(cub3d);

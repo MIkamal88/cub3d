@@ -27,9 +27,9 @@ int	key_push(int keycode, t_data *cube)
 		cube->player->movement.side_direction = LEFT;
 	else if (keycode == KEY_D)
 		cube->player->movement.side_direction = RIGHT;
-	else if (keycode == KEY_RIGHT)
+	else if (keycode == KEY_RIGHT || keycode == KEY_E)
 		cube->player->movement.turn_direction = CLOCKWISE;
-	else if (keycode == KEY_LEFT)
+	else if (keycode == KEY_LEFT || keycode == KEY_Q)
 		cube->player->movement.turn_direction = ANTICLOCKWISE;
 	ft_bzero(cube->scene->addr, SCENE_SIZE * 4);
 	return (EXIT_SUCCESS);
@@ -43,7 +43,8 @@ int	key_release(int keycode, t_data *cube)
 		cube->player->movement.walk_direction = 0;
 	else if (keycode == KEY_A || keycode == KEY_D)
 		cube->player->movement.side_direction = 0;
-	else if (keycode == KEY_RIGHT || keycode == KEY_LEFT)
+	else if (keycode == KEY_RIGHT || keycode == KEY_LEFT \
+		|| keycode == KEY_E || keycode == KEY_Q)
 		cube->player->movement.turn_direction = 0;
 	return (EXIT_SUCCESS);
 }

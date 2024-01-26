@@ -98,6 +98,7 @@ typedef struct s_texture
 	char	*path;
 	int		cardinal;
 	t_img	*texture_img;
+	t_bool	is_set;
 }	t_texture;
 
 typedef struct s_map
@@ -105,7 +106,9 @@ typedef struct s_map
 	int			rows;
 	int			x_max;
 	int			floor[TOTAL];
+	t_bool		floor_set;
 	int			ceiling[TOTAL];
+	t_bool		ceiling_set;
 	t_texture	**textures;
 	t_point		**grid;
 }	t_map;
@@ -212,7 +215,11 @@ typedef struct s_wall
 // Mapping and Grid Functions
 void		init_player(t_data *cub3d);
 void		map_read(t_data *cub3d, char *filename);
+void		init_textures(t_data *cub3d, int cardinal);
 t_bool		read_textures(t_data *cub3d, char *filename, int cardinal);
+char		*validate_texture(t_data *cub3d, char *filename, char *direction);
+t_bool		load_texture(t_data *cube, int cardinal);
+t_bool		read_load_texture(t_data *cub3d, char *filename);
 t_bool		set_floor_ceiling(t_data *cub3d, char *filename);
 t_bool		load_grid(t_data *cub3d, char *filename);
 t_bool		check_assets(t_data *cub3d);
@@ -246,9 +253,6 @@ t_colision	horizontal_intercept(t_data *cube, float angle,
 				t_direction direction);
 t_colision	vertical_intercept(t_data *data, float ray_angle,
 				t_direction direction);
-
-// Textures
-t_bool		load_texture(t_data *cube, int cardinal);
 
 // Destroy and Error handling Functions
 void		ft_error(void *pointer, int code);

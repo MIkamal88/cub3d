@@ -12,29 +12,9 @@
 
 #include "../../include/cub3d.h"
 
-static char	*validate_texture(t_data *cub3d, char *filename, char *direction);
 static char	*search_for_asset(char *line, char *direction);
 
-t_bool	read_textures(t_data *cub3d, char *filename, int cardinal)
-{
-	if (cardinal == 0)
-		cub3d->map->textures[cardinal]->path = validate_texture
-			(cub3d, filename, "NO");
-	else if (cardinal == 1)
-		cub3d->map->textures[cardinal]->path = validate_texture
-			(cub3d, filename, "SO");
-	else if (cardinal == 2)
-		cub3d->map->textures[cardinal]->path = validate_texture
-			(cub3d, filename, "EA");
-	else if (cardinal == 3)
-		cub3d->map->textures[cardinal]->path = validate_texture
-			(cub3d, filename, "WE");
-	else
-		return (FALSE);
-	return (TRUE);
-}
-
-static char	*validate_texture(t_data *cub3d, char *filename, char *direction)
+char	*validate_texture(t_data *cub3d, char *filename, char *direction)
 {
 	int		fd;
 	char	*line;
@@ -106,7 +86,7 @@ t_bool	check_assets(t_data *cub3d)
 	else if (cub3d->player->cardinal == 'W')
 		cub3d->player->cardinal = 3;
 	while (++i < 4)
-		if (!cub3d->map->textures[i]->path)
+		if (!cub3d->map->textures[i]->is_set)
 			return (FALSE);
 	i = -1;
 	while (++i < 3)

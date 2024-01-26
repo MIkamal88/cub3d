@@ -95,16 +95,22 @@ fclean: clean
 	@printf "$(GR)Done!$(RC)\n\n"
 
 leak:			all
-				valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) ./maps/simple.cub
+				valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all --track-fds=yes ./$(NAME) ./maps/success/simple.cub
 
 leak2:			all
-				valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all ./$(NAME) ./maps/g_map02.cub
+				valgrind --leak-check=full --track-origins=yes --show-leak-kinds=all --track-fds=yes ./$(NAME) ./maps/success/cheese_maze.cub
 
 debug:			all
-				lldb-16 ./$(NAME) ./maps/simple.cub
+				lldb-16 ./$(NAME) ./maps/success/simple.cub
 
 test:				all
-				./$(NAME) ./maps/simple.cub
+				./$(NAME) ./maps/success/simple.cub
+
+valid:
+				./maps/success/tester_sucess.sh
+
+invalid:
+				./maps/invalid/tester_fail.sh
 
 .PHONY:		all clean fclean re
 

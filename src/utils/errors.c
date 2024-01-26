@@ -31,7 +31,7 @@ void	ft_error(void *pointer, int code)
 	else if (code == ARGS_ERR)
 	{
 		write_err(RED);
-		write_err("Error:\n Wrong number of arguments.\n");
+		write_err("Error:\n Wrong map path or arguments.\n");
 		write_err(RESET);
 		exit(0);
 	}

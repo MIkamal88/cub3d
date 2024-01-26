@@ -49,6 +49,8 @@ static void	init_map(t_data *cub3d)
 	cub3d->map->x_max = -1;
 	cub3d->map->rows = -1;
 	cub3d->map->grid = NULL;
+	cub3d->map->ceiling_set = FALSE;
+	cub3d->map->floor_set = FALSE;
 	cub3d->map->textures = malloc(sizeof(t_texture *) * 4);
 	if (!cub3d->map->textures)
 		ft_error(NULL, MALLOC_ERR);
@@ -59,9 +61,7 @@ static void	init_map(t_data *cub3d)
 			cub3d->map->floor[i] = -1;
 			cub3d->map->ceiling[i] = -1;
 		}
-		cub3d->map->textures[i] = malloc(sizeof(t_texture));
-		cub3d->map->textures[i]->path = NULL;
-		cub3d->map->textures[i]->cardinal = i;
+		init_textures(cub3d, i);
 	}
 }
 
@@ -108,27 +108,19 @@ static t_bool	fetch_grid(t_data *cub3d, char *filename)
 
 void	map_read(t_data *cub3d, char *filename)
 {
-	int	i;
-
-	i = 0;
 	init_map(cub3d);
 	init_player(cub3d);
-	while (i < 4)
-	{
-		if (!read_textures(cub3d, filename, i))
-			ft_error(cub3d, MAP_ERR);
-		else if (!load_texture(cub3d, i))
-			ft_error(cub3d, MAP_ERR);
-		i++;
-	}
 	if (!set_floor_ceiling(cub3d, filename))
 		ft_error(cub3d, MAP_ERR);
 	fetch_grid(cub3d, filename);
-	if (cub3d->map->rows < 3)
+	if (cub3d->map->rows < 3 || cub3d->map->floor_set == FALSE \
+		|| cub3d->map->ceiling_set == FALSE)
 		ft_error(cub3d, MAP_ERR);
 	if (!load_grid(cub3d, filename))
 		ft_error(cub3d, MAP_ERR);
 	if (!is_closed(cub3d, cub3d->player->pos->x, cub3d->player->pos->y))
+		ft_error(cub3d, MAP_ERR);
+	if (!read_load_texture(cub3d, filename))
 		ft_error(cub3d, MAP_ERR);
 	if (!check_assets(cub3d))
 		ft_error(cub3d, MAP_ERR);
