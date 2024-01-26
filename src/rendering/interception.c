@@ -6,22 +6,30 @@
 /*   By: pbalbino <pbalbino@student.42abudhabi.a    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 21:28:01 by pbalbino          #+#    #+#             */
-/*   Updated: 2024/01/22 22:08:19 by pbalbino         ###   ########.fr       */
+/*   Updated: 2024/01/26 19:03:32 by pbalbino         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
+t_colision	init_colision(t_colision *colision)
+{
+	(*colision).found_wall = false;
+	(*colision).wall_hit.x = 0;
+	(*colision).wall_hit.y = 0;
+	(*colision).check_x = 0;
+	(*colision).check_y = 0;
+	(*colision).distance = (float)INT_MAX;
+	(*colision).is_horizontal = false;
+	return (*colision);
+}
+
 t_colision	vertical_intercept(t_data *data, float ray_angle,
-		t_direction direction)
+								t_direction direction)
 {
 	t_colision	colision;
 
-	colision.found_wall = false;
-	colision.wall_hit.x = 0;
-	colision.wall_hit.y = 0;
-	colision.distance = INT_MAX;
-	colision.is_horizontal = false;
+	colision = init_colision(&colision);
 	colision.intcpt.x = floor(data->player->pos_game->x / TILE_SIZE)
 		* TILE_SIZE;
 	if (direction.is_right)
@@ -50,7 +58,7 @@ t_colision	horizontal_intercept(t_data *data, float ray_angle,
 	colision.found_wall = false;
 	colision.wall_hit.x = 0;
 	colision.wall_hit.y = 0;
-	colision.distance = INT_MAX;
+	colision.distance = (float)INT_MAX;
 	colision.is_horizontal = true;
 	colision.intcpt.y = floor(data->player->pos_game->y / TILE_SIZE)
 		* TILE_SIZE;
