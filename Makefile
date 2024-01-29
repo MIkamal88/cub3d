@@ -54,7 +54,6 @@ VPATH		= $(SRC_PATH)\
 					$(SRC_PATH)rendering/\
 					$(SRC_PATH)parsing/\
 					$(SRC_PATH)parsing/textures/\
-					$(SRC_PATH)textures/\
 
 OBJ			= $(addprefix $(OBJ_PATH), $(notdir $(SRC:.c=.o)))
 
@@ -122,9 +121,3 @@ YE	= \033[0;33m
 CY	= \033[36;1m
 BL	= \033[94m
 RC	= \033[0m
-
-# $(LINUX):	ANNOUNCE $(OFILES)
-# 	$(CC) $(CFLAGS) $(OFILES) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(LINUX)
-#
-#$(MAC):	ANNOUNCE $(OFILES)
-#	$(CC) $(CFLAGS) $(OFILES) -Lmlx_mac -lmlx -framework OpenGL -framework AppKit -o $(MAC)

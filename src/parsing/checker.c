@@ -58,3 +58,49 @@ t_bool	is_closed(t_data *cub3d, int x, int y)
 		return (FALSE);
 	return (TRUE);
 }
+
+// t_bool	check_first_last_borders(t_data *cub3d)
+// {
+// 	int	i;
+//
+// 	i = 0;
+// 	while (i <= cub3d->map->grid[0]->local_x_max)
+// 	{
+// 		if (cub3d->map->grid[0][i].type == WALL)
+// 			i++;
+// 		else if (cub3d->map->grid[0][i].type != EMPTY)
+// 			return (FALSE);
+// 		i++;
+// 	}
+// 	i = 0;
+// 	while (i <= cub3d->map->grid[cub3d->map->rows - 1]->local_x_max)
+// 	{
+// 		if (cub3d->map->grid[cub3d->map->rows - 1][i].type == WALL)
+// 			i++;
+// 		else if (cub3d->map->grid[cub3d->map->rows - 1][i].type != EMPTY)
+// 			return (FALSE);
+// 		i++;
+// 	}
+// 	return (TRUE);
+// }
+//
+// t_bool	check_right_left_borders(t_data *cub3d)
+// {
+// 	int	i;
+// 	int	j;
+//
+// 	i = 0;
+// 	while (++i < cub3d->map->rows - 1)
+// 	{
+// 		j = 0;
+// 		while (j <= cub3d->map->grid[i]->local_x_max)
+// 		{
+// 			if (cub3d->map->grid[i][j].type == WALL)
+// 				j++;
+// 			else if (cub3d->map->grid[i][j].type != EMPTY)
+// 				return (FALSE);
+// 			j++;
+// 		}
+// 	}
+// 	return (TRUE);
+// }

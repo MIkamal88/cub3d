@@ -1,4 +1,3 @@
-// wrong extension
 NO ./textures/texture1
 SO ./textures/texture2.xpm
 WE ./textures/texture3.xpm
