@@ -21,7 +21,7 @@ else
 	$(error Unsupported OS: $(OS))
 endif
 
-CC				= cc -g3
+CC				= gcc -g3
 CF				= -Wall -Wextra -Werror #-fsanitize=address
 CFI					= -I$(INCLUDE)
 CFI_FT		= -L$(FT_PATH) -lft
