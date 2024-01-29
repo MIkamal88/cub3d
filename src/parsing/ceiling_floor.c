@@ -96,6 +96,26 @@ static t_bool	check_rgb(t_data *cub3d, char **colors, char type)
 	return (TRUE);
 }
 
+static t_bool	comma_check(char *colors)
+{
+	int	i;
+	int	comma_count;
+
+	i = -1;
+	comma_count = 0;
+	while (colors[++i])
+	{
+		if (colors[i] == ',')
+			comma_count++;
+		if (colors[i + 1])
+			if (colors[i] == ',' && colors[i + 1] == ',' )
+				return (FALSE);
+	}
+	if (comma_count > 2)
+		return (FALSE);
+	return (TRUE);
+}
+
 static t_bool	set_color(t_data *cub3d, char *colors, char type)
 {
 	int		i;
@@ -104,6 +124,8 @@ static t_bool	set_color(t_data *cub3d, char *colors, char type)
 
 	i = -1;
 	j = 0;
+	if (!comma_check(colors))
+		return (FALSE);
 	color_split = ft_split(colors, ',');
 	if (!check_rgb(cub3d, color_split, type))
 		return (FALSE);
