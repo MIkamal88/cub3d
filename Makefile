@@ -46,12 +46,14 @@ SRC			= main.c\
 					render_walls.c \
 					render.c \
 					load_texture.c \
+					parse_texture.c \
 					render_floor_ceiling.c\
 
 VPATH		= $(SRC_PATH)\
 					$(SRC_PATH)utils/\
 					$(SRC_PATH)rendering/\
 					$(SRC_PATH)parsing/\
+					$(SRC_PATH)parsing/textures/\
 					$(SRC_PATH)textures/\
 
 OBJ			= $(addprefix $(OBJ_PATH), $(notdir $(SRC:.c=.o)))

@@ -12,62 +12,6 @@
 
 #include "../../include/cub3d.h"
 
-static char	*search_for_asset(char *line, char *direction);
-
-char	*validate_texture(t_data *cub3d, char *filename, char *direction)
-{
-	int		fd;
-	char	*line;
-	char	*texture;
-
-	texture = NULL;
-	fd = open(filename, O_RDONLY);
-	line = get_next_line(fd);
-	if (!line || fd < 0)
-		ft_error(cub3d, MAP_ERR);
-	while (line)
-	{
-		texture = search_for_asset(line, direction);
-		if (texture)
-			break ;
-		free(line);
-		line = get_next_line(fd);
-	}
-	clear_read(line, fd);
-	if (!texture)
-		ft_error(cub3d, MAP_ERR);
-	return (texture);
-}
-
-static char	*search_for_asset(char *line, char *direction)
-{
-	int		i;
-	char	**split;
-	char	*path;
-
-	i = -1;
-	path = NULL;
-	split = ft_split(line, ' ');
-	while (split[++i])
-	{
-		if (ft_strncmp(split[i], direction, ft_strlen(direction)) == 0)
-		{
-			if (!split[i + 1])
-				free_double_ptr((void **)split);
-			else
-			{
-				if (valid_extension(split[i + 1], ".xpm"))
-					path = ft_strdup(split[i + 1]);
-				free_double_ptr((void **)split);
-				return (path);
-			}
-		}
-	}
-	if (split)
-		free_double_ptr((void **)split);
-	return (NULL);
-}
-
 t_bool	check_assets(t_data *cub3d)
 {
 	int	i;

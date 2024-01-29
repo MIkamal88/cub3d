@@ -112,6 +112,8 @@ void	map_read(t_data *cub3d, char *filename)
 	init_player(cub3d);
 	if (!set_floor_ceiling(cub3d, filename))
 		ft_error(cub3d, MAP_ERR);
+	if (!read_load_texture(cub3d, filename))
+		ft_error(cub3d, MAP_ERR);
 	fetch_grid(cub3d, filename);
 	if (cub3d->map->rows < 3 || cub3d->map->floor_set == FALSE \
 		|| cub3d->map->ceiling_set == FALSE)
@@ -119,8 +121,6 @@ void	map_read(t_data *cub3d, char *filename)
 	if (!load_grid(cub3d, filename))
 		ft_error(cub3d, MAP_ERR);
 	if (!is_closed(cub3d, cub3d->player->pos->x, cub3d->player->pos->y))
-		ft_error(cub3d, MAP_ERR);
-	if (!read_load_texture(cub3d, filename))
 		ft_error(cub3d, MAP_ERR);
 	if (!check_assets(cub3d))
 		ft_error(cub3d, MAP_ERR);

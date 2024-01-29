@@ -38,7 +38,10 @@ static void	free_map_textures(t_data *cub3d)
 				free(cub3d->map->textures[i]->texture_img);
 			}
 			if (cub3d->map->textures[i]->path)
+			{
+				free(cub3d->map->textures[i]->path->xpm_file);
 				free(cub3d->map->textures[i]->path);
+			}
 			free(cub3d->map->textures[i]);
 		}
 		free(cub3d->map->textures);
